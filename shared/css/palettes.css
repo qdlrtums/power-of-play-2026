@@ -1,0 +1,40 @@
+/* ===========================================================================
+   PLAYROOM PALETTES
+   Palette changes are deliberately separate from the design system: they only
+   retune colour roles, never spacing, type, borders, or component behaviour.
+   =========================================================================== */
+
+:root {
+  --play-a: var(--green-400);
+  --play-b: var(--butter-500);
+  --play-c: oklch(72% 0.12 235);
+  --play-background: color-mix(in oklab, var(--primary-soft) 64%, transparent);
+  --play-background-alt: color-mix(in oklab, var(--butter-300) 72%, transparent);
+}
+
+/* Default: grounded, credible, and warm. */
+:root[data-palette="meadow"] {
+  --green-h: 142;
+  --green-c: 0.100;
+  --play-a: oklch(71% 0.128 142);
+  --play-b: oklch(84% 0.105 92);
+  --play-c: oklch(72% 0.12 235);
+}
+
+/* A clearer, more energetic option for a product-forward moment. */
+:root[data-palette="studio"] {
+  --green-h: 258;
+  --green-c: 0.105;
+  --play-a: oklch(71% 0.128 258);
+  --play-b: oklch(79% 0.145 61);
+  --play-c: oklch(70% 0.15 27);
+}
+
+/* Softer and more editorial, without losing the product's warmth. */
+:root[data-palette="seaside"] {
+  --green-h: 198;
+  --green-c: 0.095;
+  --play-a: oklch(72% 0.11 198);
+  --play-b: oklch(84% 0.10 68);
+  --play-c: oklch(70% 0.105 300);
+}

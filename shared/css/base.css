@@ -165,6 +165,18 @@ img, svg { max-width: 100%; height: auto; display: block; }
 .wordmark:hover { color: var(--ink); }
 .wordmark__mark { flex: none; }
 
+/* One shared identity asset across every shared-system direction. Older page
+   markup retains its SVG mark, which is hidden so all headers use this logo. */
+.wordmark { font-size: 0; }
+.wordmark::before {
+  content: "";
+  display: block;
+  width: 5.1rem;
+  height: 3.35rem;
+  background: url("../../assets/pop-logo.png") center / contain no-repeat;
+}
+.wordmark__mark { display: none; }
+
 /* The three shapes shift on hover. Variants tune the distances, not the idea. */
 .wordmark__mark > * { transition: transform var(--dur) var(--ease); transform-origin: center; }
 .wordmark:hover .wordmark__mark > *:nth-child(1) { transform: translateY(-2px) rotate(-5deg); }

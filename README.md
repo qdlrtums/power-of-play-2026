@@ -1,29 +1,32 @@
-# Power of Play — page candidates
+# Power of Play
 
-Candidate landing, about, and contact pages for the Power of Play site, built
-in parallel design directions so they can be compared page by page. Candidates
-for the same page are interchangeable: the Playroom landing page and the Field
-Notebook contact page is a legitimate combination.
+Investor and clinical calling card for a child-friendly pediatric hand-strength measurement tool.
+
+> Taking a play-based approach to pediatric rehabilitation.
+
+The Playroom direction is the canonical system: spacious full-bleed bands,
+chunky outlines, organic shapes, and a restrained abstract background. Its
+header carries a **Palette** control. Palettes retune colour roles only; they
+do not change the layout, type, spacing, or components.
 
 ```
-index.html                  the shelves — pick a page, compare its candidates
-options/
-  option-a/                 direction A · "Field Notebook"
-    index.html              landing page candidate A
-    about.html              about candidate A
-    contact.html            contact candidate A
-    components.html         component set A + palette dials
-    css/tokens.css          ← palette, type scale, spacing. Start here.
-    css/base.css            elements, layout primitives, site chrome
-    css/components.css      the component library
-    js/site.js              theme toggle + applies the tuned green
-    js/bench.js             the workbench dials
-  option-b/                 direction B · "Playroom" (same file layout)
+index.html                     the designs, side by side
+shared/                        the pool everything draws from
+  css/tokens.css               green ramp maths, spacing, fluid type steps
+  css/base.css                 elements, utilities, masthead, colophon
+  css/layout.css               wrap, stack, grid, band, spine, column
+  css/components.css           every component, driven entirely by tokens
+  css/palettes.css             Meadow, Studio, and Seaside colour packs
+  js/site.js                   design dropdown, theme toggle, stored tuning
+  js/bench.js                  the components-page dials
+variants/
+  field-notebook/
+    theme.css                  ← this design's entire identity
+    index.html about.html contact.html components.html
+  playroom/
+    theme.css
+    index.html about.html contact.html components.html
 ```
-
-Every page carries a switcher strip at the very top — `Home candidates · A · B ·
-All pages` — so you can flip between candidates for that page without returning
-to the index.
 
 No build step, no dependencies. Open `index.html` directly, or serve the folder:
 
@@ -31,60 +34,69 @@ No build step, no dependencies. Open `index.html` directly, or serve the folder:
 python3 -m http.server 8000
 ```
 
-## The two directions
+## How a variant works
 
-|                | A · Field Notebook                  | B · Playroom                          |
-| -------------- | ----------------------------------- | ------------------------------------- |
-| Display face   | Fraunces (serif, WONK axis on)      | Bricolage Grotesque (wide grotesque)  |
-| Body face      | Source Sans 3 (sans)                | Newsreader (serif)                    |
-| Ground         | One quiet light green, faintly ruled | Full-bleed bands, some inverted forest |
-| Surfaces       | Shadowed cards, hairline borders     | Flat, 2px ink borders, no shadows      |
-| Layout         | Asymmetric margin rail, left-aligned | Centred column, colour-blocked         |
+A page loads the shared pool first, then its own `theme.css` last:
 
-They are deliberate opposites, so a preference between them is informative.
-Both use light green grounds with forest green as the working colour.
+```html
+<html lang="en" data-variant="field-notebook">
+<link rel="stylesheet" href="../../shared/css/tokens.css">
+<link rel="stylesheet" href="../../shared/css/base.css">
+<link rel="stylesheet" href="../../shared/css/layout.css">
+<link rel="stylesheet" href="../../shared/css/components.css">
+<link rel="stylesheet" href="theme.css">
+```
+
+Nothing in `shared/` hard-codes a colour, a typeface, a radius, or a shadow —
+it reads tokens. So `theme.css` is mostly a list of values: the two green dials,
+the ramp mapped onto semantic roles, three font families, and a block of
+component tuning (`--btn-radius`, `--pill-dot`, `--steps-cols`, and so on). Only
+the handful of things no token could express — a ruled background, a hero
+layout — are written as real rules at the bottom of the file.
+
+`data-variant` on `<html>` namespaces that design's stored theme and colour
+tuning, so tuning one never disturbs another.
 
 ## Tuning the green
 
-Each direction derives its whole identity from two numbers at the top of its
-`css/tokens.css`:
+Each design derives its whole identity from two numbers at the top of its
+`theme.css`:
 
 ```css
 --green-h: 148;    /* 110 grass · 148 forest · 185 pine */
---green-c: 0.085;  /* 0.02 institutional · 0.14 toy-brand */
+--green-c: 0.085;  /* 0.02 institutional · 0.15 toy-brand */
 ```
 
-Every surface, border, shadow and state colour is an OKLCH expression over
-those two values, so changing them retunes that direction entirely — light and
-dark themes together — without touching another line.
+Every surface, border, shadow and state colour is an OKLCH expression over those
+two values, so changing them retunes that design entirely — light and dark
+themes together.
 
 Rather than guessing: open a **Components** page, drag the two dials, and watch
-the real components retune live. The setting persists to `localStorage` and
-follows you onto that direction's other pages, so you can judge the green in
-context. When you like it, hit **Copy tokens** and paste the block back into
-`tokens.css` to make it the default. Each direction stores its tuning under its
-own key, so tuning one never disturbs the other.
+the real components retune live. The setting persists and follows you onto that
+design's other pages, so you can judge the green in context. When you like it,
+hit **Copy tokens** and paste the block back into `theme.css`.
 
-## Adding a candidate
+## Adding a design
 
 ```
-cp -R options/option-a options/option-c
+cp -R variants/field-notebook variants/your-name
 ```
 
-Work outward from `css/tokens.css` — palette and type first, layout second —
-then add the new pages to the shelves in the root `index.html` and to the
-switcher strip at the top of each existing page. If a direction wants a
-genuinely different structure, change the markup too; candidates are not meant
-to converge.
+1. In the new folder, set `data-variant="your-name"` on `<html>` in all four pages.
+2. Rewrite `theme.css` — the tokens first, layout rules after.
+3. Add one line to `VARIANTS` in `shared/js/site.js`.
+
+Every page's dropdown picks it up automatically. Add it to the root
+`index.html` too, so it has a card on the front page.
 
 ## Notes
 
 - Fonts load from Google Fonts. Every stack has a real local fallback, so the
   pages hold up offline — but they will look different. Self-host before
   shipping.
-- Both colour schemes are designed, not inverted. The toggle in the masthead
-  overrides the OS preference in either direction.
+- Both colour schemes are designed, not inverted. The header toggle overrides
+  the OS preference in either direction.
 - The contact forms have no backend; they validate and lay out, nothing more.
 - All copy is placeholder written to the right shape and voice. The statistics,
-  studies, and people are invented — replace them before this goes anywhere
+  outcomes, and people are invented — replace them before this goes anywhere
   public.

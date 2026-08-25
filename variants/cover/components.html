@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en" data-variant="cover">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Components — Power of Play</title>
+<meta name="description" content="Every component in the Cover design, isolated, with live dials for the green.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../shared/css/tokens.css">
+<link rel="stylesheet" href="../../shared/css/base.css">
+<link rel="stylesheet" href="../../shared/css/layout.css">
+<link rel="stylesheet" href="../../shared/css/components.css">
+<link rel="stylesheet" href="theme.css">
+<script src="../../shared/js/site.js"></script>
+<script src="../../shared/js/bench.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead__inner">
+    <a class="wordmark" href="index.html">Power of Play</a>
+    <nav class="nav" aria-label="Main">
+      <a class="nav__link" href="index.html">Home</a>
+      <a class="nav__link" href="about.html">About</a>
+      <a class="nav__link" href="contact.html">Contact</a>
+      <a class="nav__link" href="components.html" aria-current="page">Components</a>
+      <span class="picker" data-picker></span>
+      <button class="theme-toggle" type="button" data-theme-toggle>
+        <span data-theme-label>Light</span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="band wrap">
+
+  <div class="stack stack-4" style="margin-bottom:var(--sp-7);">
+    <p class="eyebrow">Workbench · Cover</p>
+    <h1 style="font-size:var(--step-5);line-height:0.9">Components, one at a time</h1>
+    <p class="lede">
+      The same shared components as every other design. Here they lose their
+      boxes: each one hangs from a hairline rule instead, and the interface is
+      set at 10–11px so the display type carries all the volume.
+    </p>
+  </div>
+
+  <div class="bench">
+
+    <aside class="bench__panel" aria-label="Green tuning">
+      <h2 style="font-size:var(--step-1)">Tune the green</h2>
+      <p class="small muted">
+        Every surface, border and state colour derives from these two numbers at
+        the top of <span class="mono">theme.css</span>.
+      </p>
+
+      <div class="dial">
+        <div class="dial__head">
+          <label for="dial-h">Hue</label>
+          <span class="dial__value"><span data-dial-out="h">152</span>°</span>
+        </div>
+        <input id="dial-h" type="range" min="110" max="185" step="1" value="152"
+               data-dial="h" data-default="152">
+        <p class="small muted">110 grass · 152 forest · 185 pine</p>
+      </div>
+
+      <div class="dial">
+        <div class="dial__head">
+          <label for="dial-c">Chroma</label>
+          <span class="dial__value" data-dial-out="c">0.070</span>
+        </div>
+        <input id="dial-c" type="range" min="0.02" max="0.15" step="0.005" value="0.070"
+               data-dial="c" data-default="0.070">
+        <p class="small muted">This design runs quieter than the others by design.</p>
+      </div>
+
+      <div class="ramp" aria-hidden="true">
+        <span style="background:var(--green-50)"></span>
+        <span style="background:var(--green-100)"></span>
+        <span style="background:var(--green-200)"></span>
+        <span style="background:var(--green-300)"></span>
+        <span style="background:var(--green-400)"></span>
+        <span style="background:var(--green-500)"></span>
+        <span style="background:var(--green-600)"></span>
+        <span style="background:var(--green-700)"></span>
+        <span style="background:var(--green-800)"></span>
+        <span style="background:var(--green-900)"></span>
+        <span style="background:var(--green-950)"></span>
+      </div>
+
+      <div class="row">
+        <button class="btn btn--secondary btn--small" type="button" data-dial-copy>Copy tokens</button>
+        <button class="btn btn--ghost btn--small" type="button" data-dial-reset>Reset</button>
+      </div>
+    </aside>
+
+    <div class="stack stack-6">
+
+      <section class="specimen">
+        <div class="specimen__bar">
+          <span class="specimen__name">.cover__title</span>
+          <span class="specimen__note">two lines · second line offset</span>
+        </div>
+        <div class="specimen__stage specimen__stage--block">
+          <h2 class="cover__title" style="font-size:var(--step-5)">
+            <span>Play is</span>
+            <span>the work</span>
+          </h2>
+        </div>
+      </section>
+
+      <section class="specimen">
+        <div class="specimen__bar">
+          <span class="specimen__name">.rule</span>
+          <span class="specimen__note">a hairline used as composition, not separation</span>
+        </div>
+        <div class="specimen__stage specimen__stage--block">
+          <div class="rule" style="margin-bottom:0">
+            <span class="rule__label">01</span>
+            <h3 class="rule__title">The block</h3>
+            <span class="rule__note">Four stages · always in order</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="specimen">
+        <div class="specimen__bar">
+          <span class="specimen__name">.deck</span>
+          <span class="specimen__note">bottom-anchored numbered navigation</span>
+        </div>
+        <div class="specimen__stage specimen__stage--block">
+          <nav class="deck" aria-label="Example sections">
+            <a class="deck__item" href="#0"><span class="deck__num">01</span><span class="deck__label">The block</span></a>
+            <a class="deck__item" href="#0"><span class="deck__num">02</span><span class="deck__label">The record</span></a>
+            <a class="deck__item" href="#0"><span class="deck__num">03</span><span class="deck__label">Outcomes</span></a>
+            <a class="deck__item" href="#0"><span class="deck__num">04</span><span class="deck__label">Refer a child</span></a>
+          </nav>
+        </div>
+      </section>
+
+      <section class="specimen">
+        <div class="specimen__bar">
+          <span class="specimen__name">.cover__figure</span>
+          <span class="specimen__note">the photo slot and its placeholder</span>
+        </div>
+        <div class="specimen__stage specimen__stage--block">
+          <figure class="cover__figure" style="position:relative;min-height:18rem">
+            <div class="cover__placeholder" aria-hidden="true"></div>
+            <figcaption class="cover__credit">Fig. 01 — photography slot · 3:4 portrait · subject right</figcaption>
+          </figure>
+          <p class="small muted">
+            Drop an <span class="mono">&lt;img&gt;</span> inside the figure and
+            delete the placeholder. It is absolutely positioned and cropped with
+            <span class="mono">object-fit: cover</span>, so nothing else moves.
+          </p>
+        </div>
+      </section>
+
+      <section class="specimen">
+        <div class="specimen__bar">
+          <span class="specimen__name">.btn</span>
+          <span class="specimen__note">primary · secondary · ghost · small · disabled</span>
+        </div>
+        <div class="specimen__stage">
+          <button class="btn btn--primary" type="button">Make a referral</button>
+          <button class="btn btn--secondary" type="button">Read the method</button>
+          <button class="btn btn--ghost" type="button">Meet the team</button>
+          <button class="btn btn--secondary btn--small" type="button">Export block</button>
+          <button class="btn btn--primary" type="button" disabled>Sending…</button>
+        </div>
+      </section>
+
+      <section class="specimen">
+        <div class="specimen__bar">
+          <span class="specimen__name">.pill / .tag</span>
+          <span class="specimen__note">rectilinear here, no status dot</span>
+        </div>
+        <div class="specimen__stage">
+          <span class="pill pill--ok">On track</span>
+          <span class="pill pill--watch">Goal stalled</span>
+          <span class="pill pill--refer">Onward referral</span>
+          <span class="pill pill--neutral">Draft</span>
+          <span class="tag">BHU</span>
+          <span class="tag">Ages 2–3</span>
+          <span class="tag">Rubric v4.2</span>
+        </div>
+      </section>
+
+      <section class="specimen">
+        <div class="specimen__bar">
+          <span class="specimen__name">.card</span>
+          <span class="specimen__note">no box — hangs from a rule</span>
+        </div>
+        <div class="specimen__stage specimen__stage--grid">
+          <div class="card">
+            <h3 class="card__title">Families</h3>
+            <p class="card__body">Therapy your child asks to come back to, and a home programme built from games you already play.</p>
+          </div>
+          <div class="card">
+            <h3 class="card__title">Referrers</h3>
+            <p class="card__body">Structured goals, measured progress, and a discharge summary that says what changed.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="specimen">
+        <div class="specimen__bar">
+          <span class="specimen__name">.stat</span>
+          <span class="specimen__note">display serif at full volume</span>
+        </div>
+        <div class="specimen__stage specimen__stage--grid">
+          <div class="stat">
+            <span class="stat__value">16</span>
+            <span class="stat__label">Visits in a typical block</span>
+            <span class="stat__source">2024–26 caseload</span>
+          </div>
+          <div class="stat">
+            <span class="stat__value">0.86</span>
+            <span class="stat__label">Inter-rater agreement on goal scoring</span>
+            <span class="stat__source">Krippendorff's α</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="specimen">
+        <div class="specimen__bar">
+          <span class="specimen__name">.meter</span>
+          <span class="specimen__note">a 2px rule, not a bar</span>
+        </div>
+        <div class="specimen__stage specimen__stage--block">
+          <div class="meter">
+            <div class="meter__head"><span>Bilateral hand use</span><span class="meter__value">78%</span></div>
+            <div class="meter__track"><div class="meter__fill" style="width:78%"></div></div>
+          </div>
+          <div class="meter">
+            <div class="meter__head"><span>Stairs, alternating feet</span><span class="meter__value">31%</span></div>
+            <div class="meter__track"><div class="meter__fill meter__fill--watch" style="width:31%"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="specimen">
+        <div class="specimen__bar">
+          <span class="specimen__name">.steps</span>
+          <span class="specimen__note">numbered because a block runs in this order</span>
+        </div>
+        <div class="specimen__stage specimen__stage--grid">
+          <ol class="steps" style="display:contents">
+            <li class="step">
+              <span class="step__num" aria-hidden="true"></span>
+              <h3>Play assessment</h3>
+              <p class="step__when">Visit 1 · 60 min</p>
+              <p class="muted">The child plays and the therapist watches.</p>
+            </li>
+            <li class="step">
+              <span class="step__num" aria-hidden="true"></span>
+              <h3>Goals as play</h3>
+              <p class="step__when">Visit 2 · with caregivers</p>
+              <p class="muted">Each clinical goal restated as something the child would choose.</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="specimen">
+        <div class="specimen__bar">
+          <span class="specimen__name">.quote / .callout</span>
+          <span class="specimen__note">the two emphasis surfaces</span>
+        </div>
+        <div class="specimen__stage specimen__stage--block">
+          <blockquote class="quote">
+            <p class="quote__text">The first time she asked when we were going back, I knew they'd got the method right.</p>
+            <footer class="quote__attr">Parent of a four-year-old · end of block two</footer>
+          </blockquote>
+          <div class="callout">
+            <span class="callout__label">What this is not</span>
+            <p>Power of Play is a rehabilitation service, not a diagnostic one.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="specimen">
+        <div class="specimen__bar">
+          <span class="specimen__name">form controls</span>
+          <span class="specimen__note">ruled lines, not boxes</span>
+        </div>
+        <div class="specimen__stage specimen__stage--block">
+          <div class="field">
+            <label class="field__label" for="demo-name">Your name</label>
+            <input class="input" id="demo-name" type="text" placeholder="Amara Osei">
+          </div>
+          <div class="field">
+            <label class="field__label" for="demo-role">You are</label>
+            <select class="select" id="demo-role">
+              <option>A parent or carer</option>
+              <option>Pediatrician</option>
+              <option>Occupational therapist</option>
+            </select>
+          </div>
+          <div class="field field--invalid">
+            <label class="field__label" for="demo-email">Email</label>
+            <input class="input" id="demo-email" type="email" value="amara@" aria-describedby="demo-email-err">
+            <p class="field__error" id="demo-email-err">That address is missing everything after the @.</p>
+          </div>
+          <div class="field">
+            <label class="field__label" for="demo-msg">Anything we should know first?</label>
+            <textarea class="textarea" id="demo-msg" placeholder="The child's age, and what's hard right now."></textarea>
+          </div>
+          <label class="choice">
+            <input type="radio" name="demo-intent" checked>
+            <span class="choice__text"><strong>To make a referral</strong><br>We'll come back with a yes, a no, or a better idea.</span>
+          </label>
+          <label class="choice">
+            <input type="radio" name="demo-intent">
+            <span class="choice__text"><strong>A place for my child</strong><br>Twenty-minute call, no cost.</span>
+          </label>
+        </div>
+      </section>
+
+      <section class="specimen">
+        <div class="specimen__bar">
+          <span class="specimen__name">.table</span>
+          <span class="specimen__note">scrolls inside its own container</span>
+        </div>
+        <div class="specimen__stage specimen__stage--block">
+          <div class="table-scroll">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Goal area</th>
+                  <th scope="col">Code</th>
+                  <th scope="col">Progress</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Bilateral hand use</td><td class="mono">BHU</td><td class="mono">78%</td><td><span class="pill pill--ok">On track</span></td></tr>
+                <tr><td>Expressive language</td><td class="mono">EXP</td><td class="mono">54%</td><td><span class="pill pill--ok">On track</span></td></tr>
+                <tr><td>Gross motor stability</td><td class="mono">GMS</td><td class="mono">31%</td><td><span class="pill pill--watch">Goal stalled</span></td></tr>
+                <tr><td>Feeding and oral motor</td><td class="mono">FOM</td><td class="mono">9%</td><td><span class="pill pill--refer">Onward referral</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="specimen">
+        <div class="specimen__bar">
+          <span class="specimen__name">type scale</span>
+          <span class="specimen__note">Instrument Serif · Archivo · IBM Plex Mono</span>
+        </div>
+        <div class="specimen__stage specimen__stage--block">
+          <h2 style="font-size:var(--step-5);line-height:0.88">Play is the work</h2>
+          <h3>Play assessment</h3>
+          <p class="lede">Occupational, physical, and speech therapy for children 0–7, delivered entirely through play.</p>
+          <p>Body copy stays small and restrained — almost nothing here sits in the conventional 16–24px middle ground, which is where the character comes from.</p>
+          <p class="eyebrow">Pediatric rehabilitation · ages 0–7</p>
+          <p class="mono small">BHU · GMS · EXP · SI · REG · FOM — 0.86 α</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<footer class="colophon">
+  <div class="wrap colophon__grid">
+    <div class="stack stack-3">
+      <a class="wordmark" href="index.html">Power of Play</a>
+      <p class="motto">Taking a play-based approach to pediatric rehabilitation.</p>
+    </div>
+    <div class="stack stack-3">
+      <h4>Site</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="components.html">Components</a></li>
+      </ul>
+    </div>
+    <div class="stack stack-3">
+      <h4>Designs</h4>
+      <ul>
+        <li><a href="../../index.html">All designs</a></li>
+        <li><a href="../field-notebook/components.html">Field Notebook</a></li>
+        <li><a href="../playroom/components.html">Playroom</a></li>
+      </ul>
+    </div>
+    <div class="stack stack-3">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:referrals@powerofplay.health">referrals@powerofplay.health</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:var(--sp-5);">
+    <p class="small mono muted">Power of Play is a rehabilitation service. It does not provide diagnosis. © 2026</p>
+  </div>
+</footer>
+</body>
+</html>
