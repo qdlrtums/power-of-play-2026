@@ -1,0 +1,86 @@
+/* ==========================================================================
+   SHARED POOL — token scaffold
+   The green ramp maths, the spacing scale, and the fluid type steps. Every
+   variant inherits these; a variant's theme.css sets the two dials and maps
+   the ramp onto semantic roles.
+   ========================================================================== */
+
+:root {
+  /* ---- the two dials (variants override) -------------------------------- */
+  --green-h: 148;      /* 110 grass · 148 forest · 185 pine                  */
+  --green-c: 0.085;    /* 0.02 institutional · 0.15 toy-brand               */
+
+  /* ---- derived ramp: light green at the top, forest green at the bottom -- */
+  --green-50:  oklch(97.6% calc(var(--green-c) * 0.22) var(--green-h));
+  --green-100: oklch(94.5% calc(var(--green-c) * 0.46) var(--green-h));
+  --green-200: oklch(89.8% calc(var(--green-c) * 0.74) var(--green-h));
+  --green-300: oklch(82.0% calc(var(--green-c) * 1.02) var(--green-h));
+  --green-400: oklch(71.0% calc(var(--green-c) * 1.28) var(--green-h));
+  --green-500: oklch(59.0% calc(var(--green-c) * 1.41) var(--green-h));
+  --green-600: oklch(49.0% calc(var(--green-c) * 1.31) var(--green-h));
+  --green-700: oklch(39.0% calc(var(--green-c) * 1.09) var(--green-h));
+  --green-800: oklch(29.5% calc(var(--green-c) * 0.84) var(--green-h));
+  --green-900: oklch(21.5% calc(var(--green-c) * 0.59) var(--green-h));
+  --green-950: oklch(15.0% calc(var(--green-c) * 0.43) var(--green-h));
+
+  /* ---- space (4px base) --------------------------------------------------- */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-7: 3rem;
+  --sp-8: 4.25rem;
+  --sp-9: 6rem;
+
+  /* ---- fluid type steps, 380px → 1240px ---------------------------------- */
+  --step--1: clamp(0.83rem, 0.80rem + 0.13vw, 0.90rem);
+  --step-0:  clamp(1.02rem, 0.98rem + 0.20vw, 1.14rem);
+  --step-1:  clamp(1.22rem, 1.15rem + 0.34vw, 1.43rem);
+  --step-2:  clamp(1.47rem, 1.34rem + 0.56vw, 1.79rem);
+  --step-3:  clamp(1.76rem, 1.56rem + 0.87vw, 2.24rem);
+  --step-4:  clamp(2.11rem, 1.80rem + 1.33vw, 2.80rem);
+  --step-5:  clamp(2.54rem, 2.06rem + 2.00vw, 3.50rem);
+  --step-6:  clamp(3.05rem, 2.34rem + 2.99vw, 4.38rem);
+
+  --measure: 64ch;
+
+  /* ---- form defaults (variants override freely) --------------------------- */
+  --radius-card: 14px;
+  --radius-control: 9px;
+  --radius-pill: 999px;
+  --border: 1px;
+
+  --ease: cubic-bezier(0.22, 0.68, 0.35, 1);
+  --dur: 220ms;
+
+  /* ---- status: separate from the brand accent by design ------------------- */
+  --ok:         oklch(50% 0.115 152);
+  --ok-soft:    oklch(93% 0.045 152);
+  --watch:      oklch(55% 0.110 78);
+  --watch-soft: oklch(94% 0.050 88);
+  --refer:      oklch(51% 0.130 28);
+  --refer-soft: oklch(94% 0.040 28);
+}
+
+/* Status colours need lifting on any dark ground. Variants inherit this. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ok:         oklch(79% 0.115 152);
+    --ok-soft:    oklch(30% 0.055 152);
+    --watch:      oklch(83% 0.105 88);
+    --watch-soft: oklch(31% 0.050 88);
+    --refer:      oklch(77% 0.110 28);
+    --refer-soft: oklch(31% 0.055 28);
+  }
+}
+
+:root[data-theme="dark"] {
+  --ok:         oklch(79% 0.115 152);
+  --ok-soft:    oklch(30% 0.055 152);
+  --watch:      oklch(83% 0.105 88);
+  --watch-soft: oklch(31% 0.050 88);
+  --refer:      oklch(77% 0.110 28);
+  --refer-soft: oklch(31% 0.055 28);
+}

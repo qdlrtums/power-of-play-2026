@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Components A · Field Notebook — Power of Play</title>
+<meta name="description" content="Every component in Option A, isolated, with live dials for the green.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..700,0..100,0..1&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,300..700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<script src="js/site.js"></script>
+<script src="js/bench.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="option-strip">
+  <span>Component sets</span>
+  <strong style="color:var(--ink)">A · Field Notebook</strong>
+  <a href="../option-b/components.html">B · Playroom</a>
+  <a href="../../index.html" style="margin-left:auto">All pages</a>
+</div>
+
+<header class="masthead">
+  <div class="wrap masthead__inner">
+    <a class="wordmark" href="index.html">
+      <svg class="wordmark__mark" width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
+        <rect x="1" y="15" width="13" height="13" rx="3" fill="var(--primary)"></rect>
+        <rect x="16" y="15" width="13" height="13" rx="6.5" fill="var(--green-400)"></rect>
+        <rect x="8.5" y="2" width="13" height="13" rx="3" fill="var(--green-600)"></rect>
+      </svg>
+      Power of Play
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a class="nav__link" href="index.html">Home</a>
+      <a class="nav__link" href="about.html">About</a>
+      <a class="nav__link" href="contact.html">Contact</a>
+      <a class="nav__link" href="components.html" aria-current="page">Components</a>
+      <button class="theme-toggle" type="button" data-theme-toggle>
+        <span data-theme-label>Light</span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="section wrap">
+
+  <div class="stack stack-4" style="margin-bottom:var(--sp-7);">
+    <p class="eyebrow">Workbench</p>
+    <h1>Components, one at a time.</h1>
+    <p class="lede">
+      Each specimen below sits on the page ground with nothing competing with
+      it. The two dials retune the whole green identity live, and the setting
+      follows you onto the real pages.
+    </p>
+  </div>
+
+  <div class="bench">
+
+    <aside class="bench__panel" aria-label="Green tuning">
+      <h2>Tune the green</h2>
+      <p class="small muted">
+        Every surface, border, shadow and state colour derives from these two
+        numbers in <span class="mono">css/tokens.css</span>.
+      </p>
+
+      <div class="dial">
+        <div class="dial__head">
+          <label for="dial-h">Hue</label>
+          <span class="dial__value"><span data-dial-out="h">148</span>°</span>
+        </div>
+        <input id="dial-h" type="range" min="110" max="185" step="1" value="148"
+               data-dial="h" data-default="148">
+        <p class="small muted">110 grass · 148 forest · 185 pine</p>
+      </div>
+
+      <div class="dial">
+        <div class="dial__head">
+          <label for="dial-c">Chroma</label>
+          <span class="dial__value" data-dial-out="c">0.085</span>
+        </div>
+        <input id="dial-c" type="range" min="0.02" max="0.14" step="0.005" value="0.085"
+               data-dial="c" data-default="0.085">
+        <p class="small muted">Low reads institutional, high reads toy-brand.</p>
+      </div>
+
+      <div class="ramp" aria-hidden="true">
+        <span style="background:var(--green-50)"></span>
+        <span style="background:var(--green-100)"></span>
+        <span style="background:var(--green-200)"></span>
+        <span style="background:var(--green-300)"></span>
+        <span style="background:var(--green-400)"></span>
+        <span style="background:var(--green-500)"></span>
+        <span style="background:var(--green-600)"></span>
+        <span style="background:var(--green-700)"></span>
+        <span style="background:var(--green-800)"></span>
+        <span style="background:var(--green-900)"></span>
+        <span style="background:var(--green-950)"></span>
+      </div>
+
+      <div class="row">
+        <button class="btn btn--secondary btn--small" type="button" data-dial-copy>Copy tokens</button>
+        <button class="btn btn--ghost btn--small" type="button" data-dial-reset>Reset</button>
+      </div>
+    </aside>
+
+    <div class="stack stack-5">
+
+      <section class="specimen">
+        <div class="specimen__bar">
+          <span class="specimen__name">.btn</span>
+          <span class="specimen__note">primary · secondary · ghost · small · disabled</span>
+        </div>
+        <div class="specimen__stage">
+          <button class="btn btn--primary" type="button">Book a walkthrough</button>
+          <button class="btn btn--secondary" type="button">Read the method</button>
+          <button class="btn btn--ghost" type="button">See who we are</button>
+          <button class="btn btn--secondary btn--small" type="button">Export session</button>
+          <button class="btn btn--primary" type="button" disabled>Sending…</button>
+        </div>
+      </section>
+
+      <section class="specimen">
+        <div class="specimen__bar">
+          <span class="specimen__name">.pill / .tag</span>
+          <span class="specimen__note">status is semantic, tags are not</span>
+        </div>
+        <div class="specimen__stage">
+          <span class="pill pill--ok">On track</span>
+          <span class="pill pill--watch">Re-screen</span>
+          <span class="pill pill--refer">Refer</span>
+          <span class="pill pill--neutral">Draft</span>
+          <span class="tag">SYM</span>
+          <span class="tag">Ages 2–3</span>
+          <span class="tag">Rubric v4.2</span>
+        </div>
+      </section>
+
+      <section class="specimen">
+        <div class="specimen__bar">
+          <span class="specimen__name">.card</span>
+          <span class="specimen__note">hover lifts and nudges the shape</span>
+        </div>
+        <div class="specimen__stage specimen__stage--grid">
+          <div class="card card--interactive">
+            <svg class="shape" viewBox="0 0 40 40" aria-hidden="true" fill="currentColor">
+              <rect x="2" y="2" width="36" height="36" rx="8"></rect>
+            </svg>
+            <h3 class="card__title">For pediatric clinics</h3>
+            <p class="card__body">Screening that fits a well-child visit and produces a chartable record.</p>
+          </div>
+          <div class="card card--interactive">
+            <svg class="shape" viewBox="0 0 40 40" aria-hidden="true" fill="currentColor">
+              <circle cx="20" cy="20" r="18"></circle>
+            </svg>
+            <h3 class="card__title">For early intervention</h3>
+            <p class="card__body">A shared vocabulary across OT, SLP, and behavioural staff.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="specimen">
+        <div class="specimen__bar">
+          <span class="specimen__name">.index-card</span>
+          <span class="specimen__note">the clinical note surface</span>
+        </div>
+        <div class="specimen__stage specimen__stage--block">
+          <article class="index-card stack stack-3">
+            <div class="index-card__meta">
+              <span>Session 0412</span>
+              <span>34 months</span>
+              <span>12 Aug 2026</span>
+            </div>
+            <h3>Free play observation</h3>
+            <p class="card__body">
+              Stacked five blocks, abandoned the tower to narrate a story about
+              it. Motor sequencing scored low against a strong language profile.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="specimen">
+        <div class="specimen__bar">
+          <span class="specimen__name">.stat</span>
+          <span class="specimen__note">value, label, and its source — never a bare number</span>
+        </div>
+        <div class="specimen__stage specimen__stage--grid">
+          <div class="stat">
+            <span class="stat__value">18 min</span>
+            <span class="stat__label">Median session length</span>
+            <span class="stat__source">Internal, Q1 2026</span>
+          </div>
+          <div class="stat">
+            <span class="stat__value">0.84</span>
+            <span class="stat__label">Inter-rater agreement</span>
+            <span class="stat__source">Krippendorff's α</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="specimen">
+        <div class="specimen__bar">
+          <span class="specimen__name">.meter</span>
+          <span class="specimen__note">percentile against age norms</span>
+        </div>
+        <div class="specimen__stage specimen__stage--block">
+          <div class="meter">
+            <div class="meter__head"><span>Symbolic play</span><span class="meter__value">92nd</span></div>
+            <div class="meter__track"><div class="meter__fill" style="width:92%"></div></div>
+          </div>
+          <div class="meter">
+            <div class="meter__head"><span>Fine motor sequencing</span><span class="meter__value">28th</span></div>
+            <div class="meter__track"><div class="meter__fill meter__fill--watch" style="width:28%"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="specimen">
+        <div class="specimen__bar">
+          <span class="specimen__name">.stage / .stages</span>
+          <span class="specimen__note">numbered because the order is real</span>
+        </div>
+        <div class="specimen__stage specimen__stage--block">
+          <ol class="stages">
+            <li class="stage">
+              <span class="stage__num" aria-hidden="true"></span>
+              <div class="stack stack-2">
+                <h3>Free play</h3>
+                <p class="stage__age">Minutes 0–8 · no prompts</p>
+                <p class="muted">The child chooses the materials.</p>
+              </div>
+            </li>
+            <li class="stage">
+              <span class="stage__num" aria-hidden="true"></span>
+              <div class="stack stack-2">
+                <h3>Invitation</h3>
+                <p class="stage__age">Minutes 8–14 · one prompt per domain</p>
+                <p class="muted">A single open-ended offer probes what free play missed.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="specimen">
+        <div class="specimen__bar">
+          <span class="specimen__name">.quote / .callout</span>
+          <span class="specimen__note">the two emphasis surfaces</span>
+        </div>
+        <div class="specimen__stage specimen__stage--block">
+          <blockquote class="quote">
+            <p class="quote__text">We were already watching children play. We just had nowhere to put what we saw.</p>
+            <footer class="quote__attr">Dr. Amara Osei · Riverbend Children's</footer>
+          </blockquote>
+          <div class="callout">
+            <span class="callout__label">What this is not</span>
+            <p>Power of Play does not diagnose, and no score it produces is a diagnostic threshold.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="specimen">
+        <div class="specimen__bar">
+          <span class="specimen__name">form controls</span>
+          <span class="specimen__note">input · select · textarea · choice · error</span>
+        </div>
+        <div class="specimen__stage specimen__stage--block">
+          <div class="field">
+            <label class="field__label" for="demo-name">Your name</label>
+            <input class="input" id="demo-name" type="text" placeholder="Amara Osei">
+          </div>
+          <div class="field">
+            <label class="field__label" for="demo-role">Your role</label>
+            <select class="select" id="demo-role">
+              <option>Pediatrician</option>
+              <option>Occupational therapist</option>
+              <option>Researcher</option>
+            </select>
+          </div>
+          <div class="field field--invalid">
+            <label class="field__label" for="demo-email">Work email</label>
+            <input class="input" id="demo-email" type="email" value="amara@" aria-describedby="demo-email-err">
+            <p class="field__error" id="demo-email-err">That address is missing everything after the @.</p>
+          </div>
+          <div class="field">
+            <label class="field__label" for="demo-msg">Anything we should know first?</label>
+            <textarea class="textarea" id="demo-msg" placeholder="Ages you see, screening you already run."></textarea>
+          </div>
+          <label class="choice">
+            <input type="radio" name="demo-intent" checked>
+            <span class="choice__text"><strong>A clinic walkthrough</strong><br>Live scored session, 45 minutes.</span>
+          </label>
+          <label class="choice">
+            <input type="radio" name="demo-intent">
+            <span class="choice__text"><strong>The scoring rubric</strong><br>Rubric v4.2 and the validation write-up.</span>
+          </label>
+        </div>
+      </section>
+
+      <section class="specimen">
+        <div class="specimen__bar">
+          <span class="specimen__name">.table</span>
+          <span class="specimen__note">scrolls inside its own container</span>
+        </div>
+        <div class="specimen__stage specimen__stage--block">
+          <div class="table-scroll">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Domain</th>
+                  <th scope="col">Code</th>
+                  <th scope="col">Percentile</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Symbolic play</td><td class="mono">SYM</td><td class="mono">92</td><td><span class="pill pill--ok">On track</span></td></tr>
+                <tr><td>Joint attention</td><td class="mono">JA</td><td class="mono">61</td><td><span class="pill pill--ok">On track</span></td></tr>
+                <tr><td>Fine motor sequencing</td><td class="mono">FMS</td><td class="mono">28</td><td><span class="pill pill--watch">Re-screen</span></td></tr>
+                <tr><td>Frustration recovery</td><td class="mono">FR</td><td class="mono">9</td><td><span class="pill pill--refer">Refer</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="specimen">
+        <div class="specimen__bar">
+          <span class="specimen__name">type scale</span>
+          <span class="specimen__note">Fraunces · Source Sans 3 · IBM Plex Mono</span>
+        </div>
+        <div class="specimen__stage specimen__stage--block">
+          <h1 style="font-size:var(--step-5)">Play is the assessment</h1>
+          <h2>A clinical team with an engineering habit</h2>
+          <h3>Free play</h3>
+          <p class="lede">Twenty minutes of unstructured play tells a clinician more than a checklist will.</p>
+          <p>Body copy sets at a 65-character measure. Standardised instruments ask a caregiver to remember whether a child does something — quick, validated, and blind to the child in front of you.</p>
+          <p class="eyebrow">Developmental screening, ages 0–5</p>
+          <p class="mono small">SYM · JA · FMS · EXP · S&amp;R · FR — 0.84 α</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<footer class="colophon">
+  <div class="wrap colophon__grid">
+    <div class="stack stack-3">
+      <a class="wordmark" href="index.html">
+        <svg class="wordmark__mark" width="26" height="26" viewBox="0 0 30 30" aria-hidden="true">
+          <rect x="1" y="15" width="13" height="13" rx="3" fill="var(--primary)"></rect>
+          <rect x="16" y="15" width="13" height="13" rx="6.5" fill="var(--green-400)"></rect>
+          <rect x="8.5" y="2" width="13" height="13" rx="3" fill="var(--green-600)"></rect>
+        </svg>
+        Power of Play
+      </a>
+      <p class="small muted">Play-based developmental screening for children 0–5.</p>
+    </div>
+    <div class="stack stack-3">
+      <h4>Site</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="components.html">Components</a></li>
+      </ul>
+    </div>
+    <div class="stack stack-3">
+      <h4>This option</h4>
+      <ul>
+        <li><a href="../../index.html">All options</a></li>
+        <li><a href="../../README.md">How to add one</a></li>
+      </ul>
+    </div>
+    <div class="stack stack-3">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:clinics@powerofplay.health">clinics@powerofplay.health</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:var(--sp-6);">
+    <p class="small mono" style="color:var(--ink-faint);">
+      Power of Play is a screening tool. It does not diagnose. © 2026
+    </p>
+  </div>
+</footer>
+</body>
+</html>

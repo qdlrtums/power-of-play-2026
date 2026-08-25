@@ -1,0 +1,633 @@
+/* ==========================================================================
+   SHARED POOL — components
+   One implementation per component, driven entirely by tokens. A variant's
+   theme.css sets those tokens and adds only the handful of overrides its
+   identity genuinely needs.
+   ========================================================================== */
+
+/* ---- buttons ------------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  padding: var(--btn-pad, 0.62rem 1.2rem);
+  border: var(--border) solid var(--btn-border, transparent);
+  border-radius: var(--btn-radius, var(--radius-control));
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--btn-font, var(--font-body));
+  font-size: var(--step--1);
+  font-weight: 650;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease), transform var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease);
+}
+
+.btn:hover { transform: var(--btn-hover-lift, none); }
+.btn:active { transform: translateY(1px); }
+
+.btn--primary {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--primary-ink);
+  box-shadow: var(--shadow-card, none);
+}
+
+.btn--primary:hover {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+  color: var(--primary-ink);
+}
+
+.btn--secondary { background: var(--surface); color: var(--ink); border-color: var(--line-strong, var(--line)); }
+.btn--secondary:hover { background: var(--primary-soft); color: var(--primary-soft-ink); border-color: var(--primary); }
+
+.btn--ghost { background: transparent; border-color: transparent; color: var(--primary); }
+.btn--ghost:hover { background: var(--primary-soft); color: var(--primary-soft-ink); }
+
+.btn--small { padding: 0.38rem 0.8rem; }
+
+.btn[disabled],
+.btn[aria-disabled="true"] { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+/* On an inverted band the accent would sink into the ground, so buttons take
+   the band's accent instead. */
+.band--invert .btn--primary {
+  background: var(--band-accent, var(--band-ink));
+  border-color: var(--band-accent, var(--band-ink));
+  color: var(--band, var(--ink));
+  box-shadow: none;
+}
+
+.band--invert .btn--secondary {
+  background: transparent;
+  border-color: var(--band-line);
+  color: var(--band-ink);
+}
+
+.band--invert .btn--secondary:hover { background: var(--band-line); color: var(--band-ink); }
+
+/* ---- card ---------------------------------------------------------------- */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  padding: var(--sp-5);
+  background: var(--surface);
+  border: var(--border) solid var(--card-border, var(--line));
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card, none);
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease),
+    border-color var(--dur) var(--ease), background-color var(--dur) var(--ease);
+}
+
+a.card { text-decoration: none; color: inherit; }
+
+.card--interactive:hover {
+  transform: var(--card-hover, translateY(-3px));
+  box-shadow: var(--shadow-lift, none);
+  border-color: var(--line-strong, var(--line));
+}
+
+.card--filled { background: var(--primary-soft); color: var(--primary-soft-ink); }
+.card--filled .card__body { color: inherit; opacity: 0.85; }
+
+.card__title {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: var(--display-weight, 600);
+  font-variation-settings: var(--display-vf-sm, var(--display-vf, normal));
+  letter-spacing: var(--display-tracking, -0.015em);
+  line-height: 1.12;
+}
+
+.card__body { color: var(--ink-muted); font-size: var(--step--1); line-height: 1.55; }
+
+.band--invert .card {
+  background: var(--band-card-bg, transparent);
+  border-color: var(--band-line);
+  color: var(--band-ink);
+  box-shadow: none;
+}
+
+.band--invert .card__body { color: var(--band-ink-dim); }
+
+/* The play shape that marks a card. Variants set --shape-radius: a square with
+   soft corners, a circle, or an irregular blob. */
+.shape {
+  width: var(--shape-size, 2.5rem);
+  height: var(--shape-size, 2.5rem);
+  flex: none;
+  background: var(--primary);
+  border-radius: var(--shape-radius, 30%);
+  transition: border-radius 380ms var(--ease), transform 380ms var(--ease);
+}
+
+.card--interactive:hover .shape {
+  border-radius: var(--shape-radius-hover, var(--shape-radius, 30%));
+  transform: rotate(var(--shape-hover-rotate, -8deg));
+}
+
+.shape--alt { background: var(--green-400); }
+.shape--accent { background: var(--accent-warm, var(--green-500)); }
+
+/* ---- note card (a clinical record surface) ------------------------------- */
+
+.note {
+  position: relative;
+  padding: var(--sp-5);
+  padding-left: var(--note-pad-left, var(--sp-5));
+  background: var(--surface);
+  border: var(--border) solid var(--card-border, var(--line));
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card, none);
+  overflow: hidden;
+}
+
+.note__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-4);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- status pill --------------------------------------------------------- */
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: var(--pill-pad, 0.2rem 0.65rem 0.2rem 0.5rem);
+  border: var(--pill-border-width, 0) solid currentColor;
+  border-radius: var(--radius-pill);
+  font-family: var(--pill-font, var(--font-mono));
+  font-size: var(--step--1);
+  font-weight: var(--pill-weight, 500);
+  white-space: nowrap;
+}
+
+.pill::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  flex: none;
+  border-radius: 50%;
+  background: currentColor;
+  display: var(--pill-dot, block);
+}
+
+.pill--ok    { background: var(--ok-soft);    color: var(--ok); }
+.pill--watch { background: var(--watch-soft); color: var(--watch); }
+.pill--refer { background: var(--refer-soft); color: var(--refer); }
+.pill--neutral { background: var(--surface-sunk); color: var(--ink-muted); }
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.18rem 0.6rem;
+  border: var(--tag-border-width, 1px) solid var(--tag-border, var(--line-strong, var(--line)));
+  border-radius: var(--radius-pill);
+  background: var(--tag-bg, transparent);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--ink-muted);
+}
+
+/* ---- stat ---------------------------------------------------------------- */
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  padding: var(--sp-4) var(--sp-5);
+  background: var(--surface);
+  border: var(--border) solid var(--card-border, var(--line));
+  border-radius: var(--radius-card);
+}
+
+.stat__value {
+  font-family: var(--font-display);
+  font-size: var(--step-4);
+  font-weight: var(--display-weight, 600);
+  font-variation-settings: var(--display-vf-lg, var(--display-vf, normal));
+  letter-spacing: var(--display-tracking, -0.02em);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--primary);
+}
+
+.stat__label { font-size: var(--step--1); color: var(--ink-muted); line-height: 1.45; }
+.stat__source { font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-faint); }
+
+.band--invert .stat { background: var(--band-card-bg, transparent); border-color: var(--band-line); }
+.band--invert .stat__value { color: var(--band-accent, var(--band-ink)); }
+.band--invert .stat__label { color: var(--band-ink-dim); }
+.band--invert .stat__source { color: var(--band-line); }
+
+/* ---- steps ---------------------------------------------------------------
+   Numbered because a therapy block genuinely runs in this order. Variants
+   choose the arrangement with --steps-cols and whether each step is a boxed
+   card or a ruled row.                                                       */
+
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--steps-gap, var(--sp-4));
+  grid-template-columns: var(--steps-cols, minmax(0, 1fr));
+  counter-reset: step;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  padding: var(--step-pad, var(--sp-5));
+  background: var(--step-bg, var(--surface));
+  border: var(--step-border-width, var(--border)) solid var(--step-border, var(--card-border, var(--line)));
+  border-top: var(--step-border-top, var(--step-border-width, var(--border)) solid var(--step-border, var(--line)));
+  border-radius: var(--step-radius, var(--radius-card));
+}
+
+.step__num {
+  counter-increment: step;
+  display: inline-flex;
+  align-items: center;
+  justify-content: var(--step-num-align, center);
+  width: var(--step-num-size, 2.4rem);
+  height: var(--step-num-size, 2.4rem);
+  flex: none;
+  border-radius: var(--radius-pill);
+  background: var(--step-num-bg, var(--primary));
+  color: var(--step-num-ink, var(--primary-ink));
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: var(--step--1);
+  font-variant-numeric: tabular-nums;
+}
+
+.step__num::before { content: counter(step, var(--step-num-format, decimal)); }
+.step__when { font-family: var(--font-mono); font-size: var(--step--1); color: var(--ink-faint); }
+
+.band--invert .step { background: var(--band-card-bg, transparent); border-color: var(--band-line); }
+.band--invert .step__num { background: var(--band-accent, var(--band-ink)); color: var(--band); }
+.band--invert .step__when { color: var(--band-line); }
+
+/* ---- quote --------------------------------------------------------------- */
+
+.quote {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  padding: var(--quote-pad, 0);
+  background: var(--quote-bg, transparent);
+  color: var(--quote-ink, inherit);
+  border-radius: var(--radius-card);
+}
+
+.quote__text {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: var(--display-weight, 600);
+  font-variation-settings: var(--display-vf, normal);
+  letter-spacing: var(--display-tracking, -0.02em);
+  line-height: 1.2;
+  text-wrap: balance;
+  max-width: 26ch;
+}
+
+.quote__attr { font-family: var(--font-mono); font-size: var(--step--1); opacity: 0.75; }
+
+/* ---- callout ------------------------------------------------------------- */
+
+.callout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding: var(--sp-4) var(--sp-5);
+  background: var(--callout-bg, var(--surface-sunk));
+  color: var(--callout-ink, inherit);
+  border: var(--callout-border-width, 0) solid var(--card-border, var(--line));
+  border-left: var(--callout-rule, 3px solid var(--primary));
+  border-radius: var(--callout-radius, 0 var(--radius-control) var(--radius-control) 0);
+}
+
+.callout__label {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--callout-label, var(--primary));
+}
+
+.callout p { font-size: var(--step--1); color: inherit; opacity: 0.85; max-width: none; }
+
+/* ---- form ---------------------------------------------------------------- */
+
+.field { display: flex; flex-direction: column; gap: var(--sp-2); }
+
+.field__label {
+  font-family: var(--label-font, var(--font-body));
+  font-size: var(--step--1);
+  font-weight: 650;
+}
+
+.field__hint { font-size: var(--step--1); color: var(--ink-faint); }
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  padding: var(--control-pad, 0.62rem 0.85rem);
+  font-family: var(--font-body);
+  font-size: var(--step--1);
+  color: var(--ink);
+  background: var(--surface);
+  border: var(--border) solid var(--line-strong, var(--line));
+  border-radius: var(--radius-control);
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+.textarea { min-height: 7rem; resize: vertical; line-height: 1.55; }
+.input::placeholder,
+.textarea::placeholder { color: var(--ink-faint); }
+
+.input:hover,
+.select:hover,
+.textarea:hover { border-color: var(--primary); }
+
+.input:focus-visible,
+.select:focus-visible,
+.textarea:focus-visible {
+  outline: var(--control-focus-outline, none);
+  outline-offset: 1px;
+  border-color: var(--primary);
+  box-shadow: var(--control-focus-ring, 0 0 0 3px color-mix(in oklab, var(--focus) 30%, transparent));
+}
+
+.field--invalid .input,
+.field--invalid .textarea { border-color: var(--refer); }
+.field__error { font-size: var(--step--1); color: var(--refer); }
+
+.select {
+  appearance: none;
+  padding-right: 2.3rem;
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: right 1.1rem center, right 0.85rem center;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+
+.choice {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  border: var(--border) solid var(--line);
+  border-radius: var(--radius-control);
+  background: var(--surface);
+  cursor: pointer;
+  transition: border-color var(--dur) var(--ease), background-color var(--dur) var(--ease);
+}
+
+.choice:hover { border-color: var(--primary); }
+.choice:has(input:checked) { border-color: var(--primary); background: var(--primary-soft); color: var(--primary-soft-ink); }
+.choice input { margin-top: 0.28rem; accent-color: var(--primary); flex: none; }
+.choice__text { font-size: var(--step--1); }
+
+/* ---- table --------------------------------------------------------------- */
+
+.table-scroll {
+  overflow-x: auto;
+  border: var(--border) solid var(--card-border, var(--line));
+  border-radius: var(--radius-card);
+  background: var(--surface);
+}
+
+.table { width: 100%; border-collapse: collapse; font-size: var(--step--1); font-variant-numeric: tabular-nums; }
+
+.table th,
+.table td {
+  text-align: left;
+  padding: var(--sp-3) var(--sp-4);
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+.table th {
+  font-family: var(--th-font, var(--font-mono));
+  font-weight: var(--th-weight, 500);
+  font-size: var(--step--1);
+  letter-spacing: var(--th-tracking, 0.08em);
+  text-transform: var(--th-transform, uppercase);
+  color: var(--th-ink, var(--ink-faint));
+  background: var(--surface-sunk);
+}
+
+.table tbody tr:last-child td { border-bottom: 0; }
+.table tbody tr:hover td { background: var(--ground-alt); }
+.table td:first-child { white-space: normal; }
+
+/* ---- meter --------------------------------------------------------------- */
+
+.meter { display: flex; flex-direction: column; gap: var(--sp-2); }
+
+.meter__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--sp-3);
+  font-size: var(--step--1);
+}
+
+.meter__value { font-family: var(--font-mono); color: var(--ink-muted); font-variant-numeric: tabular-nums; }
+
+.meter__track {
+  height: var(--meter-height, 0.6rem);
+  border: var(--meter-border-width, 0) solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--surface-sunk);
+  overflow: hidden;
+}
+
+.meter__fill { height: 100%; border-radius: inherit; background: var(--primary); }
+.meter__fill--watch { background: var(--watch); }
+
+.band--invert .meter__track { background: transparent; border-color: var(--band-line); }
+.band--invert .meter__fill { background: var(--band-accent, var(--band-ink)); }
+.band--invert .meter__value { color: var(--band-ink-dim); }
+
+/* ---- record panel (a live specimen of the product) ----------------------- */
+
+.record {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  padding: var(--sp-5);
+  background: var(--surface);
+  border: var(--border) solid var(--card-border, var(--line));
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-lift, none);
+  text-align: left;
+}
+
+.record__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding-bottom: var(--sp-3);
+  border-bottom: var(--border) solid var(--line);
+}
+
+.record__title { font-family: var(--font-mono); font-size: var(--step--1); color: var(--ink-faint); }
+.record__list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: var(--sp-4); }
+
+/* ---- theme toggle + design picker ---------------------------------------- */
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 0.42rem 0.8rem;
+  background: transparent;
+  border: var(--border) solid var(--line-strong, var(--line));
+  border-radius: var(--radius-pill);
+  color: var(--ink-muted);
+  font-family: var(--nav-font, var(--font-body));
+  font-size: var(--step--1);
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+.theme-toggle:hover { border-color: var(--primary); color: var(--ink); }
+
+/* The design picker: switches which variant of the current page you are on. */
+.picker { display: inline-flex; align-items: center; gap: var(--sp-2); }
+
+.picker__label {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.picker__select {
+  appearance: none;
+  padding: 0.42rem 2rem 0.42rem 0.8rem;
+  background-color: var(--surface);
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: right 0.95rem center, right 0.7rem center;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  border: var(--border) solid var(--line-strong, var(--line));
+  border-radius: var(--radius-pill);
+  color: var(--ink);
+  font-family: var(--nav-font, var(--font-body));
+  font-size: var(--step--1);
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color var(--dur) var(--ease);
+}
+
+.picker__select:hover { border-color: var(--primary); }
+
+/* ==========================================================================
+   Components workbench (components.html)
+   ========================================================================== */
+
+.bench { display: grid; gap: var(--sp-5); grid-template-columns: minmax(0, 1fr); }
+
+@media (min-width: 66rem) {
+  .bench { grid-template-columns: 17rem minmax(0, 1fr); align-items: start; }
+  .bench__panel { position: sticky; top: 6rem; }
+}
+
+.bench__panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  padding: var(--sp-5);
+  background: var(--surface);
+  border: var(--border) solid var(--card-border, var(--line));
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card, none);
+}
+
+.bench__panel h2 { font-size: var(--step-1); }
+
+.dial { display: flex; flex-direction: column; gap: var(--sp-2); }
+
+.dial__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--sp-3);
+  font-size: var(--step--1);
+  font-weight: 650;
+}
+
+.dial__value { font-family: var(--font-mono); font-weight: 400; color: var(--ink-muted); font-variant-numeric: tabular-nums; }
+.dial input[type="range"] { width: 100%; accent-color: var(--primary); }
+
+.ramp {
+  display: grid;
+  grid-template-columns: repeat(11, minmax(0, 1fr));
+  border-radius: var(--radius-control);
+  overflow: hidden;
+  border: var(--border) solid var(--line);
+}
+
+.ramp span { aspect-ratio: 1 / 2.2; }
+
+.specimen {
+  display: flex;
+  flex-direction: column;
+  border: var(--border) solid var(--card-border, var(--line));
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.specimen__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding: var(--sp-2) var(--sp-4);
+  background: var(--surface-sunk);
+  border-bottom: var(--border) solid var(--line);
+}
+
+.specimen__name { font-family: var(--font-mono); font-size: var(--step--1); color: var(--ink); }
+.specimen__note { font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-faint); }
+
+/* Components are staged on the page ground, not the panel surface, so they are
+   judged against the background they actually ship on. */
+.specimen__stage {
+  padding: var(--sp-5);
+  background: var(--ground);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--sp-4);
+}
+
+.specimen__stage > * { min-width: 0; }
+.specimen__stage--block { flex-direction: column; align-items: stretch; }
+.specimen__stage--grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr)); }
+.specimen__stage--invert { background: var(--band); color: var(--band-ink); }

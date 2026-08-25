@@ -1,0 +1,76 @@
+/* ==========================================================================
+   SHARED POOL — layout primitives
+   Structure only. A variant chooses which of these it uses and retunes them
+   through tokens; it should not need to redefine them.
+   ========================================================================== */
+
+.wrap { width: min(100% - 2.5rem, var(--wrap-width, 68rem)); margin-inline: auto; }
+.wrap--narrow { width: min(100% - 2.5rem, 44rem); }
+
+.stack { display: flex; flex-direction: column; }
+.stack-2 { gap: var(--sp-2); }
+.stack-3 { gap: var(--sp-3); }
+.stack-4 { gap: var(--sp-4); }
+.stack-5 { gap: var(--sp-5); }
+.stack-6 { gap: var(--sp-6); }
+.stack-7 { gap: var(--sp-7); }
+
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-3); }
+.row--center { justify-content: center; }
+
+/* A section of page. --band-* variants give a variant the option of reading as
+   a stack of colour-blocked rooms instead of one continuous sheet. */
+.band { padding-block: var(--sp-8); }
+.band--tight { padding-block: var(--sp-7); }
+.band--alt { background: var(--ground-alt); }
+
+.band--invert {
+  background: var(--band);
+  color: var(--band-ink);
+}
+
+.band--invert h1,
+.band--invert h2,
+.band--invert h3,
+.band--invert h4 { color: var(--band-ink); }
+
+.band--invert .muted,
+.band--invert .lede,
+.band--invert p { color: var(--band-ink-dim); }
+
+.band--invert .eyebrow { color: var(--band-accent, var(--band-ink-dim)); }
+.band--invert a { color: var(--band-accent, var(--band-ink)); }
+
+.grid {
+  display: grid;
+  gap: var(--sp-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr));
+}
+
+.grid--2 { grid-template-columns: repeat(auto-fit, minmax(min(21rem, 100%), 1fr)); }
+
+/* Asymmetric rail + body. Used by variants that want marginalia. */
+.spine { display: grid; gap: var(--sp-5) var(--sp-6); grid-template-columns: minmax(0, 1fr); }
+
+@media (min-width: 60rem) {
+  .spine { grid-template-columns: 13rem minmax(0, 1fr); }
+}
+
+.spine__rail,
+.spine__body { min-width: 0; }
+
+/* Centred editorial column. Used by variants that commit to the centre. */
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+  align-items: center;
+  text-align: center;
+}
+
+.column p { margin-inline: auto; }
+.column .lede { max-width: 46ch; }
+
+/* A reading column for long prose, independent of the page wrap. */
+.prose { width: min(100%, 44rem); margin-inline: auto; display: flex; flex-direction: column; gap: var(--sp-5); }
+.prose p { max-width: none; }

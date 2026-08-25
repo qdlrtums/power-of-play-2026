@@ -1,0 +1,254 @@
+/* ==========================================================================
+   VARIANT — Playroom
+   Loads after the shared pool. Same contract as every other variant: set the
+   two dials, map the ramp onto semantic roles, override only what the
+   identity needs. Flat surfaces, ink borders, no shadows anywhere.
+   ========================================================================== */
+
+:root {
+  /* ---- the two dials ----------------------------------------------------- */
+  --green-h: 142;
+  --green-c: 0.100;
+
+  /* ---- semantic mapping (light) ------------------------------------------ */
+  --ground:       var(--green-50);
+  --ground-alt:   var(--green-100);
+  --surface:      oklch(99.5% 0.003 var(--green-h));
+  --surface-sunk: var(--green-100);
+
+  /* The forest half of the palette, used at full strength as a whole band. */
+  --band:         var(--green-800);
+  --band-ink:     var(--green-50);
+  --band-ink-dim: var(--green-200);
+  --band-line:    oklch(42% calc(var(--green-c) * 0.9) var(--green-h));
+  --band-accent:  var(--butter-500);
+  --band-card-bg: transparent;
+
+  --ink:       var(--green-950);
+  --ink-muted: oklch(43% calc(var(--green-c) * 0.42) var(--green-h));
+  --ink-faint: oklch(56% calc(var(--green-c) * 0.34) var(--green-h));
+
+  /* Borders are ink here, not hairlines — that is the whole look. */
+  --line:        var(--green-900);
+  --line-strong: var(--green-900);
+  --line-soft:   oklch(84% calc(var(--green-c) * 0.55) var(--green-h));
+
+  --primary:          var(--green-800);
+  --primary-hover:    var(--green-950);
+  --primary-ink:      var(--green-50);
+  --primary-soft:     var(--green-200);
+  --primary-soft-ink: var(--green-900);
+
+  /* The one warm note, for inverted bands where green would go muddy. */
+  --butter-300: oklch(92% 0.075 96);
+  --butter-500: oklch(84% 0.105 92);
+  --accent-warm: var(--butter-500);
+
+  --focus: var(--green-600);
+
+  /* ---- type: wide grotesque display over a serif body -------------------- */
+  --font-display: "Bricolage Grotesque", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-body: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-mono: "DM Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --display-weight: 700;
+  --display-vf: "wdth" 105, "opsz" 32;
+  --display-vf-lg: "wdth" 112, "opsz" 60;
+  --display-vf-sm: "wdth" 100, "opsz" 16;
+  --display-tracking: -0.03em;
+  --display-leading: 1.02;
+  --body-leading: 1.65;
+  --nav-font: var(--font-display);
+  --label-font: var(--font-display);
+  --btn-font: var(--font-display);
+  --measure: 62ch;
+  --wrap-width: 70rem;
+
+  /* ---- form: chunky, flat, no elevation ---------------------------------- */
+  --radius-card: 24px;
+  --radius-control: 14px;
+  --border: 2px;
+  --shadow-card: none;
+  --shadow-lift: none;
+  --ease: cubic-bezier(0.34, 1.32, 0.52, 1);   /* a slight overshoot */
+  --dur: 200ms;
+  --focus-width: 3px;
+  --link-thickness: 2px;
+  --link-underline: var(--primary-soft);
+
+  --sp-8: 4.5rem;
+  --sp-9: 6.5rem;
+
+  /* ---- component tuning -------------------------------------------------- */
+  --btn-radius: var(--radius-pill);
+  --btn-pad: 0.7rem 1.4rem;
+  --btn-hover-lift: translateY(-2px);
+  --card-border: var(--line);
+  --card-hover: translateY(-4px) rotate(-0.6deg);
+  --shape-size: 3rem;
+  --shape-radius: 62% 38% 46% 54% / 54% 48% 52% 46%;
+  --shape-radius-hover: 42% 58% 63% 37% / 40% 56% 44% 60%;
+  --shape-hover-rotate: 12deg;
+  --pill-font: var(--font-display);
+  --pill-weight: 650;
+  --pill-border-width: 2px;
+  --pill-dot: none;
+  --pill-pad: 0.25rem 0.75rem;
+  --tag-border-width: 0;
+  --tag-bg: var(--surface-sunk);
+  --steps-cols: repeat(auto-fit, minmax(min(15rem, 100%), 1fr));
+  --step-num-format: decimal;
+  --th-font: var(--font-display);
+  --th-weight: 650;
+  --th-transform: none;
+  --th-tracking: -0.01em;
+  --th-ink: var(--ink);
+  --meter-height: 0.85rem;
+  --meter-border-width: 2px;
+  --control-pad: 0.7rem 1rem;
+  --control-focus-outline: 3px solid var(--focus);
+  --control-focus-ring: none;
+  --callout-bg: var(--butter-300);
+  --callout-ink: var(--green-950);
+  --callout-label: inherit;
+  --callout-rule: var(--border) solid var(--line);
+  --callout-border-width: var(--border);
+  --callout-radius: var(--radius-card);
+  --colophon-bg: var(--band);
+  --colophon-ink: var(--band-ink);
+  --colophon-dim: var(--band-ink-dim);
+  --colophon-label: var(--butter-500);
+  --nav-current-bg: var(--primary);
+  --nav-current-ink: var(--primary-ink);
+}
+
+/* ---- dark: the bands invert again so the banding rhythm survives ---------- */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground:       var(--green-950);
+    --ground-alt:   oklch(18.5% calc(var(--green-c) * 0.44) var(--green-h));
+    --surface:      oklch(19.5% calc(var(--green-c) * 0.46) var(--green-h));
+    --surface-sunk: oklch(24% calc(var(--green-c) * 0.50) var(--green-h));
+
+    --band:         var(--green-200);
+    --band-ink:     var(--green-950);
+    --band-ink-dim: var(--green-800);
+    --band-line:    var(--green-500);
+    --band-accent:  var(--green-800);
+
+    --ink:       oklch(96% calc(var(--green-c) * 0.16) var(--green-h));
+    --ink-muted: oklch(78% calc(var(--green-c) * 0.28) var(--green-h));
+    --ink-faint: oklch(64% calc(var(--green-c) * 0.30) var(--green-h));
+
+    --line:        var(--green-300);
+    --line-strong: var(--green-300);
+    --line-soft:   oklch(36% calc(var(--green-c) * 0.60) var(--green-h));
+
+    --primary:          var(--green-300);
+    --primary-hover:    var(--green-200);
+    --primary-ink:      var(--green-950);
+    --primary-soft:     oklch(31% calc(var(--green-c) * 0.80) var(--green-h));
+    --primary-soft-ink: var(--green-200);
+
+    --butter-300: oklch(36% 0.058 92);
+    --callout-ink: var(--ink);
+
+    --focus: var(--green-400);
+  }
+}
+
+:root[data-theme="dark"] {
+  --ground:       var(--green-950);
+  --ground-alt:   oklch(18.5% calc(var(--green-c) * 0.44) var(--green-h));
+  --surface:      oklch(19.5% calc(var(--green-c) * 0.46) var(--green-h));
+  --surface-sunk: oklch(24% calc(var(--green-c) * 0.50) var(--green-h));
+
+  --band:         var(--green-200);
+  --band-ink:     var(--green-950);
+  --band-ink-dim: var(--green-800);
+  --band-line:    var(--green-500);
+  --band-accent:  var(--green-800);
+
+  --ink:       oklch(96% calc(var(--green-c) * 0.16) var(--green-h));
+  --ink-muted: oklch(78% calc(var(--green-c) * 0.28) var(--green-h));
+  --ink-faint: oklch(64% calc(var(--green-c) * 0.30) var(--green-h));
+
+  --line:        var(--green-300);
+  --line-strong: var(--green-300);
+  --line-soft:   oklch(36% calc(var(--green-c) * 0.60) var(--green-h));
+
+  --primary:          var(--green-300);
+  --primary-hover:    var(--green-200);
+  --primary-ink:      var(--green-950);
+  --primary-soft:     oklch(31% calc(var(--green-c) * 0.80) var(--green-h));
+  --primary-soft-ink: var(--green-200);
+
+  --butter-300: oklch(36% 0.058 92);
+  --callout-ink: var(--ink);
+
+  --focus: var(--green-400);
+}
+
+/* ==========================================================================
+   The few things this variant adds that no token could express.
+   ========================================================================== */
+
+/* Hero: centred, with the emphasis word set in a tilted pill. */
+.hero { padding-block: var(--sp-9) var(--sp-8); text-align: center; position: relative; overflow: hidden; }
+
+.hero__title {
+  font-size: var(--step-6);
+  font-variation-settings: "wdth" 112, "opsz" 72;
+  letter-spacing: -0.045em;
+  max-width: 17ch;
+  margin-inline: auto;
+}
+
+.hero__title em {
+  font-style: normal;
+  display: inline-block;
+  padding: 0 0.28em;
+  border-radius: var(--radius-pill);
+  background: var(--primary);
+  color: var(--primary-ink);
+  transform: rotate(-1.6deg);
+}
+
+/* Oversized soft blobs behind the hero. Decorative. */
+.hero__blobs { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+
+.hero__blobs span {
+  position: absolute;
+  display: block;
+  width: 22rem;
+  height: 22rem;
+  border-radius: 58% 42% 47% 53% / 51% 45% 55% 49%;
+  background: var(--primary-soft);
+  opacity: 0.5;
+  animation: wobble 14s var(--ease) infinite alternate;
+}
+
+.hero__blobs span:nth-child(1) { left: -8rem; top: -6rem; }
+.hero__blobs span:nth-child(2) { right: -9rem; bottom: -8rem; background: var(--butter-300); animation-delay: -7s; }
+
+@keyframes wobble {
+  from { transform: translate(0, 0) rotate(0deg); }
+  to { transform: translate(1.5rem, -1rem) rotate(14deg); }
+}
+
+/* One orchestrated entrance, with the overshoot this variant is built on. */
+.reveal { animation: reveal 620ms var(--ease) both; }
+.reveal:nth-child(1) { animation-delay: 40ms; }
+.reveal:nth-child(2) { animation-delay: 130ms; }
+.reveal:nth-child(3) { animation-delay: 220ms; }
+.reveal:nth-child(4) { animation-delay: 310ms; }
+
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(14px) scale(0.985); }
+  to { opacity: 1; transform: none; }
+}
+
+/* The record panel is centred and narrow here rather than sitting beside the
+   headline. */
+.record { width: min(100%, 34rem); margin-inline: auto; }

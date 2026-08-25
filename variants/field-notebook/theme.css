@@ -1,0 +1,258 @@
+/* ==========================================================================
+   VARIANT — Field Notebook
+   Loads after the shared pool. Sets the two dials, maps the green ramp onto
+   semantic roles, and adds only the handful of overrides this identity needs.
+   Everything else comes from shared/css/.
+   ========================================================================== */
+
+:root {
+  /* ---- the two dials ----------------------------------------------------- */
+  --green-h: 148;
+  --green-c: 0.085;
+
+  /* ---- semantic mapping (light) ------------------------------------------ */
+  --ground:       var(--green-50);
+  --ground-alt:   var(--green-100);
+  --surface:      oklch(99.2% 0.004 var(--green-h));
+  --surface-sunk: var(--green-100);
+
+  --band:         var(--green-900);
+  --band-ink:     var(--green-50);
+  --band-ink-dim: var(--green-200);
+  --band-line:    oklch(38% calc(var(--green-c) * 0.9) var(--green-h));
+  --band-accent:  var(--green-300);
+
+  --ink:       var(--green-950);
+  --ink-muted: oklch(45% calc(var(--green-c) * 0.35) var(--green-h));
+  --ink-faint: oklch(60% calc(var(--green-c) * 0.28) var(--green-h));
+
+  --line:        oklch(88% calc(var(--green-c) * 0.45) var(--green-h));
+  --line-strong: oklch(76% calc(var(--green-c) * 0.60) var(--green-h));
+  --rule:        oklch(93.5% calc(var(--green-c) * 0.40) var(--green-h));
+
+  --primary:          var(--green-700);
+  --primary-hover:    var(--green-800);
+  --primary-ink:      oklch(98% 0.012 var(--green-h));
+  --primary-soft:     var(--green-200);
+  --primary-soft-ink: var(--green-900);
+  --accent-warm:      var(--green-500);
+
+  --focus: var(--green-500);
+
+  /* ---- type: scholarly serif with its wonk turned up --------------------- */
+  --font-display: "Fraunces", "Iowan Old Style", Palatino, Georgia, serif;
+  --font-body: "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --display-weight: 600;
+  --display-vf: "SOFT" 28, "WONK" 1, "opsz" 40;
+  --display-vf-lg: "SOFT" 40, "WONK" 1, "opsz" 72;
+  --display-vf-sm: "SOFT" 20, "WONK" 1, "opsz" 20;
+  --display-tracking: -0.012em;
+  --measure: 65ch;
+
+  /* ---- form: soft shadows, hairline borders ------------------------------ */
+  --radius-card: 14px;
+  --radius-control: 9px;
+  --border: 1px;
+  --link-underline: color-mix(in oklab, var(--primary) 40%, transparent);
+
+  --shadow-card:
+    0 1px 0 0 oklch(90% calc(var(--green-c) * 0.5) var(--green-h)),
+    0 2px 3px -1px oklch(50% calc(var(--green-c) * 0.5) var(--green-h) / 0.10),
+    0 10px 22px -14px oklch(40% calc(var(--green-c) * 0.6) var(--green-h) / 0.35);
+  --shadow-lift:
+    0 1px 0 0 oklch(88% calc(var(--green-c) * 0.5) var(--green-h)),
+    0 6px 10px -4px oklch(50% calc(var(--green-c) * 0.5) var(--green-h) / 0.14),
+    0 20px 34px -20px oklch(40% calc(var(--green-c) * 0.6) var(--green-h) / 0.45);
+
+  --masthead-bg: color-mix(in oklab, var(--ground) 88%, transparent);
+
+  /* ---- component tuning -------------------------------------------------- */
+  --shape-radius: 26%;
+  --shape-hover-rotate: -8deg;
+  --note-pad-left: var(--sp-6);
+  --steps-cols: minmax(0, 1fr);
+  --step-pad: var(--sp-4) 0;
+  --step-bg: transparent;
+  --step-border-width: 0;
+  --step-border-top: 1px solid var(--line);
+  --step-radius: 0;
+  --step-num-bg: transparent;
+  --step-num-ink: var(--primary);
+  --step-num-size: 2.4rem;
+  --step-num-align: flex-start;
+  --step-num-format: decimal-leading-zero;
+  --quote-bg: var(--primary-soft);
+  --quote-ink: var(--primary-soft-ink);
+  --quote-pad: var(--sp-5) var(--sp-6);
+  --callout-rule: 3px solid var(--primary);
+}
+
+/* ---- dark: recoloured, not inverted -------------------------------------- */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground:       var(--green-950);
+    --ground-alt:   oklch(12.5% calc(var(--green-c) * 0.38) var(--green-h));
+    --surface:      oklch(19.5% calc(var(--green-c) * 0.42) var(--green-h));
+    --surface-sunk: oklch(17% calc(var(--green-c) * 0.40) var(--green-h));
+
+    --band:         oklch(12% calc(var(--green-c) * 0.40) var(--green-h));
+    --band-ink:     var(--green-100);
+    --band-ink-dim: var(--green-300);
+    --band-line:    oklch(32% calc(var(--green-c) * 0.6) var(--green-h));
+    --band-accent:  var(--green-300);
+
+    --ink:       oklch(95% calc(var(--green-c) * 0.20) var(--green-h));
+    --ink-muted: oklch(76% calc(var(--green-c) * 0.28) var(--green-h));
+    --ink-faint: oklch(62% calc(var(--green-c) * 0.28) var(--green-h));
+
+    --line:        oklch(30% calc(var(--green-c) * 0.55) var(--green-h));
+    --line-strong: oklch(42% calc(var(--green-c) * 0.70) var(--green-h));
+    --rule:        oklch(25% calc(var(--green-c) * 0.45) var(--green-h));
+
+    --primary:          var(--green-300);
+    --primary-hover:    var(--green-200);
+    --primary-ink:      var(--green-950);
+    --primary-soft:     oklch(32% calc(var(--green-c) * 0.75) var(--green-h));
+    --primary-soft-ink: var(--green-200);
+    --accent-warm:      var(--green-400);
+
+    --focus: var(--green-400);
+
+    --shadow-card: 0 1px 0 0 oklch(28% calc(var(--green-c) * 0.5) var(--green-h)),
+      0 10px 22px -16px oklch(0% 0 0 / 0.8);
+    --shadow-lift: 0 1px 0 0 oklch(34% calc(var(--green-c) * 0.5) var(--green-h)),
+      0 22px 36px -20px oklch(0% 0 0 / 0.9);
+  }
+}
+
+:root[data-theme="dark"] {
+  --ground:       var(--green-950);
+  --ground-alt:   oklch(12.5% calc(var(--green-c) * 0.38) var(--green-h));
+  --surface:      oklch(19.5% calc(var(--green-c) * 0.42) var(--green-h));
+  --surface-sunk: oklch(17% calc(var(--green-c) * 0.40) var(--green-h));
+
+  --band:         oklch(12% calc(var(--green-c) * 0.40) var(--green-h));
+  --band-ink:     var(--green-100);
+  --band-ink-dim: var(--green-300);
+  --band-line:    oklch(32% calc(var(--green-c) * 0.6) var(--green-h));
+  --band-accent:  var(--green-300);
+
+  --ink:       oklch(95% calc(var(--green-c) * 0.20) var(--green-h));
+  --ink-muted: oklch(76% calc(var(--green-c) * 0.28) var(--green-h));
+  --ink-faint: oklch(62% calc(var(--green-c) * 0.28) var(--green-h));
+
+  --line:        oklch(30% calc(var(--green-c) * 0.55) var(--green-h));
+  --line-strong: oklch(42% calc(var(--green-c) * 0.70) var(--green-h));
+  --rule:        oklch(25% calc(var(--green-c) * 0.45) var(--green-h));
+
+  --primary:          var(--green-300);
+  --primary-hover:    var(--green-200);
+  --primary-ink:      var(--green-950);
+  --primary-soft:     oklch(32% calc(var(--green-c) * 0.75) var(--green-h));
+  --primary-soft-ink: var(--green-200);
+  --accent-warm:      var(--green-400);
+
+  --focus: var(--green-400);
+
+  --shadow-card: 0 1px 0 0 oklch(28% calc(var(--green-c) * 0.5) var(--green-h)),
+    0 10px 22px -16px oklch(0% 0 0 / 0.8);
+  --shadow-lift: 0 1px 0 0 oklch(34% calc(var(--green-c) * 0.5) var(--green-h)),
+    0 22px 36px -20px oklch(0% 0 0 / 0.9);
+}
+
+/* ==========================================================================
+   The few things this variant adds that no token could express.
+   ========================================================================== */
+
+/* The ruled ground — a clinician's notebook under the whole page. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(to bottom, var(--rule) 0 1px, transparent 1px 32px);
+  opacity: 0.55;
+  mask-image: linear-gradient(to bottom, transparent, #000 12rem);
+}
+
+/* Steps are ruled rows here, with the number set out in the margin. */
+.step { display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: var(--sp-4); align-items: start; }
+.step > :not(.step__num) { grid-column: 2; }
+.step__num { padding-top: 0.3rem; }
+
+/* The note card keeps an index card's margin line. */
+.note::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  left: calc(var(--sp-6) - 0.75rem);
+  width: 2px;
+  background: color-mix(in oklab, var(--primary) 35%, transparent);
+}
+
+/* Hero: split, left-aligned, with a rule that draws itself under the emphasis. */
+.hero { padding-block: var(--sp-8) var(--sp-7); position: relative; }
+
+.hero__grid {
+  display: grid;
+  gap: var(--sp-7);
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+}
+
+@media (min-width: 62rem) {
+  .hero__grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); }
+}
+
+.hero__title { font-size: var(--step-6); letter-spacing: -0.025em; }
+
+.hero__title em {
+  font-style: normal;
+  color: var(--primary);
+  background-image: linear-gradient(to right, var(--primary-soft), var(--primary-soft));
+  background-repeat: no-repeat;
+  background-position: 0 0.86em;
+  background-size: 0% 0.32em;
+  animation: draw-underline 900ms var(--ease) 500ms forwards;
+}
+
+@keyframes draw-underline { to { background-size: 100% 0.32em; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__title em { background-size: 100% 0.32em; animation: none; }
+}
+
+/* Blocks scattered behind the hero. Decorative, hidden from assistive tech. */
+.confetti { position: absolute; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+
+.confetti span {
+  position: absolute;
+  display: block;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 3px;
+  background: var(--primary-soft);
+  opacity: 0.75;
+  animation: drift 9s var(--ease) infinite alternate;
+}
+
+@keyframes drift {
+  from { transform: translateY(-6px) rotate(-8deg); }
+  to { transform: translateY(6px) rotate(10deg); }
+}
+
+/* One orchestrated entrance. */
+.reveal { animation: reveal 700ms var(--ease) both; }
+.reveal:nth-child(1) { animation-delay: 60ms; }
+.reveal:nth-child(2) { animation-delay: 150ms; }
+.reveal:nth-child(3) { animation-delay: 240ms; }
+.reveal:nth-child(4) { animation-delay: 330ms; }
+
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}

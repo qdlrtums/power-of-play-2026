@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home B · Playroom — Power of Play</title>
+<meta name="description" content="Power of Play turns a twenty-minute play session into a developmental record pediatricians can act on.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=DM+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<script src="js/site.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="option-strip">
+  <span>Home candidates</span>
+  <a href="../option-a/index.html">A · Field Notebook</a>
+  <strong style="color:var(--band-ink)">B · Playroom</strong>
+  <a href="../../index.html" style="margin-left:auto">All pages</a>
+</div>
+
+<header class="masthead">
+  <div class="wrap masthead__inner">
+    <a class="wordmark" href="index.html">
+      <svg class="wordmark__mark" width="34" height="30" viewBox="0 0 34 30" aria-hidden="true">
+        <circle cx="7" cy="21" r="7" fill="var(--primary)"></circle>
+        <rect x="12" y="12" width="12" height="12" rx="4" fill="var(--green-400)"></rect>
+        <path d="M27 2 L33 14 H21 Z" fill="var(--green-600)"></path>
+      </svg>
+      Power of Play
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a class="nav__link" href="index.html" aria-current="page">Home</a>
+      <a class="nav__link" href="about.html">About</a>
+      <a class="nav__link" href="contact.html">Contact</a>
+      <a class="nav__link" href="components.html">Components</a>
+      <button class="theme-toggle" type="button" data-theme-toggle>
+        <span data-theme-label>Light</span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero">
+    <div class="hero__blobs" aria-hidden="true"><span></span><span></span></div>
+    <div class="wrap column">
+      <p class="eyebrow reveal">Developmental screening · ages 0–5</p>
+      <h1 class="hero__title reveal">Play is the <span>assessment</span></h1>
+      <p class="lede reveal">
+        Twenty minutes of unstructured play tells a clinician more about a
+        child's development than a checklist ever will. We capture what happens
+        in that room and turn it into a record you can chart and defend.
+      </p>
+      <div class="row reveal" style="justify-content:center">
+        <a class="btn btn--primary" href="contact.html">Book a clinic walkthrough</a>
+        <a class="btn btn--secondary" href="about.html">Read the method</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--alt">
+    <div class="wrap">
+      <div class="session">
+        <div class="session__head">
+          <span class="session__title">Session 0412 · 34 months</span>
+          <span class="pill pill--ok">On track</span>
+        </div>
+        <ul class="session__list">
+          <li class="meter">
+            <div class="meter__head"><span>Symbolic play</span><span class="meter__value">92nd</span></div>
+            <div class="meter__track"><div class="meter__fill" style="width:92%"></div></div>
+          </li>
+          <li class="meter">
+            <div class="meter__head"><span>Joint attention</span><span class="meter__value">61st</span></div>
+            <div class="meter__track"><div class="meter__fill" style="width:61%"></div></div>
+          </li>
+          <li class="meter">
+            <div class="meter__head"><span>Fine motor sequencing</span><span class="meter__value">28th</span></div>
+            <div class="meter__track"><div class="meter__fill meter__fill--watch" style="width:28%"></div></div>
+          </li>
+        </ul>
+        <div class="callout">
+          <span class="callout__label">Clinician note</span>
+          <p>
+            Stacked five blocks, abandoned the tower to narrate a story about it.
+            Motor sequencing scored low against a strong language profile —
+            re-screen at 40 months rather than refer.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--invert">
+    <div class="wrap stack stack-6">
+      <div class="column">
+        <p class="eyebrow">The session</p>
+        <h2>Four stages, always in this order</h2>
+        <p class="lede">Nothing about the room changes between them — only what the clinician is watching for.</p>
+      </div>
+      <ol class="track">
+        <li class="track__step">
+          <span class="track__num" aria-hidden="true"></span>
+          <h3>Free play</h3>
+          <p class="track__when">Minutes 0–8 · no prompts</p>
+          <p class="muted small">The child chooses the materials. We record what gets picked up, what gets ignored, and how long attention holds unaided.</p>
+        </li>
+        <li class="track__step">
+          <span class="track__num" aria-hidden="true"></span>
+          <h3>Invitation</h3>
+          <p class="track__when">Minutes 8–14 · one prompt per domain</p>
+          <p class="muted small">A single open-ended offer probes the domains that free play didn't surface on its own.</p>
+        </li>
+        <li class="track__step">
+          <span class="track__num" aria-hidden="true"></span>
+          <h3>Caregiver turn</h3>
+          <p class="track__when">Minutes 14–20 · clinician steps back</p>
+          <p class="muted small">The caregiver plays; the clinician observes the pair. Serve-and-return is scored only here.</p>
+        </li>
+        <li class="track__step">
+          <span class="track__num" aria-hidden="true"></span>
+          <h3>Record and route</h3>
+          <p class="track__when">Same day</p>
+          <p class="muted small">A scored profile with an explicit next step: continue, re-screen at a named age, or refer with evidence attached.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap grid">
+      <div class="stat">
+        <span class="stat__value">18 min</span>
+        <span class="stat__label">Median session length across 41 partner clinics</span>
+        <span class="stat__source">Internal, Q1 2026</span>
+      </div>
+      <div class="stat">
+        <span class="stat__value">3.4×</span>
+        <span class="stat__label">More developmental domains recorded than a paper checklist</span>
+        <span class="stat__source">Ndiaye et al., 2025</span>
+      </div>
+      <div class="stat">
+        <span class="stat__value">96%</span>
+        <span class="stat__label">Of families completed the follow-up session</span>
+        <span class="stat__source">n = 1,208 sessions</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--alt">
+    <div class="wrap stack stack-6">
+      <div class="column">
+        <p class="eyebrow">Who it's for</p>
+        <h2>Built for the people already in the room</h2>
+      </div>
+      <div class="grid grid--2">
+        <div class="sticker sticker--interactive">
+          <span class="blob" aria-hidden="true"></span>
+          <h3 class="sticker__title">Pediatric clinics</h3>
+          <p class="sticker__body">Screening that fits a well-child visit, produces a chartable record, and gives you defensible grounds for a referral — or for holding off on one.</p>
+        </div>
+        <div class="sticker sticker--interactive">
+          <span class="blob blob--mid" aria-hidden="true"></span>
+          <h3 class="sticker__title">Early intervention teams</h3>
+          <p class="sticker__body">A shared vocabulary across OT, SLP, and behavioural staff, so a handoff carries the observation and not just the score.</p>
+        </div>
+        <div class="sticker sticker--interactive">
+          <span class="blob blob--butter" aria-hidden="true"></span>
+          <h3 class="sticker__title">Families</h3>
+          <p class="sticker__body">A plain-language summary of what the session showed, what it didn't, and what to look for at home before the next visit.</p>
+        </div>
+        <div class="sticker sticker--interactive">
+          <span class="blob" aria-hidden="true"></span>
+          <h3 class="sticker__title">Researchers</h3>
+          <p class="sticker__body">De-identified session data in a documented schema, with the scoring rubric versioned alongside it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap column">
+      <blockquote class="quote" style="align-items:center;text-align:center">
+        <p class="quote__text">We were already watching children play. We just had nowhere to put what we saw.</p>
+        <footer class="quote__attr">Dr. Amara Osei · Riverbend Children's</footer>
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="band band--invert">
+    <div class="wrap column">
+      <p class="eyebrow">Next cohort opens 14 Sept 2026 · 12 clinic places</p>
+      <h2>Bring it into your clinic</h2>
+      <p class="lede">
+        Onboarding is a half-day with your team, a materials kit, and two
+        supervised sessions before you screen independently.
+      </p>
+      <div class="row" style="justify-content:center">
+        <a class="btn btn--primary" href="contact.html">Request a walkthrough</a>
+        <a class="btn btn--secondary" href="about.html">See who we are</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="colophon">
+  <div class="wrap colophon__grid">
+    <div class="stack stack-3">
+      <a class="wordmark" href="index.html">
+        <svg class="wordmark__mark" width="30" height="26" viewBox="0 0 34 30" aria-hidden="true">
+          <circle cx="7" cy="21" r="7" fill="var(--butter-500)"></circle>
+          <rect x="12" y="12" width="12" height="12" rx="4" fill="var(--green-400)"></rect>
+          <path d="M27 2 L33 14 H21 Z" fill="var(--green-200)"></path>
+        </svg>
+        Power of Play
+      </a>
+      <p class="small">Play-based developmental screening for children 0–5.</p>
+    </div>
+    <div class="stack stack-3">
+      <h4>Site</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="components.html">Components</a></li>
+      </ul>
+    </div>
+    <div class="stack stack-3">
+      <h4>Evidence</h4>
+      <ul>
+        <li><a href="about.html#method">Scoring rubric v4</a></li>
+        <li><a href="about.html#method">Validation studies</a></li>
+        <li><a href="about.html#team">Advisory board</a></li>
+      </ul>
+    </div>
+    <div class="stack stack-3">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:clinics@powerofplay.health">clinics@powerofplay.health</a></li>
+        <li><a href="contact.html">Book a walkthrough</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:var(--sp-6);">
+    <p class="small mono">Power of Play is a screening tool. It does not diagnose. © 2026</p>
+  </div>
+</footer>
+</body>
+</html>

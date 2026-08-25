@@ -1,0 +1,204 @@
+/* ==========================================================================
+   Power of Play — Option A design tokens
+   --------------------------------------------------------------------------
+   TUNING: the entire green identity derives from two numbers, --green-h
+   (hue) and --green-c (chroma). Change them here and every surface, border,
+   shadow and state colour retunes together. The Components page has live
+   sliders that write these same variables, plus a "Copy tokens" button that
+   prints the block you paste back into this file.
+   ========================================================================== */
+
+:root {
+  /* ---- the two dials ---------------------------------------------------- */
+  --green-h: 148;      /* 120 = grass, 148 = forest, 175 = pine/teal        */
+  --green-c: 0.085;    /* 0.02 = washed out, 0.14 = vivid                   */
+
+  /* ---- derived green ramp ----------------------------------------------- */
+  /* Light end is the "light green"; the 700–900 end is the forest green.    */
+  --green-50:  oklch(97.8% calc(var(--green-c) * 0.20) var(--green-h));
+  --green-100: oklch(95.0% calc(var(--green-c) * 0.42) var(--green-h));
+  --green-200: oklch(90.5% calc(var(--green-c) * 0.70) var(--green-h));
+  --green-300: oklch(83.0% calc(var(--green-c) * 1.00) var(--green-h));
+  --green-400: oklch(72.0% calc(var(--green-c) * 1.25) var(--green-h));
+  --green-500: oklch(60.0% calc(var(--green-c) * 1.40) var(--green-h));
+  --green-600: oklch(50.0% calc(var(--green-c) * 1.30) var(--green-h));
+  --green-700: oklch(40.0% calc(var(--green-c) * 1.08) var(--green-h));
+  --green-800: oklch(30.0% calc(var(--green-c) * 0.82) var(--green-h));
+  --green-900: oklch(22.0% calc(var(--green-c) * 0.58) var(--green-h));
+  --green-950: oklch(15.5% calc(var(--green-c) * 0.42) var(--green-h));
+
+  /* ---- supporting hues --------------------------------------------------
+     Deliberately quiet. Green carries the identity; these only ever appear
+     in data, diagrams and single-word flags.                                */
+  --blue-h: 248;
+  --blue-300: oklch(80% 0.055 var(--blue-h));
+  --blue-500: oklch(62% 0.075 var(--blue-h));
+  --blue-700: oklch(44% 0.070 var(--blue-h));
+
+  --sand-h: 82;
+  --sand-300: oklch(87% 0.070 var(--sand-h));
+  --sand-500: oklch(74% 0.095 var(--sand-h));
+  --sand-700: oklch(52% 0.080 var(--sand-h));
+
+  /* ---- semantic surface + ink (light theme) ------------------------------ */
+  --ground:        var(--green-50);
+  --ground-deep:   var(--green-100);
+  --surface:       oklch(99.2% 0.004 var(--green-h));
+  --surface-sunk:  var(--green-100);
+  --surface-invert: var(--green-900);
+
+  --ink:           var(--green-950);
+  --ink-muted:     oklch(45% calc(var(--green-c) * 0.35) var(--green-h));
+  --ink-faint:     oklch(60% calc(var(--green-c) * 0.28) var(--green-h));
+  --ink-invert:    var(--green-50);
+
+  --line:          oklch(88% calc(var(--green-c) * 0.45) var(--green-h));
+  --line-strong:   oklch(76% calc(var(--green-c) * 0.60) var(--green-h));
+  --rule:          oklch(93.5% calc(var(--green-c) * 0.40) var(--green-h));
+
+  --primary:       var(--green-700);
+  --primary-hover: var(--green-800);
+  --primary-ink:   oklch(98% 0.012 var(--green-h));
+  --primary-soft:  var(--green-200);
+  --primary-soft-ink: var(--green-900);
+
+  --focus:         var(--green-500);
+
+  /* ---- semantic status --------------------------------------------------- */
+  --ok:      oklch(52% 0.115 152);
+  --ok-soft: oklch(93% 0.045 152);
+  --watch:      oklch(58% 0.110 78);
+  --watch-soft: oklch(94% 0.050 88);
+  --refer:      oklch(52% 0.130 28);
+  --refer-soft: oklch(94% 0.040 28);
+
+  /* ---- type -------------------------------------------------------------- */
+  --font-display: "Fraunces", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --font-body: "Source Sans 3", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+
+  /* Major-third-ish scale, fluid between 380px and 1240px viewports.        */
+  --step--1: clamp(0.82rem, 0.79rem + 0.13vw, 0.89rem);
+  --step-0:  clamp(1.00rem, 0.96rem + 0.19vw, 1.11rem);
+  --step-1:  clamp(1.20rem, 1.13rem + 0.32vw, 1.39rem);
+  --step-2:  clamp(1.44rem, 1.32rem + 0.52vw, 1.74rem);
+  --step-3:  clamp(1.73rem, 1.54rem + 0.81vw, 2.18rem);
+  --step-4:  clamp(2.07rem, 1.78rem + 1.23vw, 2.72rem);
+  --step-5:  clamp(2.49rem, 2.04rem + 1.85vw, 3.40rem);
+  --step-6:  clamp(2.99rem, 2.32rem + 2.75vw, 4.25rem);
+
+  --measure: 65ch;
+
+  /* ---- space (4px base, named by role not by t-shirt size) --------------- */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-7: 3rem;
+  --sp-8: 4rem;
+  --sp-9: 6rem;
+
+  /* ---- form -------------------------------------------------------------- */
+  --radius-card: 14px;
+  --radius-control: 9px;
+  --radius-pill: 999px;
+  --border: 1px;
+
+  --shadow-card:
+    0 1px 0 0 oklch(90% calc(var(--green-c) * 0.5) var(--green-h)),
+    0 2px 3px -1px oklch(50% calc(var(--green-c) * 0.5) var(--green-h) / 0.10),
+    0 10px 22px -14px oklch(40% calc(var(--green-c) * 0.6) var(--green-h) / 0.35);
+  --shadow-lift:
+    0 1px 0 0 oklch(88% calc(var(--green-c) * 0.5) var(--green-h)),
+    0 6px 10px -4px oklch(50% calc(var(--green-c) * 0.5) var(--green-h) / 0.14),
+    0 20px 34px -20px oklch(40% calc(var(--green-c) * 0.6) var(--green-h) / 0.45);
+
+  --ease: cubic-bezier(0.22, 0.68, 0.35, 1);
+  --dur: 220ms;
+}
+
+/* ==========================================================================
+   Dark theme — recoloured, not inverted. The ground becomes forest-floor
+   dark; the accent moves UP the ramp so it still reads green on a dark
+   ground instead of disappearing into it.
+   ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground:        var(--green-950);
+    --ground-deep:   oklch(12.5% calc(var(--green-c) * 0.38) var(--green-h));
+    --surface:       oklch(19.5% calc(var(--green-c) * 0.42) var(--green-h));
+    --surface-sunk:  oklch(17% calc(var(--green-c) * 0.40) var(--green-h));
+    --surface-invert: var(--green-200);
+
+    --ink:        oklch(95% calc(var(--green-c) * 0.20) var(--green-h));
+    --ink-muted:  oklch(76% calc(var(--green-c) * 0.28) var(--green-h));
+    --ink-faint:  oklch(62% calc(var(--green-c) * 0.28) var(--green-h));
+    --ink-invert: var(--green-950);
+
+    --line:        oklch(30% calc(var(--green-c) * 0.55) var(--green-h));
+    --line-strong: oklch(42% calc(var(--green-c) * 0.70) var(--green-h));
+    --rule:        oklch(25% calc(var(--green-c) * 0.45) var(--green-h));
+
+    --primary:       var(--green-300);
+    --primary-hover: var(--green-200);
+    --primary-ink:   var(--green-950);
+    --primary-soft:  oklch(32% calc(var(--green-c) * 0.75) var(--green-h));
+    --primary-soft-ink: var(--green-200);
+
+    --focus: var(--green-400);
+
+    --ok:      oklch(78% 0.115 152);
+    --ok-soft: oklch(30% 0.055 152);
+    --watch:      oklch(82% 0.105 88);
+    --watch-soft: oklch(31% 0.050 88);
+    --refer:      oklch(76% 0.110 28);
+    --refer-soft: oklch(31% 0.055 28);
+
+    --shadow-card: 0 1px 0 0 oklch(28% calc(var(--green-c) * 0.5) var(--green-h)),
+      0 10px 22px -16px oklch(0% 0 0 / 0.8);
+    --shadow-lift: 0 1px 0 0 oklch(34% calc(var(--green-c) * 0.5) var(--green-h)),
+      0 22px 36px -20px oklch(0% 0 0 / 0.9);
+  }
+}
+
+/* Explicit toggle must beat the media query in BOTH directions, so the dark
+   token block is repeated verbatim under the attribute selector. */
+:root[data-theme="dark"] {
+  --ground:        var(--green-950);
+  --ground-deep:   oklch(12.5% calc(var(--green-c) * 0.38) var(--green-h));
+  --surface:       oklch(19.5% calc(var(--green-c) * 0.42) var(--green-h));
+  --surface-sunk:  oklch(17% calc(var(--green-c) * 0.40) var(--green-h));
+  --surface-invert: var(--green-200);
+
+  --ink:        oklch(95% calc(var(--green-c) * 0.20) var(--green-h));
+  --ink-muted:  oklch(76% calc(var(--green-c) * 0.28) var(--green-h));
+  --ink-faint:  oklch(62% calc(var(--green-c) * 0.28) var(--green-h));
+  --ink-invert: var(--green-950);
+
+  --line:        oklch(30% calc(var(--green-c) * 0.55) var(--green-h));
+  --line-strong: oklch(42% calc(var(--green-c) * 0.70) var(--green-h));
+  --rule:        oklch(25% calc(var(--green-c) * 0.45) var(--green-h));
+
+  --primary:       var(--green-300);
+  --primary-hover: var(--green-200);
+  --primary-ink:   var(--green-950);
+  --primary-soft:  oklch(32% calc(var(--green-c) * 0.75) var(--green-h));
+  --primary-soft-ink: var(--green-200);
+
+  --focus: var(--green-400);
+
+  --ok:      oklch(78% 0.115 152);
+  --ok-soft: oklch(30% 0.055 152);
+  --watch:      oklch(82% 0.105 88);
+  --watch-soft: oklch(31% 0.050 88);
+  --refer:      oklch(76% 0.110 28);
+  --refer-soft: oklch(31% 0.055 28);
+
+  --shadow-card: 0 1px 0 0 oklch(28% calc(var(--green-c) * 0.5) var(--green-h)),
+    0 10px 22px -16px oklch(0% 0 0 / 0.8);
+  --shadow-lift: 0 1px 0 0 oklch(34% calc(var(--green-c) * 0.5) var(--green-h)),
+    0 22px 36px -20px oklch(0% 0 0 / 0.9);
+}
