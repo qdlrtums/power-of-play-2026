@@ -6,10 +6,9 @@
    ========================================================================== */
 (function () {
   var VARIANTS = [
-    { id: "field-notebook", name: "Field Notebook" },
     { id: "playroom", name: "Playroom" },
-    { id: "cover", name: "Cover" },
-    { id: "bubble", name: "Bubble Letters" }
+    { id: "playwell", name: "Playwell" },
+    { id: "potential", name: "Potential" }
   ];
 
   var root = document.documentElement;
@@ -207,17 +206,65 @@
     mount.appendChild(section);
   }
 
-  /* This project is currently in content-placeholder mode. Keep it here, in
-     the shared bootstrap, so every variant and its supporting pages receive
-     the same pass without a fragile page-by-page find-and-replace. */
+  function initCoverCarousels() {
+    document.querySelectorAll("[data-cover-carousel]").forEach(function (carousel) {
+      var slides = Array.prototype.slice.call(carousel.querySelectorAll("[data-cover-slide]"));
+      var previous = carousel.querySelector("[data-cover-prev]");
+      var next = carousel.querySelector("[data-cover-next]");
+      var count = carousel.querySelector("[data-cover-count]");
+      var active = 0;
+      var interval;
+
+      if (slides.length < 2) return;
+
+      function show(index) {
+        active = (index + slides.length) % slides.length;
+        slides.forEach(function (slide, slideIndex) {
+          slide.classList.toggle("is-active", slideIndex === active);
+          slide.setAttribute("aria-hidden", slideIndex === active ? "false" : "true");
+        });
+        if (count) count.textContent = String(active + 1) + " / " + String(slides.length);
+      }
+
+      function stop() {
+        if (interval) window.clearInterval(interval);
+        interval = null;
+      }
+
+      function start() {
+        stop();
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        interval = window.setInterval(function () { show(active + 1); }, 5500);
+      }
+
+      if (previous) previous.addEventListener("click", function () { show(active - 1); start(); });
+      if (next) next.addEventListener("click", function () { show(active + 1); start(); });
+      carousel.addEventListener("mouseenter", stop);
+      carousel.addEventListener("mouseleave", start);
+      carousel.addEventListener("focusin", stop);
+      carousel.addEventListener("focusout", function () { window.setTimeout(start, 0); });
+      show(0);
+      start();
+    });
+  }
+
+  /* This project is currently in content-placeholder mode. Landing pages and
+     navigation retain their English copy; supporting-page content is lorem.
+     Keeping the rule in the shared bootstrap avoids fragile page-by-page
+     find-and-replace work across every design direction. */
   function applyLoremIpsum() {
     var page = window.location.pathname.split("/").pop() || "index.html";
-    /* The landing banner is the one piece of real copy retained on each
-       variant's homepage; Contact pages remain fully readable. */
-    if (page === "contact.html") return;
+    /* Every variant landing stays in English. Supporting pages retain only
+       their navigation and interactive controls; the top-level variants page
+       does not load this script. */
     var isHome = page === "index.html";
-    function keepEntryCopy(element) {
-      return isHome && Boolean(element.closest("header, main > .hero, main > .cover"));
+    if (isHome) return;
+
+    /* Supporting pages retain their English header and any interactive
+       carousel controls, including the wordmark, navigation links, picker,
+       theme control, and slide count. */
+    function keepNavigationCopy(element) {
+      return Boolean(element.closest("header, [data-cover-carousel]"));
     }
     var phrases = [
       "Lorem ipsum dolor sit amet.",
@@ -232,7 +279,7 @@
         if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
         var parent = node.parentElement;
         if (!parent || parent.closest("script, style, svg")) return NodeFilter.FILTER_REJECT;
-        if (keepEntryCopy(parent)) return NodeFilter.FILTER_REJECT;
+        if (keepNavigationCopy(parent) || parent.closest("[data-keep-copy]")) return NodeFilter.FILTER_REJECT;
         return NodeFilter.FILTER_ACCEPT;
       }
     });
@@ -244,18 +291,17 @@
     });
 
     document.querySelectorAll("[placeholder]").forEach(function (element) {
-      if (keepEntryCopy(element)) return;
+      if (keepNavigationCopy(element) || element.closest("[data-keep-copy]")) return;
       element.setAttribute("placeholder", phrases[index++ % phrases.length]);
     });
     document.querySelectorAll('input[type="text"][value], input[type="email"][value]').forEach(function (element) {
-      if (keepEntryCopy(element)) return;
+      if (keepNavigationCopy(element) || element.closest("[data-keep-copy]")) return;
       element.value = phrases[index++ % phrases.length];
     });
     document.querySelectorAll("img[alt]").forEach(function (image) {
-      if (keepEntryCopy(image)) return;
+      if (keepNavigationCopy(image) || image.closest("[data-keep-copy]")) return;
       image.alt = phrases[index++ % phrases.length];
     });
-    if (isHome) return;
     document.title = "Lorem ipsum dolor sit amet";
     var description = document.querySelector('meta[name="description"]');
     if (description) description.setAttribute("content", "Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
@@ -273,6 +319,8 @@
 
     var partnerMarqueeMount = document.querySelector("[data-partner-marquee]");
     if (partnerMarqueeMount) buildPartnerMarquee(partnerMarqueeMount);
+
+    initCoverCarousels();
 
     var btn = document.querySelector("[data-theme-toggle]");
     if (!btn) {

@@ -7,7 +7,7 @@
 <meta name="description" content="Power of Play takes a play-based approach to pediatric rehabilitation: occupational, physical, and speech therapy delivered through play.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500;9..40,600;9..40,700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../shared/css/tokens.css">
 <link rel="stylesheet" href="../../shared/css/base.css">
 <link rel="stylesheet" href="../../shared/css/layout.css">
@@ -38,33 +38,26 @@
 
   <section class="cover wrap" aria-labelledby="cover-title">
     <figure class="cover__figure">
-      <!-- Photo slot. Drop in <img src="hero.jpg" alt="A child mid-play,
-           reaching upward"> and delete the placeholder — no other change is
-           needed. Wants a 3:4 portrait, subject right of centre, eyeline in
-           the upper third so the headline crosses the shoulder, not the face. -->
-      <div class="cover__placeholder" aria-hidden="true"></div>
-      <figcaption class="cover__credit">Fig. 01 — photography slot · 3:4 portrait · subject right</figcaption>
+      <div class="cover__carousel" data-cover-carousel aria-label="The Power of Play team and community">
+        <img class="cover__slide is-active" src="../../1778287139763.jpeg" alt="Power of Play team member presenting" data-cover-slide>
+        <img class="cover__slide" src="../../1778287109130.jpeg" alt="Power of Play team sharing their work" data-cover-slide>
+        <img class="cover__slide" src="../../1778287104696.jpeg" alt="Power of Play prototype demonstration" data-cover-slide>
+        <div class="cover__controls">
+          <button type="button" class="cover__control" data-cover-prev aria-label="Show previous photo">‹</button>
+          <span class="cover__count" data-cover-count aria-live="polite">1 / 3</span>
+          <button type="button" class="cover__control" data-cover-next aria-label="Show next photo">›</button>
+        </div>
+      </div>
+      <figcaption class="cover__credit">A people-first rehabilitation service, built through play.</figcaption>
     </figure>
 
     <div class="cover__type">
       <h1 class="cover__title reveal" id="cover-title">
-        <span>Play is</span>
-        <span>the work</span>
+        <span>Power of</span>
+        <span>Play</span>
       </h1>
-      <p class="cover__standfirst reveal">
-        Occupational, physical, and speech therapy for children 0–7, delivered
-        entirely through play. Real motor and language goals. No worksheets.
-      </p>
+      <p class="cover__motto reveal">Taking a play-based approach to pediatric rehabilitation.</p>
     </div>
-
-    <dl class="cover__meta reveal">
-      <dt>Approach</dt>
-      <dd>Play-based rehabilitation</dd>
-      <dt>Ages</dt>
-      <dd>0–7</dd>
-      <dt>Block</dt>
-      <dd>16 visits, weekly</dd>
-    </dl>
   </section>
 
   <div data-partner-marquee></div>

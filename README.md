@@ -4,10 +4,9 @@ Investor and clinical calling card for a child-friendly pediatric hand-strength 
 
 > Taking a play-based approach to pediatric rehabilitation.
 
-The Playroom direction is the canonical system: spacious full-bleed bands,
-chunky outlines, organic shapes, and a restrained abstract background. Its
-header carries a **Palette** control. Palettes retune colour roles only; they
-do not change the layout, type, spacing, or components.
+Playroom and Playwell are the primary directions. Playroom is the canonical
+shared system: spacious full-bleed bands, chunky outlines, and selectable
+abstract hero motifs; Playwell is its photo-led counterpart.
 
 ```
 index.html                     the designs, side by side

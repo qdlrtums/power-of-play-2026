@@ -31,6 +31,9 @@
       { id: "blocks", name: "Blocks" },
       { id: "orbit", name: "Orbit" },
       { id: "playmat", name: "Playmat" },
+      { id: "meadow", name: "Meadow shapes" },
+      { id: "arch", name: "Rainbow arch" },
+      { id: "carousel", name: "Image carousel" },
       { id: "quiet", name: "Quiet" }
     ];
     var current;
