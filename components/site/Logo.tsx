@@ -3,16 +3,17 @@ import { cn } from "@/lib/utils";
 import { site } from "@/content/site";
 
 /**
- * The wordmark ships as a single SVG (mark + "POWER OF PLAY" set as outlines).
- * Intrinsic ratio is 313:204 from the source file.
+ * Wordmark PNG (mark + "POWER OF PLAY"). Intrinsic ratio is 234:154.
+ * On a dark ground, sit it on a paper chip rather than inverting — the file
+ * has a white field, so invert would turn that field black.
  */
 export function Logo({ className }: { className?: string }) {
   return (
     <Image
-      src="/brand/logo-with-name.svg"
+      src="/brand/pop-logo.png"
       alt={`${site.name} home`}
-      width={313}
-      height={204}
+      width={234}
+      height={154}
       priority
       className={cn("h-12 w-auto lg:h-16", className)}
     />

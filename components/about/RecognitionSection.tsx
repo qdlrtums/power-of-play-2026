@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { groups, logoById, recognition, sectionCopy } from "@/content/media";
-import { Section, Eyebrow } from "@/components/shared/Section";
+import { Section } from "@/components/shared/Section";
 import { RecognitionCarousel } from "./RecognitionCarousel";
 
 /**
@@ -10,8 +10,7 @@ import { RecognitionCarousel } from "./RecognitionCarousel";
 export function RecognitionSection() {
   return (
     <Section id="recognition" labelledBy="recognition-heading">
-      <Eyebrow>{sectionCopy.eyebrow}</Eyebrow>
-      <h2 id="recognition-heading" className="mt-5 text-h2 text-ink">
+      <h2 id="recognition-heading" className="text-h2 text-ink">
         {sectionCopy.title}
       </h2>
       <p className="mt-6 max-w-2xl text-lede text-ink-muted">{sectionCopy.body}</p>

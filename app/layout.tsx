@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { site } from "@/content/site";
@@ -47,16 +48,13 @@ const organizationJsonLd = {
   url: site.url,
   email: site.email,
   description: site.description,
-  logo: `${site.url}/brand/logo-with-name.svg`,
+  logo: `${site.url}/brand/pop-logo.png`,
   sameAs: [site.linkedin],
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${poppins.variable} h-full antialiased`}
-    >
+    <html lang="en" className={`${poppins.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col">
         {children}
         <script

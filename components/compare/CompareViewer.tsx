@@ -14,9 +14,9 @@ import { cn } from "@/lib/utils";
  */
 
 const PAGES = [
-  { label: "Home", v1: "/", v2: "/v2" },
-  { label: "About", v1: "/about", v2: "/v2/about" },
-  { label: "Contact", v1: "/contact", v2: "/v2/contact" },
+  { label: "Home", v1: "/v1", v2: "/" },
+  { label: "About", v1: "/v1/about", v2: "/about" },
+  { label: "Contact", v1: "/v1/contact", v2: "/contact" },
 ] as const;
 
 const WIDTHS = [
@@ -193,7 +193,7 @@ export function CompareViewer() {
             <Pane
               key={side}
               side={side}
-              title={side === "v1" ? "Current design" : "Concept — v2"}
+              title={side === "v1" ? "Previous design" : "Live site"}
               href={side === "v1" ? current.v1 : current.v2}
               frameW={frameW}
               frameH={frameH}

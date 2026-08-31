@@ -17,7 +17,7 @@ export default function AboutPage() {
       <StorySection />
       <RecognitionSection />
       <TeamSection />
-      <ContactCta />
+      <ContactCta basePath="/v1" />
     </>
   );
 }

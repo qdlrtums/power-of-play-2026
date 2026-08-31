@@ -6,20 +6,24 @@ import { SkipLink } from "./SkipLink";
 /**
  * The v1 page chrome — skip link, header, main landmark, footer.
  *
- * It lives in a component rather than straight in the layout because
- * `app/not-found.tsx` sits above the `(v1)` route group (it has to, so that it
- * also catches URLs that match no group at all) and still needs the same
- * frame.
+ * `basePath` prefixes internal nav so the archived design can live at `/v1`
+ * without leaking into the live site.
  */
-export function SiteShell({ children }: { children: ReactNode }) {
+export function SiteShell({
+  children,
+  basePath = "",
+}: {
+  children: ReactNode;
+  basePath?: string;
+}) {
   return (
     <>
       <SkipLink />
-      <SiteHeader />
+      <SiteHeader basePath={basePath} />
       <main id="main" className="flex-1">
         {children}
       </main>
-      <SiteFooter />
+      <SiteFooter basePath={basePath} />
     </>
   );
 }

@@ -11,6 +11,17 @@ const nextConfig: NextConfig = {
         source: "/design-system",
         headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
       },
+      {
+        source: "/v1/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
+    ];
+  },
+  async redirects() {
+    return [
+      { source: "/v2", destination: "/", permanent: false },
+      { source: "/v2/:path*", destination: "/:path*", permanent: false },
+      { source: "/design-system", destination: "/v1/design-system", permanent: false },
     ];
   },
 };

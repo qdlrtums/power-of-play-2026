@@ -8,29 +8,36 @@ import { cn } from "@/lib/utils";
 import { nav, navCta } from "@/content/site";
 import { Logo } from "./Logo";
 
-function isActive(pathname: string, href: string) {
-  return href === "/" ? pathname === "/" : pathname.startsWith(href);
+function prefix(basePath: string, href: string) {
+  if (!basePath) return href;
+  return href === "/" ? basePath : `${basePath}${href}`;
 }
 
-export function SiteHeader() {
+function isActive(pathname: string, href: string, homeHref: string) {
+  return href === homeHref ? pathname === href : pathname.startsWith(href);
+}
+
+export function SiteHeader({ basePath = "" }: { basePath?: string }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const homeHref = prefix(basePath, "/");
 
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-surface">
       <div className="mx-auto flex h-[5.5rem] max-w-[90rem] items-center justify-between px-5 sm:px-8 lg:h-[7rem] lg:px-[clamp(2rem,7.5vw,7.5rem)]">
-        <Link href="/" className="shrink-0 rounded-[var(--radius-sm)]">
+        <Link href={homeHref} className="shrink-0 rounded-[var(--radius-sm)]">
           <Logo />
         </Link>
 
         {/* Desktop nav */}
         <nav aria-label="Main" className="hidden items-center gap-8 md:flex lg:gap-11">
           {nav.map((item) => {
-            const active = isActive(pathname, item.href);
+            const href = prefix(basePath, item.href);
+            const active = isActive(pathname, href, homeHref);
             return (
               <Link
                 key={item.href}
-                href={item.href}
+                href={href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
                   "font-display text-lg font-bold text-forest transition-colors lg:text-xl",
@@ -43,7 +50,7 @@ export function SiteHeader() {
             );
           })}
           <Link
-            href={navCta.href}
+            href={prefix(basePath, navCta.href)}
             className="rounded-[var(--radius-md)] bg-green-400 px-6 py-3 font-display text-lg font-bold text-forest shadow-card transition-[transform,box-shadow] duration-200 ease-[var(--ease-brand)] hover:-translate-y-0.5 hover:shadow-lift lg:px-8 lg:py-3.5 lg:text-xl"
           >
             {navCta.label}
@@ -74,9 +81,9 @@ export function SiteHeader() {
           {nav.map((item) => (
             <li key={item.href}>
               <Link
-                href={item.href}
+                href={prefix(basePath, item.href)}
                 onClick={() => setOpen(false)}
-                aria-current={isActive(pathname, item.href) ? "page" : undefined}
+                aria-current={isActive(pathname, prefix(basePath, item.href), homeHref) ? "page" : undefined}
                 className="block rounded-[var(--radius-sm)] py-3 font-display text-xl font-bold text-forest"
               >
                 {item.label}
@@ -85,7 +92,7 @@ export function SiteHeader() {
           ))}
           <li className="pt-2">
             <Link
-              href={navCta.href}
+              href={prefix(basePath, navCta.href)}
               onClick={() => setOpen(false)}
               className="block rounded-[var(--radius-md)] bg-green-400 px-6 py-3.5 text-center font-display text-xl font-bold text-forest"
             >

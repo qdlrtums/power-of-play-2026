@@ -1,7 +1,7 @@
 import { JetBrains_Mono } from "next/font/google";
 
 /**
- * Label face for the v2 design (`/v2`) and the comparison viewer's toolbar:
+ * Label face for the live design and the comparison viewer's toolbar:
  * eyebrows, step numbers, the small clinical captions. Two weights, no
  * italics — it never sets a paragraph, so the rest of the family would be
  * dead weight.

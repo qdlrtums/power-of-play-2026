@@ -27,6 +27,13 @@ export const logos: Logo[] = [
     height: 801,
   },
   {
+    id: "hamilton-health",
+    name: "Hamilton Health Sciences",
+    src: "/logos/hamilton-health.webp",
+    width: 3648,
+    height: 1280,
+  },
+  {
     id: "theforge",
     name: "The Forge",
     src: "/logos/theforge.png",
