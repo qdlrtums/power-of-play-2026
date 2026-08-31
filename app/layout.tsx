@@ -26,11 +26,11 @@ const inter = Inter({
 });
 
 /** Absolute OG/Twitter URLs must be hosted where this app actually runs.
+ *  Netlify sets `DEPLOY_PRIME_URL` on branch and preview deploys and `URL` on
+ *  production; locally neither exists, so fall back to the brand domain.
  *  Canonical `og:url` still uses `site.url` (the brand domain). */
 const metadataBase = new URL(
-  process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : site.url,
+  process.env.DEPLOY_PRIME_URL ?? process.env.URL ?? site.url,
 );
 
 export const metadata: Metadata = {

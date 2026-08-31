@@ -2,16 +2,16 @@
 
 Marketing site for [Power of Play Inc.](https://powerofplayinc.com) — a pediatric rehabilitation company taking a play-based approach to therapy and assessment for young children.
 
-Three public pages: **Home**, **About Us**, **Contact**. Built with Next.js (App Router) and Tailwind CSS, deployed on Vercel.
+Three public pages: **Home**, **About Us**, **Contact**. Built with Next.js (App Router) and Tailwind CSS, deployed on Netlify.
 
 | | URL |
 | --- | --- |
-| **New site (this repo)** | https://powerofplayinc.vercel.app |
+| **New site (this repo)** | https://powerofplayinc.netlify.app |
 | **Brand domain (still the old Squarespace site)** | https://powerofplayinc.com |
 | **Contact** | [info@powerofplayinc.com](mailto:info@powerofplayinc.com) |
 | **LinkedIn** | [power-of-play-pop](https://www.linkedin.com/company/power-of-play-pop/) |
 
-Until DNS is pointed at Vercel, treat `powerofplayinc.vercel.app` as the live preview. `powerofplayinc.com` is still Squarespace.
+Until DNS is pointed at Netlify, treat `powerofplayinc.netlify.app` as the live preview. `powerofplayinc.com` is still Squarespace.
 
 ---
 
@@ -31,7 +31,7 @@ Open [http://localhost:3000](http://localhost:3000).
 | `npm run start` | Serve the production build |
 | `npm run lint` | ESLint |
 
-Node 20+ is enough locally. Vercel builds on Node 24.
+Node 20+ is enough locally. Netlify builds on Node 22, pinned in `netlify.toml`.
 
 ---
 
@@ -41,30 +41,48 @@ Do these in order before calling the site launched. The first three are infrastr
 
 ### 1. Point `powerofplayinc.com` at this site
 
-The brand domain still serves the old Squarespace site. The Next.js app is already production on Vercel — it just is not the thing people hit when they type the domain.
+The brand domain still serves the old Squarespace site. The Next.js app is already production on Netlify — it just is not the thing people hit when they type the domain.
 
-1. In the Vercel project: **Settings → Domains → Add** `powerofplayinc.com`. Accept the prompt to also add `www.powerofplayinc.com`.
-2. At the DNS host (currently Squarespace), replace the **web** records only. Typical values (confirm against the Vercel domain card — they can differ per project):
+The client keeps DNS where it is; only two web records change. The zone is served by GoDaddy (`ns55`/`ns56.domaincontrol.com`), so every record below is edited in the **GoDaddy DNS dashboard**. The apex currently points at Squarespace (`76.223.105.230`, `13.248.243.5`) and `www` is a `CNAME` back to the apex.
+
+1. In the Netlify site: **Domain management → Add a domain** → `powerofplayinc.com`. Accept the prompt to also add `www.powerofplayinc.com`.
+2. At the DNS host, add the **web** records only:
 
    | Type | Host | Value |
    | --- | --- | --- |
-   | **A** | `@` | `76.76.21.21` |
-   | **CNAME** | `www` | `cname.vercel-dns.com` |
+   | **A** | `@` | `75.2.60.5` |
+   | **CNAME** | `www` | `powerofplayinc.netlify.app` |
 
-3. **Do not touch MX, SPF, DKIM, or other mail records.** `info@powerofplayinc.com` must keep working.
+   The apex uses an `A` record because GoDaddy's DNS has no `ALIAS`/`ANAME`/flattened-`CNAME` type. If the zone ends up somewhere that does support one, prefer `ALIAS @ → apex-loadbalancer.netlify.com`.
+3. **Do not touch any mail record.** `info@powerofplayinc.com` runs on Microsoft 365 resold through GoDaddy, and the zone carries at least these:
+
+   | Type | Host | Purpose |
+   | --- | --- | --- |
+   | **MX** | `@` | `powerofplayinc-com.mail.protection.outlook.com` |
+   | **TXT** | `@` | `v=spf1 include:secureserver.net -all` (SPF) |
+   | **TXT** | `@` | `NETORG19232798.onmicrosoft.com` (M365 domain verification) |
+   | **TXT** | `_dmarc` | `v=DMARC1; p=reject; …` |
+   | **CNAME** | `autodiscover` | `autodiscover.outlook.com` |
+   | **SRV** | `_sipfederationtls._tcp` | `sipfed.online.lync.com` |
+
+   DMARC is at `p=reject`, so a broken SPF record does not degrade delivery — it hard-bounces their mail. This is the main reason the site is on Netlify rather than Cloudflare; see step 2 below.
 4. Remove leftover Squarespace A/CNAME records that still point the apex or `www` at Squarespace, or verification will fail.
-5. Wait for DNS (often minutes, sometimes a few hours). Vercel issues SSL once the records verify.
+5. Wait for DNS (often minutes, sometimes a few hours). Netlify issues Let's Encrypt SSL once the records verify.
 
 After this, `https://powerofplayinc.com` is the site. Open Graph / LinkedIn share cards will then load from the brand domain as well.
 
-### 2. Put the project on a Vercel Pro team
+### 2. Move the Netlify site onto the client's own team
 
-This is a commercial client site. Vercel Hobby is for personal, non-commercial use and can be taken down. Pro is **$20/month** — same ballpark as Squarespace, and it keeps the current Next.js setup, custom domain, and `next/image`.
+Hosting itself costs nothing: **Netlify's free plan permits commercial use**, so a client site is within terms as-is. The one prohibition is reselling the hosting — charging for the design and build is fine, charging the client a hosting fee is not.
 
-- Ask the client to pay for a **new** Pro team named for Power of Play (or Agrolax), then transfer the Vercel project onto that team.
-- **Do not put this project on the Rellia Health Pro team.** Different client, different billing.
+This is why the site is not on Vercel or Cloudflare:
 
-Hobby bandwidth would be plenty for a three-page marketing site. Pro is the license, not extra horsepower.
+- **Vercel Hobby is personal, non-commercial only** and can be taken down; Pro is $20/month. That is what this migration was for.
+- **Cloudflare** is free and allows commercial use, but a custom apex domain must be a zone *on Cloudflare*, which means re-pointing the client's nameservers and reproducing their whole zone. That zone is a GoDaddy-resold Microsoft 365 setup with SPF, DMARC at `p=reject`, autodiscover and SIP records, some of which GoDaddy manages on the client's behalf. Not worth risking their email on a three-page brochure site. (Cloudflare does *not* require the domain to be registered with them — only that it be served by their nameservers. The registrar can stay GoDaddy.)
+
+Still worth doing: create the Netlify team in the **client's** name (or transfer this site onto theirs) so the deployment outlives the engagement and they are never locked out of their own site.
+
+Free-plan limits are ~100 GB bandwidth and 300 build minutes a month. A three-page marketing site will not approach either.
 
 ### 3. Connect the forms (Google Forms) — done
 
@@ -91,9 +109,15 @@ The “1 in 16 / 63 million kids” figures in `content/home.ts` came from the F
 
 Copy lives in TypeScript modules under `content/`, not in the components. Edit those files and the pages update. They are shaped like a future Sanity `siteSettings` document so a CMS swap later does not rewrite the UI.
 
-### 5. Turn off the leftover GitHub Pages workflow
+### 5. Turn off GitHub Pages — workflow deleted, site still live
 
-`.github/workflows/deploy-pages.yml` is from the old static prototype. It uploads the repo root as a static site and will not build Next.js. Disable or delete it so a push to `main` cannot clobber anything. Production deploys are Vercel only (Git integration on `main`).
+`.github/workflows/deploy-pages.yml` was from the old static prototype. It uploaded the repo root as a static site (source and all) rather than building Next.js, and it ran successfully on every push to `main`. **The workflow is deleted, but the published Pages site is not** — it has to be removed through GitHub:
+
+```bash
+gh api -X DELETE repos/Agrolax/power-of-play-2026/pages
+```
+
+Until that runs, `https://agrolax.github.io/power-of-play-2026/` still serves the last upload. Production deploys are Netlify only (Git integration on `main`).
 
 ### 6. After the domain is live
 
@@ -182,7 +206,7 @@ The checkbox question is sent by repeating its `entry.` key once per ticked opti
    ```
 
 3. Submit once and confirm from the Formspree email — it requires this before the form stays open.
-4. **Settings → Restrict to Domain**, add `powerofplayinc.com` once the custom domain is live. Add `powerofplayinc.vercel.app` too if preview deploys should still submit.
+4. **Settings → Restrict to Domain**, add `powerofplayinc.com` once the custom domain is live. Add `powerofplayinc.netlify.app` too if deploy previews should still submit.
 
 One endpoint serves both forms; `_subject` (`Website enquiry — …` vs `Newsletter signup — …`) tells them apart in the inbox.
 
@@ -250,7 +274,7 @@ Google Forms has no plan to outgrow. Formspree's free tier is 50 submissions a m
 
 Set `draft: false` and drop the `PLACEHOLDER —` prefix when a string is client-approved.
 
-Brand facts that affect SEO (canonical URL, org JSON-LD, Open Graph `og:url`) all read `site.url` in `content/site.ts`. That stays `https://powerofplayinc.com` even while DNS still points at Squarespace. Share-card *images* use the host that actually serves this app (`VERCEL_PROJECT_PRODUCTION_URL` on Vercel), so LinkedIn does not 404 the OG image against the old Squarespace site.
+Brand facts that affect SEO (canonical URL, org JSON-LD, Open Graph `og:url`) all read `site.url` in `content/site.ts`. That stays `https://powerofplayinc.com` even while DNS still points at Squarespace. Share-card *images* use the host that actually serves this app (`DEPLOY_PRIME_URL`, falling back to `URL`, on Netlify), so LinkedIn does not 404 the OG image against the old Squarespace site.
 
 Team photos live in `public/team/`. Partner logos live in `public/logos/`. Brand artwork is in `public/brand/`: `logo-with-name.svg` (mark over the full name, used in the header) and `pop-wordmark.svg` (the "pop" mark on its own).
 
@@ -269,14 +293,16 @@ public/              logos, team photos, brand SVGs
 _prototype/          archived static bake-off (not deployed)
 ```
 
-`_prototype/` is excluded from Vercel via `.vercelignore`. It is the old HTML/CSS design exploration (Playroom, Playwell, Field Notebook, …). Do not ship it.
+`_prototype/` never reaches the deployed site: Netlify publishes the `next build` output, and `_prototype/` is not under `public/`. It is the old HTML/CSS design exploration (Playroom, Playwell, Field Notebook, …). Do not ship it.
 
 ---
 
 ## Deploy
 
-Pushes to `main` on GitHub deploy production on Vercel. Other branches get preview URLs.
+Pushes to `main` on GitHub deploy production on Netlify. Other branches get deploy previews.
 
-Project: [powerofplayinc.vercel.app](https://powerofplayinc.vercel.app)
+Project: [powerofplayinc.netlify.app](https://powerofplayinc.netlify.app)
 
-`vercel.json` only sets `X-Robots-Tag: noindex, nofollow` on `/design-system`. There are no cron jobs, rewrites, or env vars required for the site to run.
+`netlify.toml` sets only the build command, publish directory, and Node version — Netlify detects the Next.js runtime from the `next` dependency, so no plugin needs to be declared. There are no env vars required for the site to run.
+
+`X-Robots-Tag: noindex, nofollow` on `/design-system` now lives in `next.config.ts` under `headers()` rather than in a host config file, so the rule survives a future change of host.
