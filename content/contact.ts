@@ -22,23 +22,20 @@ export const googleForm: {
   contact: GoogleTarget | null;
   newsletter: GoogleTarget | null;
 } = {
-  contact: null,
-  // contact: {
-  //   formId: "1FAIpQLSc_________________________",
-  //   fields: {
-  //     name: "entry.111111111",
-  //     email: "entry.222222222",
-  //     organization: "entry.333333333",
-  //     reasons: "entry.444444444",
-  //     message: "entry.555555555",
-  //   },
-  // },
-
-  newsletter: null,
-  // newsletter: {
-  //   formId: "1FAIpQLSd_________________________",
-  //   fields: { email: "entry.666666666" },
-  // },
+  contact: {
+    formId: "1FAIpQLSc31v6GDHsENdJC84fMf0IqO_QEJoZVW-NdlGXjPzmXLd6a6Q",
+    fields: {
+      name: "entry.1664706469",
+      email: "entry.1598646360",
+      organization: "entry.1403934931",
+      reasons: "entry.712465632",
+      message: "entry.1969222792",
+    },
+  },
+  newsletter: {
+    formId: "1FAIpQLSfpnp94X1J_7mYqcUvGFj_GnsKzBmMN_vIfRot-iqzvcIzO_w",
+    fields: { email: "entry.1331146083" },
+  },
 };
 
 /** Formspree. One endpoint serves both forms; `_subject` tells them apart. */
