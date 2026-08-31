@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    Power of Play — v2 ("clinical editorial") theme
    Loaded by globals.css, but nothing here applies until an ancestor carries
-   `.theme-v2` (see app/v2/layout.tsx). v1 pays only for the token
+   `.theme-v2` (see app/(site)/layout.tsx). v1 pays only for the token
    declarations, which are inert without that class.
 
    The brand anchors are unchanged — the same lime #8cda5a and forest #205929
@@ -224,6 +224,135 @@
     outline: 3px solid var(--color-focus);
     outline-offset: 4px;
   }
+
+  /* Polaroid frame. Paper chip + warm shadow, so photographs sit as objects
+     rather than as cropped rectangles. Rotation is applied per-instance. */
+  .v2-polaroid {
+    background-color: var(--color-paper);
+    padding: 0.4rem 0.4rem 1.35rem;
+    border-radius: 2px;
+    box-shadow:
+      0 1px 2px oklch(17.50% 0.0300 152 / 0.08),
+      0 18px 44px -16px oklch(17.50% 0.0300 152 / 0.32);
+  }
+
+  /* Photograph under overlapping type. The wash is a paper gradient so dark
+     headlines stay readable where they sit on the image. */
+  .v2-overlap-photo {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-photo);
+    box-shadow:
+      0 1px 2px oklch(17.50% 0.0300 152 / 0.08),
+      0 28px 56px -24px oklch(17.50% 0.0300 152 / 0.3);
+  }
+  .v2-overlap-photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .v2-overlap-photo--hero::after {
+    background: linear-gradient(180deg, transparent 48%, var(--color-paper) 94%);
+  }
+  @media (min-width: 640px) {
+    .v2-overlap-photo--hero::after {
+      background: linear-gradient(90deg, transparent 38%, var(--color-paper) 96%);
+    }
+  }
+  .v2-overlap-photo--west::after {
+    background: linear-gradient(270deg, transparent 42%, var(--color-paper) 96%);
+  }
+
+  /* Problem band ornaments. Lime wash and a ring, no photography. */
+  .v2-problem-field {
+    isolation: isolate;
+    overflow: hidden;
+  }
+  .v2-problem-field::before {
+    content: "";
+    position: absolute;
+    width: 55vmax;
+    height: 55vmax;
+    top: -22%;
+    right: -16%;
+    z-index: 0;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      oklch(81.09% 0.1797 135 / 0.16) 0%,
+      transparent 64%
+    );
+    pointer-events: none;
+  }
+  .v2-problem-field::after {
+    content: "";
+    position: absolute;
+    width: min(28rem, 80vw);
+    height: min(28rem, 80vw);
+    bottom: -7rem;
+    left: -5rem;
+    z-index: 0;
+    border-radius: 50%;
+    border: 1px solid oklch(81.09% 0.1797 135 / 0.28);
+    pointer-events: none;
+  }
+  .v2-problem-chip {
+    position: absolute;
+    top: 18%;
+    left: 42%;
+    z-index: 0;
+    width: 9rem;
+    height: 9rem;
+    border-radius: var(--radius-block);
+    background: oklch(81.09% 0.1797 135 / 0.08);
+    transform: rotate(18deg);
+    pointer-events: none;
+  }
+  @media (min-width: 768px) {
+    .v2-problem-chip {
+      left: 56%;
+      width: 12rem;
+      height: 12rem;
+    }
+  }
+
+  /* Award boxes in the carousel and the About rail. */
+  .v2-award-card {
+    padding: 1.1rem;
+    background-color: var(--color-paper);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-block);
+  }
+  .theme-v2 .bg-paper-2 .v2-award-card {
+    background-color: var(--color-paper);
+  }
+
+  .v2-carousel {
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    overscroll-behavior-x: contain;
+  }
+  .v2-carousel::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Vertical award loop. Same seam trick as the logo ticker. */
+  .v2-award-track {
+    animation: v2-award-scroll 38s linear infinite;
+  }
+  .v2-award-rail:hover .v2-award-track,
+  .v2-award-rail:focus-within .v2-award-track {
+    animation-play-state: paused;
+  }
+  @keyframes v2-award-scroll {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-50%); }
+  }
+  .v2-award-rail {
+    mask-image: linear-gradient(180deg, transparent, #000 8%, #000 92%, transparent);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -255,5 +384,17 @@
   }
   .theme-v2 .v2-ticker {
     mask-image: none;
+  }
+
+  .theme-v2 .v2-award-track {
+    animation: none;
+  }
+  .theme-v2 .v2-award-track [data-award-clone] {
+    display: none;
+  }
+  .theme-v2 .v2-award-rail {
+    height: auto;
+    mask-image: none;
+    overflow: visible;
   }
 }

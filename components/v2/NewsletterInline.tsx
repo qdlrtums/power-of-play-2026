@@ -73,7 +73,7 @@ export function NewsletterInline() {
         className="max-w-xs text-sm leading-snug text-ink-warm-3 sm:text-right"
       >
         {status === "ok" && "You're on the list. We'll write when there's news."}
-        {status === "mailto" && "Opening your email app — send that message and you're on the list."}
+        {status === "mailto" && "Opening your email app. Send that message and you're on the list."}
         {status === "error" && (
           <>
             Something went wrong. Email us at{" "}
@@ -83,7 +83,7 @@ export function NewsletterInline() {
             .
           </>
         )}
-        {(status === "idle" || status === "sending") && newsletter.body}
+        {(status === "idle" || status === "sending") && newsletter.body ? newsletter.body : null}
       </p>
     </div>
   );

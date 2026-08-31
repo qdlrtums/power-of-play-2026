@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   title: "About Us",
   description:
     "The team behind Power of Play, and the competitions, programmes and press that have recognised the work.",
-  robots: { index: false, follow: false },
 };
 
 export default function V2AboutPage() {

@@ -13,7 +13,7 @@ export const hero = {
 
 export const newsletter = {
   title: "Stay updated",
-  body: "Occasional notes on our progress. No spam.",
+  body: "",
   placeholder: "Enter your email",
   /** On the collapsed button, before the field is revealed. */
   openLabel: "Get notified when we launch",
@@ -31,7 +31,7 @@ export const newsletter = {
  * no citation. Supply the source, or we soften the claim before launch.
  */
 export const problem = {
-  eyebrow: "The problem",
+  eyebrow: "What's at stake",
   title: "Fine motor difficulties affect 1 in 16 children's quality of life",
   stat: "That's 63 million kids globally",
   points: [
@@ -55,15 +55,23 @@ export const problem = {
  * TODO(client): confirm or rewrite. This is deliberately method-level.
  */
 export const approach = {
-  eyebrow: "Our approach",
   title: "Assessment that a child experiences as play",
-  body: "PLACEHOLDER — two or three sentences on the play-based method: how a session is structured, what is captured, and why children engage with it. No device detail.",
+  body: "A play-based session, built so children engage rather than perform. Sensitive enough for low muscle tone, and structured so therapists can compare one visit to the next.",
   steps: [
-    { title: "PLACEHOLDER — step one", body: "PLACEHOLDER — one sentence." },
-    { title: "PLACEHOLDER — step two", body: "PLACEHOLDER — one sentence." },
-    { title: "PLACEHOLDER — step three", body: "PLACEHOLDER — one sentence." },
+    {
+      title: "Play first",
+      body: "The session is structured as play, so children give real effort instead of freezing in front of a test.",
+    },
+    {
+      title: "Catch the small changes",
+      body: "Calibrated for low muscle tone, so progress that adult tools miss actually registers.",
+    },
+    {
+      title: "Track a course of care",
+      body: "Objective records clinicians can compare session to session, rather than informal checks.",
+    },
   ],
-  draft: true,
+  draft: false,
 } as const;
 
 export const whoWeAre = {
@@ -76,6 +84,6 @@ export const whoWeAre = {
 
 export const contactCta = {
   title: "Working in pediatric rehab?",
-  body: "We'd like to hear from you — whether that's a clinical partnership, a pilot, or just a conversation.",
+  body: "We'd like to hear from you, whether that's a clinical partnership, a pilot, or just a conversation.",
   cta: { label: "Get in touch", href: "/contact" },
 } as const;

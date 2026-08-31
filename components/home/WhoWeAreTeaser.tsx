@@ -2,23 +2,23 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { whoWeAre } from "@/content/home";
-import { team } from "@/content/team";
-import { Section, Eyebrow } from "@/components/shared/Section";
+import { founders } from "@/content/team";
+import { Section } from "@/components/shared/Section";
 
-export function WhoWeAreTeaser() {
+export function WhoWeAreTeaser({ basePath = "" }: { basePath?: string }) {
+  const href = basePath ? `${basePath}${whoWeAre.cta.href}` : whoWeAre.cta.href;
   return (
     <Section labelledBy="who-heading" className="bg-ground-soft">
       <div className="grid items-center gap-12 md:grid-cols-2">
         <div>
-          <Eyebrow>{whoWeAre.eyebrow}</Eyebrow>
-          <h2 id="who-heading" className="mt-5 text-h2 text-ink">
+          <h2 id="who-heading" className="text-h2 text-ink">
             {whoWeAre.title}
           </h2>
           <p className="mt-6 text-lede text-ink-muted">
             {whoWeAre.body}
           </p>
           <Link
-            href={whoWeAre.cta.href}
+            href={href}
             className="mt-8 inline-flex items-center gap-2 rounded-[var(--radius-md)] bg-forest px-7 py-4 font-display text-lg font-bold text-ink-invert transition-[transform,box-shadow] duration-200 ease-[var(--ease-brand)] hover:-translate-y-0.5 hover:shadow-lift"
           >
             {whoWeAre.cta.label}
@@ -27,7 +27,7 @@ export function WhoWeAreTeaser() {
         </div>
 
         <ul className="flex flex-wrap gap-6">
-          {team.map((member) => (
+          {founders.map((member) => (
             <li key={member.slug} className="text-center">
               {member.photo && (
                 <Image

@@ -1,12 +1,11 @@
 import { approach } from "@/content/home";
-import { Section, Eyebrow } from "@/components/shared/Section";
+import { Section } from "@/components/shared/Section";
 
 export function ApproachSection() {
   return (
     <Section labelledBy="approach-heading">
       <div className="max-w-3xl">
-        <Eyebrow>{approach.eyebrow}</Eyebrow>
-        <h2 id="approach-heading" className="mt-5 text-h2 text-ink">
+        <h2 id="approach-heading" className="text-h2 text-ink">
           {approach.title}
         </h2>
         <p className="mt-6 text-lede text-ink-muted">{approach.body}</p>

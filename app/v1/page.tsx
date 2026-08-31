@@ -12,8 +12,8 @@ export default function HomePage() {
       <RecognitionStrip />
       <ProblemSection />
       <ApproachSection />
-      <WhoWeAreTeaser />
-      <ContactCta />
+      <WhoWeAreTeaser basePath="/v1" />
+      <ContactCta basePath="/v1" />
     </>
   );
 }

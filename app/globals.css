@@ -88,8 +88,8 @@
     0 8px 24px -8px oklch(81.09% 0.1797 135 / 0.65);
 
   /* -- type -------------------------------------------------------------- */
-  --font-display: var(--font-bricolage), "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-sans:    var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: var(--font-poppins), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-sans:    var(--font-poppins), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
   /* Fluid display scale, 375px -> 1440px. The hero headline is --text-hero:
      it must never let "assessment" wrap mid-word. */
