@@ -35,6 +35,82 @@ Node 20+ is enough locally. Netlify builds on Node 22, pinned in `netlify.toml`.
 
 ---
 
+## Design concept: v2, and previewing both designs
+
+Branch `modern-redesign` carries a second, more modern design of the same three
+pages. Nothing is replaced — both designs are mounted at once, so the client can
+see them next to each other before anyone commits to one.
+
+```bash
+npm run dev
+```
+
+| | |
+| --- | --- |
+| **`/compare`** | **Both designs side by side.** Start here. |
+| `/` `/about` `/contact` | The current design, exactly as it was |
+| `/v2` `/v2/about` `/v2/contact` | The concept |
+
+`/compare` puts the two in iframes driven by one toolbar: switch page, switch
+rendered width (390 / 768 / 1280 / 1440, or *Fit* to let each frame be
+responsive at its own column width), and scroll them together. Scroll sync is
+proportional rather than pixel-for-pixel, because the two designs are different
+heights. Below 1024px it stacks the frames instead.
+
+### What actually differs
+
+Same three pages, same copy — every `PLACEHOLDER` in `content/` is still a
+placeholder in v2, and neither design invents a fact the other does not have.
+The brand anchors are also unchanged: the same lime `#8cda5a` and forest
+`#205929` from the Figma. What differs is the system around them.
+
+| | Current | v2 |
+| --- | --- | --- |
+| Ground | White | Warm paper, so lime reads as ink rather than as decoration |
+| Structure | Colour-block sections, 20px radii, squircles | Hairline rules, 2–8px edges; pills kept for accents only |
+| Problem section | Three equal cards | Numbered table on a near-black band |
+| Approach | Three equal cards | Sticky heading with the steps running past it |
+| Recognition | Four-at-a-time crossfade | Seamless marquee, pausable on hover and focus |
+| Small type | Display face | JetBrains Mono labels — the main "clinical" signal |
+| Lime | Nav CTA, hero pill, stat, closing button | Held back for accents and one full-bleed closing band |
+| Newsletter | Button that opens to reveal a field | Field shown, one underlined rule |
+
+### How it is wired
+
+`app/layout.tsx` is now only `<html>`/`<body>` plus fonts and JSON-LD. The
+current site moved into the `app/(v1)/` route group — a *group*, so the URLs are
+unchanged — and it brings its own header and footer via
+`components/site/SiteShell.tsx`. `app/v2/` has its own shell.
+
+`app/theme-v2.css` re-points the shared colour, radius and type tokens under a
+`.theme-v2` class. Anything inside that subtree written against the v1 token
+vocabulary (`bg-surface`, `text-ink`, `border-line`) comes out in the v2 palette
+without being forked — which is why `ContactForm` serves both designs from one
+component with a `variant` prop, and the two can never drift apart on
+validation, payload or error handling.
+
+`/v2` and `/compare` are `noindex` and disallowed in `robots.txt`: they serve the
+same copy as the live pages, and three URLs per page is an SEO problem. They are
+still reachable by URL on the deploy — that is the point — they just do not
+compete with the real pages in search.
+
+**The current design is untouched.** Not "should be": the prerendered HTML for
+`/`, `/about`, `/contact`, `/design-system` and the 404 was diffed between
+`origin/main` and this branch and is identical on all five, once React's Suspense
+boundary markers are ignored. Two things were needed to keep it that way — the
+v2 label font is declared in `lib/fonts.ts` and imported by the `/v2` and
+`/compare` layouts rather than the root layout, so the live pages still preload
+two font files and not three; and `ContactForm`'s `v1` skin holds the original
+class strings verbatim, including the missing `cursor-pointer` on its submit
+button. That is a real improvement v2 has and v1 does not, and it belongs in its
+own commit against the live design rather than arriving inside a redesign.
+
+**To ship v2:** move `app/v2/*` up into `app/(v1)/` (renaming the group), delete
+the old components, `app/theme-v2.css`, `app/compare/`, `components/compare/`,
+and the preview entries in `app/robots.ts`. **To drop it:** delete the branch.
+
+---
+
 ## Next steps
 
 Do these in order before calling the site launched. The first three are infrastructure; the rest is copy the client still owes.
@@ -255,8 +331,10 @@ Google Forms has no plan to outgrow. Formspree's free tier is 50 submissions a m
 | `/about` | Story, team, recognition, contact CTA |
 | `/contact` | Form + mailto / LinkedIn aside |
 | `/design-system` | Internal brand reference. Unlisted, `noindex`, omitted from the sitemap |
+| `/v2`, `/v2/about`, `/v2/contact` | The v2 design concept. `noindex`, omitted from the sitemap |
+| `/compare` | Side-by-side viewer for the two designs. `noindex`, omitted from the sitemap |
 
-`app/robots.ts` allows `/` and disallows `/design-system`. `app/sitemap.ts` lists Home, About, Contact against `site.url`.
+`app/robots.ts` allows `/` and disallows `/design-system`, `/v2` and `/compare`. `app/sitemap.ts` lists Home, About, Contact against `site.url`.
 
 ---
 
@@ -271,6 +349,7 @@ Google Forms has no plan to outgrow. Formspree's free tier is 50 submissions a m
 | `content/media.ts` | Awards, programmes, press |
 | `content/logos.ts` | Partner / programme artwork |
 | `content/contact.ts` | Where the forms send, contact reasons, contact page copy |
+| `content/v2.ts` | v2-only route helpers and labels. Restates existing facts; adds none |
 
 Set `draft: false` and drop the `PLACEHOLDER —` prefix when a string is client-approved.
 
@@ -286,9 +365,15 @@ The browser-tab icon is `app/icon.svg` — the wordmark centred on a forest tile
 
 ```
 app/                 routes, metadata, favicon, OG image, sitemap, robots
-components/          UI — home, about, contact, site chrome
+  layout.tsx         <html>/<body>, fonts, JSON-LD — no page chrome
+  (v1)/              the current design at /, /about, /contact
+  v2/                the design concept at /v2/*
+  compare/           side-by-side viewer
+  globals.css        design tokens (v1)
+  theme-v2.css       token overrides scoped to .theme-v2
+components/          UI — home, about, contact, site chrome, v2, compare
 content/             all copy and site facts (edit here)
-lib/                 cn() helper, form delivery
+lib/                 cn() helper, form delivery, the v2 label font
 public/              logos, team photos, brand SVGs
 _prototype/          archived static bake-off (not deployed)
 ```

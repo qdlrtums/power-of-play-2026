@@ -9,11 +9,45 @@ import { cn } from "@/lib/utils";
 type Status = "idle" | "sending" | Outcome;
 type Errors = Partial<Record<"name" | "email" | "reasons", string>>;
 
-const fieldBase =
-  "w-full rounded-[var(--radius-md)] border-2 border-line bg-surface px-4 py-3 text-ink outline-none transition-colors placeholder:text-ink-faint focus:border-green-600";
+/**
+ * The two designs disagree about what a form field looks like — v1 boxes it,
+ * v2 rules it underneath — but not about what the form *does*. Only the class
+ * strings are swapped; validation, the honeypot, the payload and the three
+ * honest outcomes are shared, so the designs cannot drift apart on behaviour.
+ */
+const skins = {
+  v1: {
+    field:
+      "w-full rounded-[var(--radius-md)] border-2 border-line bg-surface px-4 py-3 text-ink outline-none transition-colors placeholder:text-ink-faint focus:border-green-600",
+    fieldError: "border-danger",
+    legend: "font-display font-bold text-ink",
+    choice:
+      "flex cursor-pointer items-center gap-3 rounded-[var(--radius-md)] border-2 border-line bg-surface px-4 py-3 transition-colors hover:border-green-400 has-checked:border-green-600 has-checked:bg-green-50",
+    // Verbatim from before the split. The v1 skin exists to leave the current
+    // design byte-for-byte as it was while the two are being compared, so the
+    // `cursor-pointer` / `disabled:cursor-default` pair that v2 carries is
+    // deliberately NOT backported here — that is a change to the live site and
+    // belongs in its own commit, not smuggled in under a redesign.
+    submit:
+      "rounded-[var(--radius-md)] bg-green-400 px-8 py-4 font-display text-lg font-bold text-forest transition-[transform,box-shadow] duration-200 ease-[var(--ease-brand)] hover:-translate-y-0.5 hover:shadow-lift disabled:opacity-60",
+  },
+  v2: {
+    field: "v2-field w-full px-0 py-2.5 text-lg text-ink outline-none placeholder:text-ink-faint",
+    fieldError: "border-danger",
+    legend: "v2-label text-ink-faint",
+    choice:
+      "flex cursor-pointer items-center gap-3 rounded-[var(--radius-pill)] border border-line px-4 py-2.5 transition-colors hover:border-green-500 has-checked:border-green-600 has-checked:bg-green-400/15",
+    submit:
+      "cursor-pointer rounded-[var(--radius-pill)] bg-obsidian px-8 py-4 font-display text-lg font-bold text-paper transition-colors duration-200 hover:bg-green-400 hover:text-obsidian disabled:cursor-default disabled:opacity-60",
+  },
+} as const;
 
-export function ContactForm() {
+export function ContactForm({ variant = "v1" }: { variant?: keyof typeof skins }) {
   const uid = useId();
+  const skin = skins[variant];
+  const fieldBase = skin.field;
+  const labelClass =
+    variant === "v2" ? "block v2-label text-ink-faint" : "block font-display font-bold text-ink";
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<Errors>({});
 
@@ -76,7 +110,7 @@ export function ContactForm() {
   return (
     <form onSubmit={onSubmit} noValidate className="space-y-7">
       <div>
-        <label htmlFor={`${uid}-name`} className="block font-display font-bold text-ink">
+        <label htmlFor={`${uid}-name`} className={labelClass}>
           Name <span aria-hidden="true">*</span>
           <span className="sr-only">(required)</span>
         </label>
@@ -86,7 +120,7 @@ export function ContactForm() {
           autoComplete="name"
           aria-invalid={errors.name ? "true" : undefined}
           aria-describedby={errors.name ? `${uid}-name-err` : undefined}
-          className={cn(fieldBase, "mt-2", errors.name && "border-danger")}
+          className={cn(fieldBase, "mt-2", errors.name && skin.fieldError)}
         />
         {errors.name && (
           <p id={`${uid}-name-err`} className="mt-2 text-sm font-semibold text-danger">
@@ -96,7 +130,7 @@ export function ContactForm() {
       </div>
 
       <div>
-        <label htmlFor={`${uid}-email`} className="block font-display font-bold text-ink">
+        <label htmlFor={`${uid}-email`} className={labelClass}>
           Email <span aria-hidden="true">*</span>
           <span className="sr-only">(required)</span>
         </label>
@@ -107,7 +141,7 @@ export function ContactForm() {
           autoComplete="email"
           aria-invalid={errors.email ? "true" : undefined}
           aria-describedby={errors.email ? `${uid}-email-err` : undefined}
-          className={cn(fieldBase, "mt-2", errors.email && "border-danger")}
+          className={cn(fieldBase, "mt-2", errors.email && skin.fieldError)}
         />
         {errors.email && (
           <p id={`${uid}-email-err`} className="mt-2 text-sm font-semibold text-danger">
@@ -117,7 +151,7 @@ export function ContactForm() {
       </div>
 
       <div>
-        <label htmlFor={`${uid}-org`} className="block font-display font-bold text-ink">
+        <label htmlFor={`${uid}-org`} className={labelClass}>
           Organization or clinic
         </label>
         <input
@@ -132,7 +166,7 @@ export function ContactForm() {
         aria-describedby={errors.reasons ? `${uid}-reasons-err` : undefined}
         aria-invalid={errors.reasons ? "true" : undefined}
       >
-        <legend className="font-display font-bold text-ink">
+        <legend className={skin.legend}>
           I&apos;m reaching out because… <span aria-hidden="true">*</span>
           <span className="sr-only">(choose at least one)</span>
         </legend>
@@ -140,7 +174,7 @@ export function ContactForm() {
           {reasons.map((reason) => (
             <label
               key={reason}
-              className="flex cursor-pointer items-center gap-3 rounded-[var(--radius-md)] border-2 border-line bg-surface px-4 py-3 transition-colors hover:border-green-400 has-checked:border-green-600 has-checked:bg-green-50"
+              className={skin.choice}
             >
               <input
                 type="checkbox"
@@ -160,7 +194,7 @@ export function ContactForm() {
       </fieldset>
 
       <div>
-        <label htmlFor={`${uid}-message`} className="block font-display font-bold text-ink">
+        <label htmlFor={`${uid}-message`} className={labelClass}>
           Message
         </label>
         <textarea id={`${uid}-message`} name="message" rows={6} className={cn(fieldBase, "mt-2 resize-y")} />
@@ -176,7 +210,7 @@ export function ContactForm() {
         <button
           type="submit"
           disabled={status === "sending"}
-          className="rounded-[var(--radius-md)] bg-green-400 px-8 py-4 font-display text-lg font-bold text-forest transition-[transform,box-shadow] duration-200 ease-[var(--ease-brand)] hover:-translate-y-0.5 hover:shadow-lift disabled:opacity-60"
+          className={skin.submit}
         >
           {status === "sending" ? "Sending…" : "Send message"}
         </button>
