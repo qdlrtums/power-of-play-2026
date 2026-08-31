@@ -25,8 +25,16 @@ const inter = Inter({
   display: "swap",
 });
 
+/** Absolute OG/Twitter URLs must be hosted where this app actually runs.
+ *  Canonical `og:url` still uses `site.url` (the brand domain). */
+const metadataBase = new URL(
+  process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : site.url,
+);
+
 export const metadata: Metadata = {
-  metadataBase: new URL(site.url),
+  metadataBase,
   title: {
     default: `${site.name} — ${site.tagline}`,
     template: `%s — ${site.name}`,
