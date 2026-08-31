@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { groups, logoById, recognition, sectionCopy } from "@/content/media";
 import { Section, Eyebrow } from "@/components/shared/Section";
+import { RecognitionCarousel } from "./RecognitionCarousel";
 
 /**
  * Awards & competitions, programmes & partners, and media features — the
@@ -14,6 +15,8 @@ export function RecognitionSection() {
         {sectionCopy.title}
       </h2>
       <p className="mt-6 max-w-2xl text-lede text-ink-muted">{sectionCopy.body}</p>
+
+      <RecognitionCarousel />
 
       <div className="mt-14 space-y-14">
         {groups.map((group) => {

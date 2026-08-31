@@ -25,7 +25,6 @@ export const v2NavCta = { ...navCta, href: v2Href(navCta.href) };
  */
 export const heroFacts = [
   { label: "Focus", value: "Pediatric rehabilitation" },
-  { label: "Ages", value: "0–7" },
   { label: "Method", value: "Play-based assessment" },
 ] as const;
 

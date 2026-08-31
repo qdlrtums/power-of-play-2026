@@ -88,8 +88,8 @@
     0 8px 24px -8px oklch(81.09% 0.1797 135 / 0.65);
 
   /* -- type -------------------------------------------------------------- */
-  --font-display: var(--font-bricolage), "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-sans:    var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: var(--font-poppins), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-sans:    var(--font-poppins), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
   /* Fluid display scale, 375px -> 1440px. The hero headline is --text-hero:
      it must never let "assessment" wrap mid-word. */
@@ -256,6 +256,21 @@
   [data-reveal="in"] {
     animation: pop-reveal 550ms var(--ease-brand) both;
   }
+
+  /* Recognition carousel. Two identical lists move as one, so the second is
+     in the first list's exact starting position when the animation loops. */
+  .recognition-carousel__track {
+    animation: recognition-scroll 38s linear infinite;
+  }
+  .recognition-carousel:hover .recognition-carousel__track,
+  .recognition-carousel:focus-within .recognition-carousel__track {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes recognition-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
 /* ---------------------------------------------------------------------------
@@ -278,5 +293,23 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .recognition-carousel {
+    mask-image: none;
+  }
+  .recognition-carousel__track {
+    animation: none;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .recognition-carousel__track > ul {
+    flex: 1 1 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .recognition-carousel__track [data-recognition-clone] {
+    display: none;
   }
 }

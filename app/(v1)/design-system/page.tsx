@@ -129,11 +129,11 @@ export default function DesignSystemPage() {
         </ul>
         <div className="mt-10 grid gap-6 sm:grid-cols-2">
           <div>
-            <p className="font-mono text-xs text-ink-muted">font-display — Bricolage Grotesque</p>
+            <p className="font-mono text-xs text-ink-muted">font-display — Poppins</p>
             <p className="mt-1 font-display text-h3 font-bold text-ink">Headlines, nav, buttons, the pill</p>
           </div>
           <div>
-            <p className="font-mono text-xs text-ink-muted">font-sans — Inter</p>
+            <p className="font-mono text-xs text-ink-muted">font-sans — Poppins</p>
             <p className="mt-1 text-lede text-ink">Body copy, form fields, anything read at length</p>
           </div>
         </div>

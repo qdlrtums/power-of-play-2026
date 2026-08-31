@@ -15,8 +15,8 @@ export default function AboutPage() {
   return (
     <>
       <StorySection />
-      <TeamSection />
       <RecognitionSection />
+      <TeamSection />
       <ContactCta />
     </>
   );

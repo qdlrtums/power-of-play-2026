@@ -38,4 +38,20 @@ export const team: Member[] = [
     bio: "PLACEHOLDER — two or three sentences on Rooaa's background and what she leads at Power of Play. Replace before launch.",
     draft: true,
   },
+  {
+    slug: "megan-kane",
+    name: "Megan Kane",
+    role: "Role / title",
+    photo: { src: "/team/megan-headshot.jpeg", width: 896, height: 1088 },
+    bio: "PLACEHOLDER — add Megan's role, background, and what she contributes at Power of Play.",
+    draft: true,
+  },
+  {
+    slug: "tara-packham",
+    name: "Tara Packham, PhD",
+    role: "Role / title",
+    photo: { src: "/team/tara_packham_photo.jpg", width: 1200, height: 1800 },
+    bio: "PLACEHOLDER — add Tara's role, background, and what she contributes at Power of Play.",
+    draft: true,
+  },
 ];

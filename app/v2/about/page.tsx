@@ -15,8 +15,8 @@ export default function V2AboutPage() {
   return (
     <>
       <StoryV2 />
-      <TeamV2 />
       <RecognitionV2 />
+      <TeamV2 />
       <ClosingCta />
     </>
   );

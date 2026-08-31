@@ -1,24 +1,12 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import { site } from "@/content/site";
 import "./globals.css";
 
-/**
- * Display face. Only the axes actually used are requested (`wght` is implicit
- * for a variable font); `opsz` and `wdth` are what give the headline and the
- * hero pill their character.
- */
-const bricolage = Bricolage_Grotesque({
+const poppins = Poppins({
   subsets: ["latin"],
-  variable: "--font-bricolage",
-  axes: ["opsz", "wdth"],
-  display: "swap",
-});
-
-/** Body face — paragraphs, form fields, anything read at length. */
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-poppins",
   display: "swap",
 });
 
@@ -67,7 +55,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${bricolage.variable} ${inter.variable} h-full antialiased`}
+      className={`${poppins.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         {children}
