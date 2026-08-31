@@ -100,13 +100,13 @@ export function NewsletterCard() {
         </button>
       </form>
 
-      <p id="newsletter-status" role="status" className="mt-4 text-center text-sm text-ink-muted">
-        {status === "ok" && "Thanks — you're on the list."}
-        {status === "mailto" && "Opening your email app — send that message and you're on the list."}
+      <p id="newsletter-status" role="status" className="mt-4 text-center text-sm text-ink-invert-dim">
+        {status === "ok" && "You're on the list. We'll write when there's news."}
+        {status === "mailto" && "Couldn't reach the list from here. Email us and we'll add you."}
         {status === "error" && (
           <>
             Something went wrong. Email us at{" "}
-            <a className="underline" href={`mailto:${site.email}`}>
+            <a className="underline decoration-green-400/60 underline-offset-2" href={`mailto:${site.email}`}>
               {site.email}
             </a>
             .

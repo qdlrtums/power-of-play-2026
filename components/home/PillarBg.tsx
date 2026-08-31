@@ -1,7 +1,7 @@
 /**
  * Decorative brand graphic sitting behind the hero card — a run of rounded
  * columns of alternating height, in brand greens and cream, framing the
- * newsletter card that overlaps the hero's bottom edge. Abstract by design:
+ * newsletter card that sits inside the hero. Abstract by design:
  * it carries the playful register without depicting anything.
  */
 const pillars = [
