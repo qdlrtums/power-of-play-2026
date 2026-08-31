@@ -66,11 +66,11 @@ This is a commercial client site. Vercel Hobby is for personal, non-commercial u
 
 Hobby bandwidth would be plenty for a three-page marketing site. Pro is the license, not extra horsepower.
 
-### 3. Connect the forms (Google Forms)
+### 3. Connect the forms (Google Forms) — done
 
-The contact form and the home-page newsletter already validate and send. They are waiting for one form id. Until that id is set, submitting opens a pre-filled email to [info@powerofplayinc.com](mailto:info@powerofplayinc.com) — clunky, but the enquiry still lands in a real inbox.
+Both forms are wired to Google Forms and live. Enquiries land in **Power of Play — Website enquiries**, signups in **Power of Play — Newsletter signups**; the ids are in `content/contact.ts`. Nothing here is outstanding.
 
-**Google Forms is the recommendation.** See **[Forms](#forms)** below for why, and for the setup.
+Turn on **Responses → ⋮ → Get email notifications for new responses** in each form if the client wants an email per submission — otherwise the rows only accumulate in the Sheet. See **[Forms](#forms)** below for the setup and the trade-offs.
 
 ### 4. Replace placeholder copy
 
@@ -186,9 +186,9 @@ The checkbox question is sent by repeating its `entry.` key once per ticked opti
 
 One endpoint serves both forms; `_subject` (`Website enquiry — …` vs `Newsletter signup — …`) tells them apart in the inbox.
 
-### While nothing is configured
+### Fallback: if nothing is configured
 
-Submit still validates, then opens the visitor's mail client with the answers already written into a message to `info@powerofplayinc.com`. The status line says so plainly. It costs the visitor one extra click and it reaches a real inbox — no enquiry is dropped silently. This is the state the site ships in today.
+If both `googleForm` entries and `formspreeEndpoint` are ever set back to `null`, submit still validates, then opens the visitor's mail client with the answers already written into a message to `info@powerofplayinc.com`. The status line says so plainly, and the enquiry still reaches a real inbox rather than being dropped. **This is no longer the shipping state** — Google Forms is configured, so visitors never see it.
 
 ### What each form sends
 
@@ -211,9 +211,9 @@ Delivery itself lives in `lib/forms.ts` — one `sendForm()` that both component
 
 | State | Contact | Newsletter |
 | --- | --- | --- |
-| Sent | "Thanks — we'll be in touch." Form resets. | "Thanks — you're on the list." |
+| Sent | "Thanks — we'll be in touch." Form resets. | "You're on the list. We'll write when there's news." |
 | Network error | Ask them to email `info@powerofplayinc.com` | Same |
-| Nothing configured | "Opening your email app — hit send and the message reaches us." | "Opening your email app — send that message and you're on the list." |
+| Nothing configured *(not the current state)* | "Opening your email app — hit send and the message reaches us." | "Opening your email app — send that message and you're on the list." |
 
 There is no server route and no database. Submissions go browser → third party. The site never sees the payload after it leaves.
 
