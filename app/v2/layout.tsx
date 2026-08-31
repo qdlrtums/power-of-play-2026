@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { monoLabel } from "@/lib/fonts";
 import { SkipLink } from "@/components/site/SkipLink";
 import { V2Header } from "@/components/v2/V2Header";
 import { V2Footer } from "@/components/v2/V2Footer";
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function V2Layout({ children }: LayoutProps<"/v2">) {
   return (
-    <div className="theme-v2 flex flex-1 flex-col bg-paper">
+    <div className={`${monoLabel.variable} theme-v2 flex flex-1 flex-col bg-paper`}>
       <SkipLink href="#v2-main" />
       <V2Header />
       <main id="v2-main" className="flex-1">

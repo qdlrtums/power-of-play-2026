@@ -90,7 +90,20 @@ component with a `variant` prop, and the two can never drift apart on
 validation, payload or error handling.
 
 `/v2` and `/compare` are `noindex` and disallowed in `robots.txt`: they serve the
-same copy as the live pages, and three URLs per page is an SEO problem.
+same copy as the live pages, and three URLs per page is an SEO problem. They are
+still reachable by URL on the deploy — that is the point — they just do not
+compete with the real pages in search.
+
+**The current design is untouched.** Not "should be": the prerendered HTML for
+`/`, `/about`, `/contact`, `/design-system` and the 404 was diffed between
+`origin/main` and this branch and is identical on all five, once React's Suspense
+boundary markers are ignored. Two things were needed to keep it that way — the
+v2 label font is declared in `lib/fonts.ts` and imported by the `/v2` and
+`/compare` layouts rather than the root layout, so the live pages still preload
+two font files and not three; and `ContactForm`'s `v1` skin holds the original
+class strings verbatim, including the missing `cursor-pointer` on its submit
+button. That is a real improvement v2 has and v1 does not, and it belongs in its
+own commit against the live design rather than arriving inside a redesign.
 
 **To ship v2:** move `app/v2/*` up into `app/(v1)/` (renaming the group), delete
 the old components, `app/theme-v2.css`, `app/compare/`, `components/compare/`,
@@ -360,7 +373,7 @@ app/                 routes, metadata, favicon, OG image, sitemap, robots
   theme-v2.css       token overrides scoped to .theme-v2
 components/          UI — home, about, contact, site chrome, v2, compare
 content/             all copy and site facts (edit here)
-lib/                 cn() helper, form delivery
+lib/                 cn() helper, form delivery, the v2 label font
 public/              logos, team photos, brand SVGs
 _prototype/          archived static bake-off (not deployed)
 ```

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Inter, JetBrains_Mono } from "next/font/google";
+import { Bricolage_Grotesque, Inter } from "next/font/google";
 import { site } from "@/content/site";
 import "./globals.css";
 
@@ -19,18 +19,6 @@ const bricolage = Bricolage_Grotesque({
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
-  display: "swap",
-});
-
-/**
- * Label face, used only by the v2 design (`/v2`): eyebrows, step numbers,
- * the small clinical captions. Two weights, no italics — it never sets a
- * paragraph, so the rest of the family would be dead weight.
- */
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-mono-label",
   display: "swap",
 });
 
@@ -79,7 +67,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${bricolage.variable} ${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${bricolage.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         {children}

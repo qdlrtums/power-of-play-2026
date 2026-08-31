@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { monoLabel } from "@/lib/fonts";
 
 export const metadata: Metadata = {
   title: "Compare designs",
@@ -13,7 +14,7 @@ export default function CompareLayout({ children }: LayoutProps<"/compare">) {
   // `h-dvh` alone, no `flex-1`: as a flex item of the body it would grow past
   // its own height and push the second frame below the fold.
   return (
-    <div className="flex h-dvh shrink-0 flex-col overflow-hidden bg-obsidian">
+    <div className={`${monoLabel.variable} flex h-dvh shrink-0 flex-col overflow-hidden bg-obsidian`}>
       {children}
     </div>
   );

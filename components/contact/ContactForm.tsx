@@ -23,8 +23,13 @@ const skins = {
     legend: "font-display font-bold text-ink",
     choice:
       "flex cursor-pointer items-center gap-3 rounded-[var(--radius-md)] border-2 border-line bg-surface px-4 py-3 transition-colors hover:border-green-400 has-checked:border-green-600 has-checked:bg-green-50",
+    // Verbatim from before the split. The v1 skin exists to leave the current
+    // design byte-for-byte as it was while the two are being compared, so the
+    // `cursor-pointer` / `disabled:cursor-default` pair that v2 carries is
+    // deliberately NOT backported here — that is a change to the live site and
+    // belongs in its own commit, not smuggled in under a redesign.
     submit:
-      "cursor-pointer rounded-[var(--radius-md)] bg-green-400 px-8 py-4 font-display text-lg font-bold text-forest transition-[transform,box-shadow] duration-200 ease-[var(--ease-brand)] hover:-translate-y-0.5 hover:shadow-lift disabled:cursor-default disabled:opacity-60",
+      "rounded-[var(--radius-md)] bg-green-400 px-8 py-4 font-display text-lg font-bold text-forest transition-[transform,box-shadow] duration-200 ease-[var(--ease-brand)] hover:-translate-y-0.5 hover:shadow-lift disabled:opacity-60",
   },
   v2: {
     field: "v2-field w-full px-0 py-2.5 text-lg text-ink outline-none placeholder:text-ink-faint",
