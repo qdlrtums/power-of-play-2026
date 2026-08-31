@@ -9,8 +9,6 @@ export const hero = {
   },
   /** Real, client-supplied positioning line — not placeholder. */
   lede: site.tagline + ".",
-  primary: { label: "About Power of Play", href: "/about" },
-  secondary: { label: "Get in touch", href: "/contact" },
 } as const;
 
 export const newsletter = {
