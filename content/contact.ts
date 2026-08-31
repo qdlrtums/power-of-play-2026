@@ -1,12 +1,47 @@
+import type { GoogleTarget } from "@/lib/forms";
+
 /**
- * TODO(client): Formspree project endpoint, e.g. "https://formspree.io/f/xxxxxxxx".
- * Both the contact form and the home-page newsletter card post here; the
- * newsletter signup is tagged with a hidden `_subject` so the two are
- * distinguishable in the Formspree inbox.
+ * ── Where the two forms send ────────────────────────────────────────────────
  *
- * While this is null the forms still validate and give the visitor an honest
- * fallback (email us directly) rather than silently discarding the submission.
+ * Fill in ONE of the two blocks below. Google Forms is the recommendation:
+ * free with no submission cap, and the answers land in a Google Sheet the
+ * client owns. Formspree emails each submission instead, but its free tier
+ * stops at 50 a month. See README → Forms for how to get the ids.
+ *
+ * While BOTH are empty the forms still validate, then open a pre-filled email
+ * to info@ with the answers already in it. Slightly clunky, but the enquiry
+ * reaches a real inbox — nothing is ever dropped silently.
  */
+
+/**
+ * Google Forms. `formId` is the long id in the form's own URL:
+ *   https://docs.google.com/forms/d/e/<formId>/viewform
+ * Each `fields` value is the `entry.N` name of the matching question.
+ */
+export const googleForm: {
+  contact: GoogleTarget | null;
+  newsletter: GoogleTarget | null;
+} = {
+  contact: null,
+  // contact: {
+  //   formId: "1FAIpQLSc_________________________",
+  //   fields: {
+  //     name: "entry.111111111",
+  //     email: "entry.222222222",
+  //     organization: "entry.333333333",
+  //     reasons: "entry.444444444",
+  //     message: "entry.555555555",
+  //   },
+  // },
+
+  newsletter: null,
+  // newsletter: {
+  //   formId: "1FAIpQLSd_________________________",
+  //   fields: { email: "entry.666666666" },
+  // },
+};
+
+/** Formspree. One endpoint serves both forms; `_subject` tells them apart. */
 export const formspreeEndpoint: string | null = null;
 
 export const reasons = [

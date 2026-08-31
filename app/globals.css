@@ -67,6 +67,8 @@
   --radius-xl:   28px;
   --radius-2xl:  40px;
   --radius-pill: 999px;
+  /* Superelliptical corner — see `.squircle` below. */
+  --radius-squircle: 20px;
 
   /* -- soft shadows ------------------------------------------------------ */
   --shadow-card:
@@ -195,6 +197,23 @@
     }
     .hero-pill:hover .hero-pill__bg {
       box-shadow: var(--shadow-pill);
+    }
+  }
+
+  /* ---- Squircle ---------------------------------------------------------
+     A rectangle whose corners are a superellipse rather than a circular arc,
+     so the curve runs continuously into the straight edge instead of being
+     spliced onto it. `corner-shape` is not in every engine yet, so the plain
+     border-radius is the floor everyone gets; where the property is supported
+     the radius is opened up, because a squircle corner reads tighter than a
+     round one at the same value. */
+  .squircle {
+    border-radius: var(--radius-squircle);
+  }
+  @supports (corner-shape: squircle) {
+    .squircle {
+      corner-shape: squircle;
+      border-radius: calc(var(--radius-squircle) * 1.7);
     }
   }
 

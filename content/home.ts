@@ -9,18 +9,16 @@ export const hero = {
   },
   /** Real, client-supplied positioning line — not placeholder. */
   lede: site.tagline + ".",
-  primary: { label: "About Power of Play", href: "/about" },
-  secondary: { label: "Get in touch", href: "/contact" },
 } as const;
 
 export const newsletter = {
   title: "Stay updated",
   body: "Occasional notes on our progress. No spam.",
   placeholder: "Enter your email",
-  submitLabel: "Keep me posted",
-  /** Posts to the same Formspree project as the contact form, tagged as a
-   *  newsletter signup via a hidden field. */
-  tag: "newsletter",
+  /** On the collapsed button, before the field is revealed. */
+  openLabel: "Get notified when we launch",
+  /** On the shortened button, once the field is showing. */
+  submitLabel: "Notify me",
 } as const;
 
 /**
@@ -36,7 +34,6 @@ export const problem = {
   eyebrow: "The problem",
   title: "Fine motor difficulties affect 1 in 16 children's quality of life",
   stat: "That's 63 million kids globally",
-  statSourceNeeded: true,
   points: [
     {
       title: "Current tools are rigid and intimidating",
@@ -45,12 +42,10 @@ export const problem = {
     {
       title: "The smallest changes go unrecorded",
       body: "Assessment tools built for adults are not calibrated for low muscle tone, so real progress is invisible.",
-      draft: true,
     },
     {
       title: "Informal tests lack objective data",
       body: "Therapists fall back on improvised checks that cannot provide measurable tracking over a course of treatment.",
-      draft: true,
     },
   ],
 } as const;

@@ -1,6 +1,5 @@
 import { problem } from "@/content/home";
 import { Section, Eyebrow } from "@/components/shared/Section";
-import { DraftBadge } from "@/components/shared/DraftBadge";
 
 export function ProblemSection() {
   return (
@@ -13,7 +12,6 @@ export function ProblemSection() {
 
       <p className="mt-7 inline-block rounded-[var(--radius-pill)] bg-green-400 px-7 py-3 font-display text-h3 font-bold text-brand-ink">
         {problem.stat}
-        {problem.statSourceNeeded && <DraftBadge>Needs source</DraftBadge>}
       </p>
 
       <ul className="mt-14 grid gap-6 md:grid-cols-3">
@@ -22,10 +20,7 @@ export function ProblemSection() {
             key={point.title}
             className="rounded-[var(--radius-lg)] bg-forest p-8 text-ink-invert shadow-card"
           >
-            <h3 className="text-h3 text-green-300">
-              {point.title}
-              {"draft" in point && point.draft && <DraftBadge>Reworded</DraftBadge>}
-            </h3>
+            <h3 className="text-h3 text-green-300">{point.title}</h3>
             <p className="mt-4 text-ink-invert-dim">{point.body}</p>
           </li>
         ))}

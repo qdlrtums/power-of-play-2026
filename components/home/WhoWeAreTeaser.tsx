@@ -4,7 +4,6 @@ import { ArrowRight } from "lucide-react";
 import { whoWeAre } from "@/content/home";
 import { team } from "@/content/team";
 import { Section, Eyebrow } from "@/components/shared/Section";
-import { DraftBadge } from "@/components/shared/DraftBadge";
 
 export function WhoWeAreTeaser() {
   return (
@@ -17,7 +16,6 @@ export function WhoWeAreTeaser() {
           </h2>
           <p className="mt-6 text-lede text-ink-muted">
             {whoWeAre.body}
-            {whoWeAre.draft && <DraftBadge />}
           </p>
           <Link
             href={whoWeAre.cta.href}

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { hero } from "@/content/home";
 import { Reveal } from "@/components/shared/Reveal";
 import { HeroPill } from "./HeroPill";
@@ -28,23 +27,7 @@ export function Hero() {
           {hero.lede}
         </Reveal>
 
-        <Reveal delay={0.3} className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
-          <Link
-            href={hero.primary.href}
-            className="w-full rounded-[var(--radius-md)] bg-green-400 px-8 py-4 font-display text-lg font-bold text-forest transition-[transform,box-shadow] duration-200 ease-[var(--ease-brand)] hover:-translate-y-0.5 hover:shadow-lift sm:w-auto"
-          >
-            {hero.primary.label}
-          </Link>
-          <Link
-            href={hero.secondary.href}
-            className="w-full rounded-[var(--radius-md)] border-2 border-green-300/60 px-8 py-4 font-display text-lg font-bold text-ink-invert transition-colors duration-200 hover:border-green-300 hover:bg-green-300/10 sm:w-auto"
-          >
-            {hero.secondary.label}
-          </Link>
-        </Reveal>
-
-        {/* Spacer so the overlapping card below never sits on top of the CTAs. */}
-        <div aria-hidden="true" className="h-8 sm:h-10" />
+        <div aria-hidden="true" className="h-10 sm:h-12" />
       </div>
 
       {/* Overflows the hero card's bottom edge, overlapping into the next section. */}
