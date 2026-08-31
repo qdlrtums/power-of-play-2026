@@ -1,0 +1,1 @@
+:root { --green:#174a22; --mint:#fbfdf8; --lime:#4eaa5a; } .hero { background:radial-gradient(circle at 50% 45%,#fff 0 20%,transparent 60%),#fbfdf8; } .hero::before { box-shadow:75px 575px 0 5px #f9df8a, 1360px 49px 0 11px #bee1f4, 1260px 520px 0 30px #cde6c8; }

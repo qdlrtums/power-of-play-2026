@@ -134,8 +134,8 @@ a.card { text-decoration: none; color: inherit; }
   transform: rotate(var(--shape-hover-rotate, -8deg));
 }
 
-.shape--alt { background: var(--green-400); }
-.shape--accent { background: var(--accent-warm, var(--green-500)); }
+.shape--alt { background: var(--play-a, var(--green-400)); }
+.shape--accent { background: var(--play-b, var(--accent-warm, var(--green-500))); }
 
 /* ---- note card (a clinical record surface) ------------------------------- */
 
@@ -631,3 +631,32 @@ a.card { text-decoration: none; color: inherit; }
 .specimen__stage--block { flex-direction: column; align-items: stretch; }
 .specimen__stage--grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr)); }
 .specimen__stage--invert { background: var(--band); color: var(--band-ink); }
+
+/* ---- community partner marquee ----------------------------------------- */
+
+.partners { position: relative; min-height: 8.5rem; padding: 2.75rem 0 2.35rem; border-bottom: var(--border) solid var(--line); background: color-mix(in oklab, var(--surface) 76%, var(--ground)); overflow: hidden; }
+.partners::before { content: ""; position: absolute; z-index: 1; inset: 0 0 auto; height: 1.05rem; background: radial-gradient(1.25rem .72rem at 1.25rem 0, var(--primary) 98%, transparent 100%) 0 0 / 2.5rem 1.05rem repeat-x; pointer-events: none; }
+.partners__inner { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--sp-5); align-items: center; }
+.partners__label { margin: 0; white-space: nowrap; color: var(--ink-faint); }
+.partners__viewport { min-width: 0; padding-block: .85rem; margin-block: -.85rem; overflow: hidden; mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent); }
+.partners__track { display: flex; width: max-content; animation: partners-scroll 34s linear infinite; }
+.partners__group { display: flex; flex: none; align-items: center; gap: clamp(2rem, 4vw, 4.5rem); padding-right: clamp(2rem, 4vw, 4.5rem); }
+.partners__logo { display: inline-flex; flex: none; align-items: center; justify-content: center; min-width: 7rem; min-height: 3.5rem; color: var(--ink-muted); font-family: var(--font-body); font-size: 1.08rem; font-weight: 550; line-height: .92; letter-spacing: -.05em; white-space: nowrap; }
+.partners__logo--clinic { font-size: 1.3rem; font-weight: 350; letter-spacing: -.06em; }
+.partners__logo--innovation { color: var(--primary); font-size: 1rem; font-weight: 700; }
+.partners__logo--forge { color: oklch(28% .015 50); font-weight: 900; letter-spacing: .04em; }
+.partners__logo img { display: block; max-width: 11rem; max-height: 3.4rem; object-fit: contain; }
+.partners__logo--eo { min-width: 12rem; }
+.partners__logo--eo img { max-width: 12rem; }
+.partners__logo--innovation { min-width: 12rem; }
+.partners__logo--innovation img { max-width: 12rem; }
+.partners__logo--forge { min-width: 9rem; }
+.partners__logo--forge img { max-width: 9rem; }
+.partners__logo--hamilton-health { min-width: 11rem; }
+.partners__logo--hamilton-health img { max-width: 11rem; }
+.partners__logo--remarkable { min-width: 3.8rem; }
+.partners__logo--remarkable img { max-width: 3.25rem; max-height: 3.25rem; }
+@keyframes partners-scroll { to { transform: translateX(-50%); } }
+.partners:hover .partners__track { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) { .partners__viewport { overflow-x: auto; mask-image: none; } .partners__track { animation: none; } .partners__group[aria-hidden="true"] { display: none; } }
+@media (max-width: 40rem) { .partners__inner { grid-template-columns: 1fr; gap: var(--sp-3); } }

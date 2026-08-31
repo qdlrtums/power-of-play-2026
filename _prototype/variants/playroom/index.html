@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-variant="playroom">
+<html lang="en" data-variant="playroom" data-hero-motif="blocks" data-hero-text-style="underline">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,7 +13,9 @@
 <link rel="stylesheet" href="../../shared/css/layout.css">
 <link rel="stylesheet" href="../../shared/css/components.css">
 <link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="../../shared/css/palettes.css">
 <script src="../../shared/js/site.js"></script>
+<script src="../../shared/js/scratchpad.js"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -30,10 +32,12 @@
     </a>
     <nav class="nav" aria-label="Main">
       <a class="nav__link" href="index.html" aria-current="page">Home</a>
-      <a class="nav__link" href="about.html">About</a>
+      <a class="nav__link" href="about.html">About Us</a>
       <a class="nav__link" href="contact.html">Contact</a>
       <a class="nav__link" href="components.html">Components</a>
-      <span class="picker" data-picker></span>
+      <span class="picker" data-palette-picker></span>
+      <span class="picker" data-hero-motif-picker></span>
+      <span class="picker" data-hero-type-picker></span>
       <button class="theme-toggle" type="button" data-theme-toggle>
         <span data-theme-label>Light</span>
       </button>
@@ -44,107 +48,77 @@
 <main id="main">
 
   <section class="hero">
-    <div class="hero__blobs" aria-hidden="true"><span></span><span></span></div>
+    <div class="hero__motif" aria-hidden="true">
+      <span></span><span></span><span></span><span></span>
+      <div class="hero__image-carousel">
+        <img src="../../1778287104696.jpeg" alt="">
+        <img src="../../1778287106612.jpeg" alt="">
+        <img src="../../1778287109088.jpeg" alt="">
+        <img src="../../1778287109130.jpeg" alt="">
+        <img src="../../1778287109296.jpeg" alt="">
+        <img src="../../1778287110467.jpeg" alt="">
+        <img src="../../1778287139763.jpeg" alt="">
+      </div>
+    </div>
     <div class="wrap column">
-      <p class="eyebrow reveal">Pediatric rehabilitation · ages 0–7</p>
-      <h1 class="hero__title reveal">Therapy that looks like <em>play</em></h1>
-      <p class="lede reveal">
-        Taking a play-based approach to pediatric rehabilitation. Children work
-        toward real motor, language, and regulation goals through games they'd
-        choose anyway — and never touch a worksheet.
+      <p class="eyebrow reveal">Pediatric rehabilitation</p>
+      <h1 class="hero__title reveal" data-hero-title><span class="hero__power">Power</span> of <em>Play</em></h1>
+      <p class="lede reveal" data-hero-subheading>
+        Taking a play-based approach to pediatric rehabilitation.
       </p>
       <div class="row row--center reveal">
-        <a class="btn btn--primary" href="contact.html">Make a referral</a>
-        <a class="btn btn--secondary" href="about.html">How a block works</a>
+        <a class="btn btn--primary" href="about.html">About Us</a>
+        <a class="btn btn--secondary" href="contact.html">Get in Touch</a>
       </div>
+      <details class="hero__scratch reveal">
+        <summary>Try hero copy</summary>
+        <div class="hero__scratch-fields">
+          <label>Heading <input type="text" value="Power of Play" data-hero-title-editor></label>
+          <label>Subheading <input type="text" value="Taking a play-based approach to pediatric rehabilitation." data-hero-subheading-editor></label>
+        </div>
+      </details>
     </div>
   </section>
 
+  <div data-partner-marquee></div>
+
   <section class="band band--alt">
-    <div class="wrap">
-      <div class="record">
-        <div class="record__head">
-          <span class="record__title">Block 3 · visit 12 of 16</span>
-          <span class="pill pill--ok">On track</span>
-        </div>
-        <ul class="record__list">
-          <li class="meter">
-            <div class="meter__head"><span>Bilateral hand use</span><span class="meter__value">78%</span></div>
-            <div class="meter__track"><div class="meter__fill" style="width:78%"></div></div>
-          </li>
-          <li class="meter">
-            <div class="meter__head"><span>Two-word requests</span><span class="meter__value">54%</span></div>
-            <div class="meter__track"><div class="meter__fill" style="width:54%"></div></div>
-          </li>
-          <li class="meter">
-            <div class="meter__head"><span>Stairs, alternating feet</span><span class="meter__value">31%</span></div>
-            <div class="meter__track"><div class="meter__fill meter__fill--watch" style="width:31%"></div></div>
-          </li>
-        </ul>
-        <div class="callout">
-          <span class="callout__label">Therapist note</span>
-          <p>
-            Built a marble run standing at the low table for nine minutes —
-            longest sustained stance this block. Still avoids the stairs, so
-            that goal moves to the playground session next week.
-          </p>
-        </div>
+    <div class="wrap feature-split">
+      <div class="feature-split__content">
+        <p class="eyebrow">Lorem ipsum</p>
+        <h2>Lorem ipsum dolor sit amet</h2>
+        <p class="lede">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      </div>
+      <div class="feature-split__media play-canvas play-canvas--discover" role="img" aria-label="Lorem ipsum dolor sit amet">
+        <span class="play-canvas__kicker">Lorem ipsum</span>
+        <span class="play-piece play-piece--circle">Lorem</span>
+        <span class="play-piece play-piece--square">Ipsum</span>
+        <span class="play-piece play-piece--triangle">Dolor</span>
+        <span class="play-canvas__caption">Lorem ipsum dolor sit amet.</span>
+        <svg class="feature-split__curve" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0 5 C25 2.8 32 2.8 50 5 S75 7.2 100 5"></path>
+        </svg>
       </div>
     </div>
   </section>
 
   <section class="band band--invert">
-    <div class="wrap stack stack-6">
-      <div class="column">
-        <p class="eyebrow">A block</p>
-        <h2>Four stages, always in this order</h2>
-        <p class="lede">The goal never changes between them. The game changes constantly.</p>
+    <div class="wrap feature-split feature-split--media-start">
+      <div class="feature-split__content">
+        <p class="eyebrow">Lorem ipsum</p>
+        <h2>Consectetur adipiscing elit</h2>
+        <p class="lede">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
       </div>
-      <ol class="steps">
-        <li class="step">
-          <span class="step__num" aria-hidden="true"></span>
-          <h3>Play assessment</h3>
-          <p class="step__when">Visit 1 · 60 minutes</p>
-          <p class="small">The child plays and the therapist watches. We map what they can do, what they avoid, and what they love, before setting a single goal.</p>
-        </li>
-        <li class="step">
-          <span class="step__num" aria-hidden="true"></span>
-          <h3>Goals, written as play</h3>
-          <p class="step__when">Visit 2 · with caregivers</p>
-          <p class="small">Every clinical goal is restated as something the child would want to do anyway. "Tolerates prone position" becomes "defends the fort on their elbows".</p>
-        </li>
-        <li class="step">
-          <span class="step__num" aria-hidden="true"></span>
-          <h3>The block</h3>
-          <p class="step__when">Visits 3–15 · weekly</p>
-          <p class="small">Sessions built around whatever the child is currently obsessed with. Dinosaurs one month, diggers the next; the goal holds steady.</p>
-        </li>
-        <li class="step">
-          <span class="step__num" aria-hidden="true"></span>
-          <h3>Handover</h3>
-          <p class="step__when">Visit 16 · and after</p>
-          <p class="small">The adults who see the child daily leave knowing which games do the work, so progress doesn't stop when the block does.</p>
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <section class="band">
-    <div class="wrap grid">
-      <div class="stat">
-        <span class="stat__value">16</span>
-        <span class="stat__label">Visits in a typical therapy block</span>
-        <span class="stat__source">Across the 2024–26 caseload</span>
-      </div>
-      <div class="stat">
-        <span class="stat__value">82%</span>
-        <span class="stat__label">Of goals met or exceeded by the end of a block</span>
-        <span class="stat__source">n = 640 blocks</span>
-      </div>
-      <div class="stat">
-        <span class="stat__value">2.6×</span>
-        <span class="stat__label">Increase in sustained engagement, intake to discharge</span>
-        <span class="stat__source">Internal, 2026</span>
+      <div class="feature-split__media play-canvas play-canvas--build" role="img" aria-label="Lorem ipsum dolor sit amet">
+        <span class="play-canvas__kicker">Lorem ipsum</span>
+        <span class="play-path" aria-hidden="true"></span>
+        <span class="play-stop play-stop--one">Lorem</span>
+        <span class="play-stop play-stop--two">Ipsum</span>
+        <span class="play-stop play-stop--three">Dolor</span>
+        <span class="play-canvas__caption">Lorem ipsum dolor sit amet, consectetur.</span>
+        <svg class="feature-split__curve" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0 5 C25 2.8 32 2.8 50 5 S75 7.2 100 5"></path>
+        </svg>
       </div>
     </div>
   </section>
@@ -152,54 +126,44 @@
   <section class="band band--alt">
     <div class="wrap stack stack-6">
       <div class="column">
-        <p class="eyebrow">Who it's for</p>
-        <h2>Built for the people already in the room</h2>
+        <p class="eyebrow">Lorem ipsum</p>
+        <h2>Dolor sit amet</h2>
+        <p class="lede">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
       </div>
       <div class="grid grid--2">
         <div class="card card--interactive">
           <span class="shape" aria-hidden="true"></span>
-          <h3 class="card__title">Families</h3>
-          <p class="card__body">Therapy your child asks to come back to, and a home programme built out of games you're already playing on the kitchen floor.</p>
+          <h3 class="card__title">Lorem ipsum</h3>
+          <p class="card__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         </div>
         <div class="card card--interactive">
           <span class="shape shape--alt" aria-hidden="true"></span>
-          <h3 class="card__title">Referring pediatricians</h3>
-          <p class="card__body">Structured goals, measured progress, and a discharge summary that states plainly what changed, what didn't, and what to watch.</p>
+          <h3 class="card__title">Dolor sit amet</h3>
+          <p class="card__body">Sed do eiusmod tempor incididunt ut labore et dolore.</p>
         </div>
         <div class="card card--interactive">
           <span class="shape shape--accent" aria-hidden="true"></span>
-          <h3 class="card__title">Preschools and schools</h3>
-          <p class="card__body">Sessions that can run in the classroom instead of pulling a child out of it, and staff who leave able to keep the work going.</p>
+          <h3 class="card__title">Consectetur elit</h3>
+          <p class="card__body">Ut enim ad minim veniam, quis nostrud exercitation.</p>
         </div>
         <div class="card card--interactive">
           <span class="shape" aria-hidden="true"></span>
-          <h3 class="card__title">Researchers</h3>
-          <p class="card__body">De-identified block data in a documented schema, with the goal-scoring rubric versioned alongside it.</p>
+          <h3 class="card__title">Eiusmod tempor</h3>
+          <p class="card__body">Duis aute irure dolor in reprehenderit in voluptate.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="band">
-    <div class="wrap column">
-      <blockquote class="quote" style="align-items:center">
-        <p class="quote__text">The first time she asked when we were going back, I knew they'd got the method right.</p>
-        <footer class="quote__attr">Parent of a four-year-old · end of block two</footer>
-      </blockquote>
-    </div>
-  </section>
-
   <section class="band band--invert">
     <div class="wrap column">
-      <p class="eyebrow">Autumn block starts 14 Sept 2026 · 12 places</p>
-      <h2>Refer a child, or ask whether you should</h2>
+      <p class="eyebrow">Lorem ipsum</p>
+      <h2>Lorem ipsum dolor sit amet?</h2>
       <p class="lede">
-        Send us the referral question and we'll tell you honestly whether a
-        play-based block is the right call — including when it isn't.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
       </p>
       <div class="row row--center">
-        <a class="btn btn--primary" href="contact.html">Make a referral</a>
-        <a class="btn btn--secondary" href="about.html">Meet the team</a>
+        <a class="btn btn--primary" href="contact.html">Lorem ipsum</a>
       </div>
     </div>
   </section>
@@ -217,35 +181,35 @@
         </svg>
         Power of Play
       </a>
-      <p class="motto">Taking a play-based approach to pediatric rehabilitation.</p>
+      <p class="motto">Lorem ipsum dolor sit amet.</p>
     </div>
     <div class="stack stack-3">
       <h4>Site</h4>
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
+        <li><a href="about.html">About Us</a></li>
         <li><a href="contact.html">Contact</a></li>
         <li><a href="components.html">Components</a></li>
       </ul>
     </div>
     <div class="stack stack-3">
-      <h4>Practice</h4>
+      <h4>Focus</h4>
       <ul>
-        <li><a href="about.html#method">Goal areas</a></li>
-        <li><a href="about.html#evidence">Outcomes</a></li>
-        <li><a href="about.html#team">The team</a></li>
+        <li><a href="about.html#method">Lorem ipsum</a></li>
+        <li><a href="about.html#evidence">Dolor sit amet</a></li>
+        <li><a href="about.html#team">Consectetur elit</a></li>
       </ul>
     </div>
     <div class="stack stack-3">
       <h4>Contact</h4>
       <ul>
-        <li><a href="mailto:referrals@powerofplay.health">referrals@powerofplay.health</a></li>
-        <li><a href="contact.html">Make a referral</a></li>
+        <li><a href="mailto:info@powerofplayinc.com">info@powerofplayinc.com</a></li>
+        <li><a href="contact.html">Lorem ipsum</a></li>
       </ul>
     </div>
   </div>
   <div class="wrap" style="margin-top:var(--sp-6);">
-    <p class="small mono">Power of Play is a rehabilitation service. It does not provide diagnosis. © 2026</p>
+    <p class="small mono">Lorem ipsum dolor sit amet. © 2026</p>
   </div>
 </footer>
 </body>

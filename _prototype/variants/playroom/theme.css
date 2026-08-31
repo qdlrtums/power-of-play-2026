@@ -62,7 +62,7 @@
   --label-font: var(--font-display);
   --btn-font: var(--font-display);
   --measure: 62ch;
-  --wrap-width: 70rem;
+  --wrap-width: 76rem;
 
   /* ---- form: chunky, flat, no elevation ---------------------------------- */
   --radius-card: 24px;
@@ -76,8 +76,8 @@
   --link-thickness: 2px;
   --link-underline: var(--primary-soft);
 
-  --sp-8: 4.5rem;
-  --sp-9: 6.5rem;
+  --sp-8: 5.5rem;
+  --sp-9: 8rem;
 
   /* ---- component tuning -------------------------------------------------- */
   --btn-radius: var(--radius-pill);
@@ -195,7 +195,37 @@
    ========================================================================== */
 
 /* Hero: centred, with the emphasis word set in a tilted pill. */
-.hero { padding-block: var(--sp-9) var(--sp-8); text-align: center; position: relative; overflow: hidden; }
+.hero { padding-block: var(--sp-9) var(--sp-8); text-align: center; position: relative; overflow: hidden; isolation: isolate; }
+.hero .wrap { position: relative; z-index: 1; }
+
+/* A calm, abstract play-space sits behind the site. It is deliberately faint:
+   this is a calling card for clinicians and investors, not children's décor. */
+body { position: relative; isolation: isolate; }
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+body::before {
+  background-image:
+    radial-gradient(circle at 8% 12%, var(--play-background) 0 4.5rem, transparent 4.6rem),
+    radial-gradient(circle at 94% 30%, var(--play-background-alt) 0 6.5rem, transparent 6.6rem),
+    radial-gradient(circle at 20% 82%, var(--play-background-alt) 0 3.25rem, transparent 3.35rem),
+    radial-gradient(circle at 82% 78%, var(--play-background) 0 5rem, transparent 5.1rem);
+  opacity: 0.72;
+}
+
+body::after {
+  background-image: radial-gradient(var(--line-soft) 1px, transparent 1.2px);
+  background-size: 2rem 2rem;
+  opacity: 0.18;
+  mask-image: linear-gradient(to bottom, transparent, #000 14rem, #000 calc(100% - 14rem), transparent);
+}
 
 .hero__title {
   font-size: var(--step-6);
@@ -205,37 +235,498 @@
   margin-inline: auto;
 }
 
-.hero__title em {
-  font-style: normal;
-  display: inline-block;
-  padding: 0 0.28em;
-  border-radius: var(--radius-pill);
-  background: var(--primary);
-  color: var(--primary-ink);
-  transform: rotate(-1.6deg);
+.hero__power { position: relative; display: inline-block; }
+.hero__title em { font-style: normal; }
+
+:root[data-hero-text-style="underline"] .hero__power::after {
+  content: ""; position: absolute; left: -0.04em; right: -0.04em; bottom: 0.02em;
+  height: 0.16em; background: var(--play-b); border-radius: var(--radius-pill); z-index: -1;
+  transform: none; animation: underline-grow 680ms var(--ease) both;
+}
+:root[data-hero-text-style="underline"] .hero__title em { color: var(--primary); }
+:root[data-hero-text-style="pill"] .hero__title em { display: inline-block; padding: 0 0.28em; border-radius: var(--radius-pill); background: var(--primary); color: var(--primary-ink); transform: rotate(-1.6deg); }
+:root[data-hero-text-style="both"] .hero__power::after {
+  content: ""; position: absolute; left: -0.04em; right: -0.04em; bottom: 0.02em;
+  height: 0.16em; background: var(--play-b); border-radius: var(--radius-pill); z-index: -1;
+  transform: none; animation: underline-grow 680ms var(--ease) both;
+}
+:root[data-hero-text-style="both"] .hero__title em { display: inline-block; padding: 0 0.28em; border-radius: var(--radius-pill); background: var(--primary); color: var(--primary-ink); transform: rotate(-1.6deg); }
+:root[data-hero-text-style="plain"] .hero__title em { color: var(--primary); }
+
+.hero__scratch { width: min(100%, 42rem); margin: var(--sp-4) auto 0; text-align: left; color: var(--ink-muted); font-size: var(--step--1); }
+.hero__scratch summary { cursor: pointer; width: fit-content; margin-inline: auto; color: var(--primary); font-family: var(--font-display); font-weight: 650; }
+.hero__scratch-fields { display: grid; gap: var(--sp-3); margin-top: var(--sp-4); padding: var(--sp-4); background: var(--surface); border: var(--border) solid var(--line); border-radius: var(--radius-card); }
+.hero__scratch-fields label { display: grid; gap: var(--sp-1); font-family: var(--font-mono); font-size: var(--step--1); }
+.hero__scratch-fields input { width: 100%; padding: 0.6rem 0.75rem; border: var(--border) solid var(--line); border-radius: var(--radius-control); background: var(--ground); color: var(--ink); font: inherit; }
+
+/* Keep the palette control and its green presets wired up for development,
+   while leaving the public navigation free of the selector. */
+[data-palette-picker] { display: none; }
+
+/* Reusable editorial media split. The content always reads from the left;
+   only the media position changes from one section to the next. */
+.feature-split {
+  display: grid;
+  align-items: center;
+  gap: var(--sp-4);
+  width: min(100%, 68rem);
+  margin-inline: auto;
 }
 
-/* Oversized soft blobs behind the hero. Decorative. */
-.hero__blobs { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.feature-split__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-5);
+  text-align: left;
+}
 
-.hero__blobs span {
+.feature-split__content p { margin-inline: 0; }
+
+.feature-split__media {
+  position: relative;
+  width: min(100%, 25rem);
+  min-height: 20rem;
+  justify-self: start;
+  overflow: hidden;
+  border: var(--border) solid var(--line);
+  border-radius: calc(var(--radius-card) - 0.35rem);
+  background: var(--surface);
+}
+
+.feature-split__curve {
+  position: absolute;
+  right: calc(var(--border) * -1);
+  bottom: 0;
+  left: calc(var(--border) * -1);
+  width: calc(100% + (var(--border) * 2));
+  height: 1.1rem;
+  overflow: visible;
+}
+
+.feature-split__curve path {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
+.band--invert .feature-split__media { border-color: var(--band-line); background: transparent; }
+.band--invert .feature-split__curve path { stroke: var(--band-line); }
+
+/* The homepage illustrations make the system feel tangible without pretending
+   to be a patient record or a literal children's toy. They use the same
+   geometry as the wordmark, but are composed as a calm, tactile play board. */
+.play-canvas { padding: var(--sp-4); isolation: isolate; }
+.play-canvas::before {
+  position: absolute;
+  z-index: -1;
+  inset: 1rem;
+  content: "";
+  border: 1px dashed var(--line-soft);
+  border-radius: calc(var(--radius-card) - 0.75rem);
+}
+.play-canvas__kicker {
+  position: absolute;
+  top: var(--sp-3);
+  left: var(--sp-3);
+  padding: 0.32rem 0.6rem;
+  border-radius: var(--radius-pill);
+  background: var(--surface-sunk);
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+  font-size: 0.69rem;
+  letter-spacing: 0.01em;
+}
+.play-canvas__caption {
+  position: absolute;
+  right: var(--sp-3);
+  bottom: var(--sp-4);
+  left: var(--sp-3);
+  color: var(--ink-muted);
+  font-family: var(--font-body);
+  font-size: var(--step--1);
+  line-height: 1.35;
+}
+.play-piece,
+.play-stop {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  border: var(--border) solid var(--line);
+  color: var(--green-950);
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+  font-weight: 700;
+  line-height: 1;
+  transition: transform 320ms var(--ease);
+}
+.play-piece--circle {
+  top: 4.8rem;
+  left: 13%;
+  width: 7rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--play-a);
+  transform: rotate(-10deg);
+}
+.play-piece--square {
+  top: 5.7rem;
+  right: 14%;
+  width: 6.7rem;
+  aspect-ratio: 1;
+  border-radius: 1.35rem;
+  background: var(--play-b);
+  transform: rotate(10deg);
+}
+.play-piece--triangle {
+  bottom: 4.4rem;
+  left: 38%;
+  width: 7.4rem;
+  height: 6.25rem;
+  padding-top: 1.1rem;
+  border-radius: 45% 45% 1.2rem 1.2rem;
+  background: var(--play-c);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+.play-canvas:hover .play-piece--circle { transform: translate(-0.25rem, -0.45rem) rotate(-16deg); }
+.play-canvas:hover .play-piece--square { transform: translate(0.3rem, -0.3rem) rotate(16deg); }
+.play-canvas:hover .play-piece--triangle { transform: translateY(0.35rem) rotate(-4deg); }
+
+.play-path {
+  position: absolute;
+  top: 8.7rem;
+  right: 16%;
+  left: 16%;
+  height: 5.6rem;
+  border: var(--border) solid var(--band-line);
+  border-right: 0;
+  border-bottom: 0;
+  border-radius: 4rem 0 0 0;
+  transform: rotate(-7deg);
+}
+.play-stop {
+  width: 5.75rem;
+  min-height: 5.75rem;
+  padding: 0.65rem;
+  text-align: center;
+}
+.play-stop--one { top: 5.1rem; left: 12%; border-radius: 50%; background: var(--play-a); }
+.play-stop--two { top: 9.5rem; left: calc(50% - 2.875rem); border-radius: 1.35rem; background: var(--play-b); transform: rotate(-8deg); }
+.play-stop--three { top: 5.1rem; right: 12%; border-radius: 52% 48% 46% 54%; background: var(--play-c); }
+.play-canvas:hover .play-stop--one { transform: translateY(-0.35rem); }
+.play-canvas:hover .play-stop--two { transform: translateY(0.25rem) rotate(3deg); }
+.play-canvas:hover .play-stop--three { transform: translateY(-0.35rem) rotate(-7deg); }
+.band--invert .play-canvas::before { border-color: var(--band-line); }
+.band--invert .play-canvas__kicker { background: var(--band-line); color: var(--band); }
+.band--invert .play-canvas__caption { color: var(--band-ink-dim); }
+.band--invert .play-piece,
+.band--invert .play-stop { border-color: var(--band-line); color: var(--green-950); }
+
+/* Let the pale green rooms overflow their edges a little. The offset rows of
+   soft circles turn the usual hard band break into a loose, hand-cut wave. */
+.band--alt {
+  position: relative;
+  z-index: 0;
+  isolation: isolate;
+}
+
+.band--alt::before,
+.band--alt::after {
+  position: absolute;
+  z-index: -1;
+  right: 0;
+  left: 0;
+  height: clamp(1.5rem, 3vw, 2.75rem);
+  content: "";
+  pointer-events: none;
+  background-color: var(--ground-alt);
+  background-repeat: repeat-x;
+}
+
+.band--alt::before {
+  bottom: 100%;
+  background-image: radial-gradient(
+    ellipse 2.35rem 1.45rem at 2.35rem 100%,
+    var(--ground-alt) 98%,
+    transparent 100%
+  );
+  background-size: 4.7rem 100%;
+}
+
+.band--alt::after {
+  top: 100%;
+  background-image: radial-gradient(
+    ellipse 2rem 1.6rem at 2rem 0,
+    var(--ground-alt) 98%,
+    transparent 100%
+  );
+  background-size: 4rem 100%;
+}
+
+/* A small shift prevents every seam from looking mechanically identical. */
+.band--alt:nth-of-type(even)::before { background-position-x: 1.25rem; }
+.band--alt:nth-of-type(even)::after { background-position-x: -0.9rem; }
+
+/* The partner strip is the first part of the Problem section, rather than a
+   separate white interruption. Its only visible edge is the soft green wave
+   that lifts into the hero above. */
+.partners {
+  position: relative;
+  z-index: 0;
+  overflow: visible;
+  isolation: isolate;
+  border: 0;
+  background: var(--ground-alt);
+}
+
+.partners::before {
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  bottom: 100%;
+  left: 0;
+  height: clamp(1.5rem, 3vw, 2.75rem);
+  content: "";
+  pointer-events: none;
+  background-color: var(--ground-alt);
+  background-image: radial-gradient(
+    ellipse 2.35rem 1.45rem at 2.35rem 100%,
+    var(--ground-alt) 98%,
+    transparent 100%
+  );
+  background-repeat: repeat-x;
+  background-size: 4.7rem 100%;
+  background-position-x: 0.65rem;
+}
+
+/* Let the partner names quietly belong to the green field at rest. Their
+   original marks come forward as soon as someone pauses to explore them. */
+.partners__viewport {
+  filter: grayscale(1) sepia(0.8) hue-rotate(78deg) saturate(0.7) brightness(0.62);
+  transition: filter 280ms var(--ease);
+}
+
+.partners:hover .partners__viewport,
+.partners:focus-within .partners__viewport { filter: none; }
+
+@media (max-width: 38rem) {
+  .band--alt::before,
+  .band--alt::after,
+  .partners::before { height: 1.35rem; }
+}
+
+/* Team-page A/B treatments. The selected treatment is stored by site.js so a
+   reviewer can compare it across visits. All layouts collapse cleanly on a
+   smaller viewport. */
+.team-grid {
+  display: grid;
+  gap: var(--sp-4);
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.team-card__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  margin-top: auto;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+}
+
+.team-card__visual,
+.team-card__details { display: contents; }
+
+.team-card__portrait {
+  display: block;
+  inline-size: min(100%, 17rem);
+  block-size: 17rem;
+  border-radius: calc(var(--radius-card) - var(--border));
+  object-fit: cover;
+}
+
+.team-card__visual--one .team-card__portrait { object-position: center 20%; }
+.team-card__visual--two .team-card__portrait { object-position: center 28%; }
+
+@media (max-width: 20rem) {
+  .team-card__portrait {
+    inline-size: 100%;
+    block-size: auto;
+    aspect-ratio: 1;
+  }
+
+  .feature-split__media { min-height: 18rem; }
+  .play-piece--circle { width: 5.7rem; }
+  .play-piece--square { width: 5.4rem; }
+  .play-piece--triangle { width: 6.1rem; height: 5.2rem; left: calc(50% - 3.05rem); }
+  .play-stop { width: 4.65rem; min-height: 4.65rem; font-size: 0.72rem; }
+  .play-stop--two { left: calc(50% - 2.325rem); }
+}
+
+/* A founder-profile alternative modelled on the supplied reference. It stays
+   abstract until portrait photography is ready. */
+:root[data-team-layout="feature"] .team-grid { grid-template-columns: minmax(0, 1fr); }
+:root[data-team-layout="feature"] .team-card {
+  display: grid;
+  grid-template-columns: minmax(9rem, 0.42fr) minmax(0, 1fr);
+  gap: 0;
+  min-height: 11rem;
+  padding: 0;
+  overflow: hidden;
+  background: var(--band);
+  border-color: var(--band);
+  color: var(--band-ink);
+}
+:root[data-team-layout="feature"] .team-card__visual {
+  position: relative;
+  display: block;
+  /* The source headshots have different aspect ratios. Give every feature
+     card the same fixed media frame so the portraits and their cards align. */
+  block-size: 17rem;
+  overflow: hidden;
+  background: var(--surface-sunk);
+}
+:root[data-team-layout="feature"] .team-card__visual::before,
+:root[data-team-layout="feature"] .team-card__visual::after { position: absolute; content: ""; border: var(--border) solid var(--line-soft); }
+:root[data-team-layout="feature"] .team-card__visual::before { width: 48%; aspect-ratio: 1; left: 20%; top: 19%; border-radius: 50%; background: var(--play-a); }
+:root[data-team-layout="feature"] .team-card__visual::after { width: 62%; height: 42%; left: 19%; bottom: -7%; border-radius: 50% 50% 0 0; background: var(--play-b); }
+:root[data-team-layout="feature"] .team-card__visual--two::before { border-radius: 1.25rem; background: var(--play-b); transform: rotate(12deg); }
+:root[data-team-layout="feature"] .team-card__visual--two::after { background: var(--play-c); }
+:root[data-team-layout="feature"] .team-card__visual--three::before { background: var(--play-c); }
+:root[data-team-layout="feature"] .team-card__visual--three::after { background: var(--play-a); }
+:root[data-team-layout="feature"] .team-card__visual .shape { display: none; }
+:root[data-team-layout="feature"] .team-card__visual:has(.team-card__portrait)::before,
+:root[data-team-layout="feature"] .team-card__visual:has(.team-card__portrait)::after { display: none; }
+:root[data-team-layout="feature"] .team-card__portrait {
+  position: relative;
+  z-index: 1;
+  inline-size: 100%;
+  block-size: 100%;
+  aspect-ratio: auto;
+  border-radius: 0;
+}
+:root[data-team-layout="feature"] .team-card__details { display: flex; flex-direction: column; justify-content: center; gap: var(--sp-2); padding: var(--sp-4) var(--sp-5); }
+:root[data-team-layout="feature"] .team-card .mono { color: var(--band-accent); }
+:root[data-team-layout="feature"] .team-card .card__body { color: var(--band-ink-dim); }
+:root[data-team-layout="feature"] .team-card__links { margin-top: var(--sp-1); }
+:root[data-team-layout="feature"] .team-card__links a { color: var(--band-ink); }
+
+@media (max-width: 34rem) {
+  :root[data-team-layout="feature"] .team-card { grid-template-columns: 1fr; }
+  :root[data-team-layout="feature"] .team-card__visual { block-size: 13rem; }
+}
+
+@media (min-width: 46rem) {
+  :root[data-team-layout="two"] .team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 68rem) {
+  :root[data-team-layout="three"] .team-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  :root[data-team-layout="one"] .team-grid { grid-template-columns: minmax(0, 1fr); max-width: 52rem; margin-inline: auto; }
+}
+
+@media (min-width: 48rem) {
+  .feature-split { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .feature-split--media-start .feature-split__media { grid-column: 1; grid-row: 1; justify-self: end; }
+  .feature-split--media-start .feature-split__content { grid-column: 2; grid-row: 1; }
+}
+
+/* The hero motifs share one markup contract, so the hero can be explored
+   without rebuilding its content or layout. Decorative only. */
+.hero__motif { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.hero__image-carousel { display: none; }
+
+.hero__motif span {
   position: absolute;
   display: block;
-  width: 22rem;
-  height: 22rem;
-  border-radius: 58% 42% 47% 53% / 51% 45% 55% 49%;
-  background: var(--primary-soft);
-  opacity: 0.5;
-  animation: wobble 14s var(--ease) infinite alternate;
+  transition: opacity 360ms var(--ease), transform 600ms var(--ease), background 360ms var(--ease);
 }
 
-.hero__blobs span:nth-child(1) { left: -8rem; top: -6rem; }
-.hero__blobs span:nth-child(2) { right: -9rem; bottom: -8rem; background: var(--butter-300); animation-delay: -7s; }
+/* Orbit: the current soft, buoyant direction. */
+:root[data-hero-motif="orbit"] .hero__motif span {
+  width: 22rem; height: 22rem; border-radius: 58% 42% 47% 53% / 51% 45% 55% 49%;
+  background: var(--primary-soft); opacity: 0.54; animation: wobble 14s var(--ease) infinite alternate;
+}
+:root[data-hero-motif="orbit"] .hero__motif span:nth-child(1) { left: -8rem; top: -6rem; }
+:root[data-hero-motif="orbit"] .hero__motif span:nth-child(2) { right: -9rem; bottom: -8rem; background: var(--play-b); animation-delay: -7s; }
+:root[data-hero-motif="orbit"] .hero__motif span:nth-child(3) { width: 4rem; height: 4rem; right: 16%; top: 18%; background: var(--play-c); border-radius: 50%; animation: bob 8s ease-in-out infinite alternate; }
+:root[data-hero-motif="orbit"] .hero__motif span:nth-child(4) { display: none; }
+
+/* Playmat: a composed grid with an occasional friendly misfit. */
+:root[data-hero-motif="playmat"] .hero__motif {
+  background-image: linear-gradient(var(--line-soft) 1px, transparent 1px), linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+  background-size: 6rem 6rem; opacity: 0.38;
+}
+:root[data-hero-motif="playmat"] .hero__motif span { width: 6rem; height: 6rem; border-radius: 1.25rem; opacity: 0.62; animation: tile-rise 9s var(--ease) infinite alternate; }
+:root[data-hero-motif="playmat"] .hero__motif span:nth-child(1) { left: 5%; top: 13%; background: var(--play-a); }
+:root[data-hero-motif="playmat"] .hero__motif span:nth-child(2) { right: 11%; top: 32%; background: var(--play-b); animation-delay: -3s; }
+:root[data-hero-motif="playmat"] .hero__motif span:nth-child(3) { left: 17%; bottom: -1rem; background: var(--play-c); animation-delay: -6s; }
+:root[data-hero-motif="playmat"] .hero__motif span:nth-child(4) { right: 25%; bottom: 7%; background: var(--primary-soft); animation-delay: -4s; }
+
+/* Reference-inspired field pieces: large, spare shapes keep the hero calm
+   while introducing the softer framing from the exploration pages. */
+:root[data-hero-motif="meadow"] .hero__motif span { opacity: 0.58; animation: bob 9s ease-in-out infinite alternate; }
+:root[data-hero-motif="meadow"] .hero__motif span:nth-child(1) { width: 12rem; height: 12rem; left: -5rem; top: 16%; background: var(--play-b); border-radius: 50%; }
+:root[data-hero-motif="meadow"] .hero__motif span:nth-child(2) { width: 9rem; height: 9rem; right: 7%; top: 8%; background: var(--play-a); border-radius: 1.75rem; transform: rotate(12deg); animation-delay: -3s; }
+:root[data-hero-motif="meadow"] .hero__motif span:nth-child(3) { width: 8rem; height: 8rem; right: 13%; bottom: -2rem; background: var(--play-c); border-radius: 50%; animation-delay: -5s; }
+:root[data-hero-motif="meadow"] .hero__motif span:nth-child(4) { width: 4rem; height: 4rem; left: 17%; top: 26%; background: var(--butter-500); border-radius: 50%; animation-delay: -7s; }
+
+/* A half-ring gives the lower edge a little lift without turning it into a
+   separate visual system. */
+:root[data-hero-motif="arch"] .hero__motif span { display: none; }
+:root[data-hero-motif="arch"] .hero__motif::before { content: ""; position: absolute; width: 19rem; height: 19rem; right: -3rem; bottom: -12rem; border: 3.8rem solid var(--play-b); border-radius: 50%; opacity: .55; }
+:root[data-hero-motif="arch"] .hero__motif::after { content: ""; position: absolute; width: 8rem; height: 8rem; left: -2rem; top: 20%; border-radius: 50%; background: var(--play-a); opacity: .48; }
+
+/* Image carousel: supplied imagery cycles behind the hero under a light-green
+   treatment, keeping the text legible and the treatment optional. */
+:root[data-hero-motif="carousel"] .hero__motif {
+  background: linear-gradient(90deg, color-mix(in oklab, var(--green-100) 72%, transparent), transparent 27% 73%, color-mix(in oklab, var(--green-100) 72%, transparent));
+}
+:root[data-hero-motif="carousel"] .hero__motif > span { display: none; }
+:root[data-hero-motif="carousel"] .hero__image-carousel {
+  display: grid; position: absolute; inset: 0; overflow: hidden;
+  filter: sepia(0.34) hue-rotate(68deg) saturate(0.55) brightness(1.2);
+  opacity: 0.34;
+}
+:root[data-hero-motif="carousel"] .hero__image-carousel::after {
+  content: ""; grid-area: 1 / 1; z-index: 1;
+  background: linear-gradient(90deg, color-mix(in oklab, var(--green-100) 48%, transparent), color-mix(in oklab, var(--green-50) 28%, transparent) 50%, color-mix(in oklab, var(--green-100) 48%, transparent));
+}
+:root[data-hero-motif="carousel"] .hero__image-carousel img {
+  grid-area: 1 / 1; width: 100%; height: 100%; object-fit: cover;
+  object-position: center; opacity: 0; animation: image-carousel 42s ease-in-out infinite;
+}
+:root[data-hero-motif="carousel"] .hero__image-carousel img:nth-child(2) { animation-delay: -6s; }
+:root[data-hero-motif="carousel"] .hero__image-carousel img:nth-child(3) { animation-delay: -12s; }
+:root[data-hero-motif="carousel"] .hero__image-carousel img:nth-child(4) { animation-delay: -18s; }
+:root[data-hero-motif="carousel"] .hero__image-carousel img:nth-child(5) { animation-delay: -24s; }
+:root[data-hero-motif="carousel"] .hero__image-carousel img:nth-child(6) { animation-delay: -30s; }
+:root[data-hero-motif="carousel"] .hero__image-carousel img:nth-child(7) { animation-delay: -36s; }
+
+/* Quiet: no colourful hero objects; just enough structure to hold the space. */
+:root[data-hero-motif="quiet"] .hero__motif { background-image: radial-gradient(var(--line-soft) 1px, transparent 1.2px); background-size: 2rem 2rem; opacity: 0.24; }
+:root[data-hero-motif="quiet"] .hero__motif span { display: none; }
+:root[data-hero-motif="quiet"] body::before { opacity: 0; }
+
+/* Blocks: bold but restrained building-block forms. */
+:root[data-hero-motif="blocks"] .hero__motif span { opacity: 0.56; animation: block-turn 12s var(--ease) infinite alternate; }
+:root[data-hero-motif="blocks"] .hero__motif span:nth-child(1) { width: 12rem; height: 12rem; left: -4rem; top: 18%; border-radius: 50%; background: var(--play-b); }
+:root[data-hero-motif="blocks"] .hero__motif span:nth-child(2) { width: 9rem; height: 9rem; right: 8%; top: 8%; border-radius: 2rem; background: var(--play-a); animation-delay: -5s; }
+:root[data-hero-motif="blocks"] .hero__motif span:nth-child(3) { width: 10rem; height: 7rem; right: 20%; bottom: -2rem; border-radius: 999px; background: var(--play-c); animation-delay: -8s; }
+:root[data-hero-motif="blocks"] .hero__motif span:nth-child(4) { width: 4rem; height: 4rem; left: 23%; top: 22%; border-radius: 50% 2rem 50% 2rem; background: var(--primary-soft); animation-delay: -2s; }
 
 @keyframes wobble {
   from { transform: translate(0, 0) rotate(0deg); }
   to { transform: translate(1.5rem, -1rem) rotate(14deg); }
 }
+@keyframes bob { to { transform: translateY(-1.4rem) rotate(12deg); } }
+@keyframes tile-rise { to { transform: translateY(-1rem) rotate(5deg); } }
+@keyframes block-turn { to { transform: translateY(-1rem) rotate(9deg); } }
+@keyframes image-carousel {
+  0%, 12% { opacity: 1; transform: scale(1); }
+  14.3%, 100% { opacity: 0; transform: scale(1.04); }
+}
+@keyframes underline-grow { from { transform: scaleX(0); transform-origin: left; } to { transform: scaleX(1); } }
 
 /* One orchestrated entrance, with the overshoot this variant is built on. */
 .reveal { animation: reveal 620ms var(--ease) both; }

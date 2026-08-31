@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en" data-variant="cover">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact — Power of Play</title>
+<meta name="description" content="Make a referral, ask about a place for your child, or request the goal rubric.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500;9..40,600;9..40,700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../shared/css/tokens.css">
+<link rel="stylesheet" href="../../shared/css/base.css">
+<link rel="stylesheet" href="../../shared/css/layout.css">
+<link rel="stylesheet" href="../../shared/css/components.css">
+<link rel="stylesheet" href="theme.css">
+<script src="../../shared/js/site.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead__inner">
+    <a class="wordmark" href="index.html">Power of Play</a>
+    <nav class="nav" aria-label="Main">
+      <a class="nav__link" href="index.html">Home</a>
+      <a class="nav__link" href="about.html">About</a>
+      <a class="nav__link" href="contact.html" aria-current="page">Contact</a>
+      <a class="nav__link" href="components.html">Components</a>
+      <span class="picker" data-picker></span>
+      <button class="theme-toggle" type="button" data-theme-toggle>
+        <span data-theme-label>Light</span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="cover wrap" aria-labelledby="cover-title">
+    <figure class="cover__figure">
+      <div class="cover__carousel" data-cover-carousel aria-label="The Power of Play team and community">
+        <img class="cover__slide is-active" src="../../1778287106612.jpeg" alt="Power of Play team member speaking at an event" data-cover-slide>
+        <img class="cover__slide" src="../../1778287104696.jpeg" alt="Power of Play prototype demonstration" data-cover-slide>
+        <img class="cover__slide" src="../../1778287139763.jpeg" alt="Power of Play team member presenting" data-cover-slide>
+        <div class="cover__controls">
+          <button type="button" class="cover__control" data-cover-prev aria-label="Show previous photo">‹</button>
+          <span class="cover__count" data-cover-count aria-live="polite">1 / 3</span>
+          <button type="button" class="cover__control" data-cover-next aria-label="Show next photo">›</button>
+        </div>
+      </div>
+      <figcaption class="cover__credit">A welcoming first step starts with a conversation.</figcaption>
+    </figure>
+
+    <div class="cover__type">
+      <h1 class="cover__title reveal" id="cover-title">
+        <span>Tell us</span>
+        <span>who</span>
+      </h1>
+      <p class="cover__standfirst reveal">
+        For families, a first call is twenty minutes and costs nothing. For
+        referrers, send the question and we'll answer it straight.
+      </p>
+    </div>
+
+    <dl class="cover__meta reveal">
+      <dt>Reply</dt>
+      <dd>Two working days</dd>
+      <dt>Answered by</dt>
+      <dd>A therapist</dd>
+      <dt>Next block</dt>
+      <dd>14 Sept 2026</dd>
+    </dl>
+  </section>
+
+  <nav class="wrap deck" aria-label="Sections">
+    <a class="deck__item" href="#form">
+      <span class="deck__num">01</span>
+      <span class="deck__label">Send a message</span>
+    </a>
+    <a class="deck__item" href="#desks">
+      <span class="deck__num">02</span>
+      <span class="deck__label">Direct desks</span>
+    </a>
+    <a class="deck__item" href="#urgent">
+      <span class="deck__num">03</span>
+      <span class="deck__label">If it's urgent</span>
+    </a>
+    <a class="deck__item" href="about.html">
+      <span class="deck__num">04</span>
+      <span class="deck__label">The method</span>
+    </a>
+  </nav>
+
+  <section class="band wrap" id="form">
+    <div class="rule">
+      <span class="rule__label">01</span>
+      <h2 class="rule__title">Send a message</h2>
+      <span class="rule__note">No sales team sits in front of us</span>
+    </div>
+
+    <form class="prose stack stack-6" novalidate>
+      <div class="grid grid--2">
+        <div class="field">
+          <label class="field__label" for="name">Your name</label>
+          <input class="input" id="name" name="name" type="text" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label class="field__label" for="email">Email</label>
+          <input class="input" id="email" name="email" type="email" autocomplete="email" required>
+          <p class="field__hint">We reply from a person's address, not a no-reply.</p>
+        </div>
+      </div>
+
+      <div class="grid grid--2">
+        <div class="field">
+          <label class="field__label" for="org">Clinic or organisation</label>
+          <input class="input" id="org" name="org" type="text" autocomplete="organization">
+          <p class="field__hint">Leave blank if you're a parent or carer.</p>
+        </div>
+        <div class="field">
+          <label class="field__label" for="role">You are</label>
+          <select class="select" id="role" name="role">
+            <option value="">Choose one</option>
+            <option>A parent or carer</option>
+            <option>Pediatrician</option>
+            <option>Occupational therapist</option>
+            <option>Physiotherapist</option>
+            <option>Speech-language pathologist</option>
+            <option>Preschool or school staff</option>
+            <option>Researcher</option>
+          </select>
+        </div>
+      </div>
+
+      <fieldset class="field" style="border:0;padding:0;margin:0;">
+        <legend class="field__label" style="padding:0;">What do you need?</legend>
+        <div class="stack" style="margin-top:var(--sp-3);">
+          <label class="choice">
+            <input type="radio" name="intent" value="referral" checked>
+            <span class="choice__text"><strong>To make a referral</strong><br>We'll come back with a yes, a no, or a better idea.</span>
+          </label>
+          <label class="choice">
+            <input type="radio" name="intent" value="place">
+            <span class="choice__text"><strong>A place for my child</strong><br>Twenty-minute call, no cost, no obligation.</span>
+          </label>
+          <label class="choice">
+            <input type="radio" name="intent" value="rubric">
+            <span class="choice__text"><strong>The goal rubric</strong><br>Rubric v4.2 and the outcome write-up.</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <div class="field">
+        <label class="field__label" for="message">Anything we should know first?</label>
+        <textarea class="textarea" id="message" name="message" placeholder="The child's age, what's hard right now, and what you've already tried."></textarea>
+        <p class="field__hint">Please don't include full names or medical record numbers.</p>
+      </div>
+
+      <div class="row">
+        <button class="btn btn--primary" type="submit">Send</button>
+        <span class="small muted">Typical reply: two working days.</span>
+      </div>
+    </form>
+  </section>
+
+  <section class="band wrap" id="desks">
+    <div class="rule">
+      <span class="rule__label">02</span>
+      <h2 class="rule__title">Direct desks</h2>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <h3 class="card__title">Referrals</h3>
+        <p class="card__body">Referral questions, block dates, and waiting times.</p>
+        <p class="mono small"><a href="mailto:referrals@powerofplay.health">referrals@powerofplay.health</a></p>
+      </div>
+      <div class="card">
+        <h3 class="card__title">Families</h3>
+        <p class="card__body">Anything about a block your child is in, or about to start.</p>
+        <p class="mono small"><a href="mailto:families@powerofplay.health">families@powerofplay.health</a></p>
+      </div>
+      <div class="card">
+        <h3 class="card__title">Research</h3>
+        <p class="card__body">Data requests, rubric versions, and collaboration.</p>
+        <p class="mono small"><a href="mailto:research@powerofplay.health">research@powerofplay.health</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band wrap" id="urgent">
+    <div class="rule">
+      <span class="rule__label">03</span>
+      <h2 class="rule__title">If it's urgent</h2>
+    </div>
+    <div class="prose">
+      <div class="callout">
+        <span class="callout__label">Please read</span>
+        <p>
+          We are a scheduled therapy service and can't respond to urgent
+          concerns. If you're worried about a child's health right now, contact
+          your pediatrician or your local emergency service.
+        </p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="colophon">
+  <div class="wrap colophon__grid">
+    <div class="stack stack-3">
+      <a class="wordmark" href="index.html">Power of Play</a>
+      <p class="motto">Taking a play-based approach to pediatric rehabilitation.</p>
+    </div>
+    <div class="stack stack-3">
+      <h4>Site</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="components.html">Components</a></li>
+      </ul>
+    </div>
+    <div class="stack stack-3">
+      <h4>Practice</h4>
+      <ul>
+        <li><a href="about.html#method">Goal areas</a></li>
+        <li><a href="about.html#evidence">Outcomes</a></li>
+        <li><a href="about.html#team">The team</a></li>
+      </ul>
+    </div>
+    <div class="stack stack-3">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:referrals@powerofplay.health">referrals@powerofplay.health</a></li>
+        <li><a href="mailto:families@powerofplay.health">families@powerofplay.health</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:var(--sp-5);">
+    <p class="small mono muted">Power of Play is a rehabilitation service. It does not provide diagnosis. © 2026</p>
+  </div>
+</footer>
+</body>
+</html>

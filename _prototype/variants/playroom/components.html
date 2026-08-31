@@ -13,7 +13,9 @@
 <link rel="stylesheet" href="../../shared/css/layout.css">
 <link rel="stylesheet" href="../../shared/css/components.css">
 <link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="../../shared/css/palettes.css">
 <script src="../../shared/js/site.js"></script>
+<script src="../../shared/js/scratchpad.js"></script>
 <script src="../../shared/js/bench.js" defer></script>
 </head>
 <body>
@@ -31,10 +33,10 @@
     </a>
     <nav class="nav" aria-label="Main">
       <a class="nav__link" href="index.html">Home</a>
-      <a class="nav__link" href="about.html">About</a>
+      <a class="nav__link" href="about.html">About Us</a>
       <a class="nav__link" href="contact.html">Contact</a>
       <a class="nav__link" href="components.html" aria-current="page">Components</a>
-      <span class="picker" data-picker></span>
+      <span class="picker" data-palette-picker></span>
       <button class="theme-toggle" type="button" data-theme-toggle>
         <span data-theme-label>Light</span>
       </button>
@@ -45,23 +47,20 @@
 <main id="main" class="band wrap">
 
   <div class="stack stack-4" style="margin-bottom:var(--sp-7);">
-    <p class="eyebrow">Workbench · Playroom</p>
-    <h1>Components, one at a time</h1>
+    <p class="eyebrow">Lorem ipsum</p>
+    <h1>Lorem ipsum dolor sit amet</h1>
     <p class="lede">
-      The same shared components as every other design, coloured by this
-      variant's <span class="mono">theme.css</span>. Because this one uses
-      inverted forest bands, the components that appear there are shown on that
-      ground too.
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua.
     </p>
   </div>
 
   <div class="bench">
 
     <aside class="bench__panel" aria-label="Green tuning">
-      <h2>Tune the green</h2>
+      <h2>Lorem ipsum</h2>
       <p class="small muted">
-        Every surface, border and state colour derives from these two numbers at
-        the top of <span class="mono">theme.css</span>.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       </p>
 
       <div class="dial">
@@ -108,23 +107,41 @@
 
       <section class="specimen">
         <div class="specimen__bar">
+          <span class="specimen__name">Lorem ipsum</span>
+          <span class="specimen__note">Dolor sit amet</span>
+        </div>
+        <div class="specimen__stage stack stack-4" style="align-items:stretch;">
+          <div class="field">
+            <label class="field__label" for="contact-reasons-editor">Lorem ipsum dolor sit amet</label>
+            <textarea class="textarea" id="contact-reasons-editor" rows="5" data-contact-reasons-editor></textarea>
+          </div>
+          <div class="field">
+            <label class="field__label" for="contact-reasons-preview">Lorem ipsum dolor</label>
+            <select class="select" id="contact-reasons-preview" multiple size="4" data-contact-reasons></select>
+          </div>
+          <div class="row"><button class="btn btn--secondary btn--small" type="button" data-contact-reasons-reset>Reset options</button></div>
+        </div>
+      </section>
+
+      <section class="specimen">
+        <div class="specimen__bar">
           <span class="specimen__name">.btn</span>
-          <span class="specimen__note">on the light ground</span>
+          <span class="specimen__note">Lorem ipsum dolor sit amet</span>
         </div>
         <div class="specimen__stage">
-          <button class="btn btn--primary" type="button">Make a referral</button>
-          <button class="btn btn--secondary" type="button">How a block works</button>
-          <button class="btn btn--ghost" type="button">Meet the team</button>
-          <button class="btn btn--secondary btn--small" type="button">Export block</button>
-          <button class="btn btn--primary" type="button" disabled>Sending…</button>
+          <button class="btn btn--primary" type="button">Lorem ipsum</button>
+          <button class="btn btn--secondary" type="button">Dolor sit amet</button>
+          <button class="btn btn--ghost" type="button">Consectetur elit</button>
+          <button class="btn btn--secondary btn--small" type="button">Eiusmod tempor</button>
+          <button class="btn btn--primary" type="button" disabled>Lorem ipsum…</button>
         </div>
         <div class="specimen__bar">
           <span class="specimen__name">.band--invert .btn</span>
           <span class="specimen__note">butter replaces green where green would vanish</span>
         </div>
         <div class="specimen__stage specimen__stage--invert band--invert">
-          <button class="btn btn--primary" type="button">Make a referral</button>
-          <button class="btn btn--secondary" type="button">How a block works</button>
+          <button class="btn btn--primary" type="button">Lorem ipsum</button>
+          <button class="btn btn--secondary" type="button">Dolor sit amet</button>
         </div>
       </section>
 
@@ -152,13 +169,13 @@
         <div class="specimen__stage specimen__stage--grid">
           <div class="card card--interactive">
             <span class="shape" aria-hidden="true"></span>
-            <h3 class="card__title">Families</h3>
-            <p class="card__body">Therapy your child asks to come back to, and a home programme built from games you already play.</p>
+            <h3 class="card__title">Lorem ipsum</h3>
+            <p class="card__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
           </div>
           <div class="card card--interactive card--filled">
             <span class="shape shape--accent" aria-hidden="true"></span>
-            <h3 class="card__title">Preschools and schools</h3>
-            <p class="card__body">Sessions that can run in the classroom instead of pulling a child out of it.</p>
+            <h3 class="card__title">Dolor sit amet</h3>
+            <p class="card__body">Sed do eiusmod tempor incididunt ut labore et dolore.</p>
           </div>
         </div>
       </section>
@@ -171,13 +188,13 @@
         <div class="specimen__stage specimen__stage--grid">
           <div class="stat">
             <span class="stat__value">16</span>
-            <span class="stat__label">Visits in a typical block</span>
-            <span class="stat__source">2024–26 caseload</span>
+            <span class="stat__label">Lorem ipsum dolor sit amet</span>
+            <span class="stat__source">Lorem ipsum</span>
           </div>
           <div class="stat">
             <span class="stat__value">0.86</span>
-            <span class="stat__label">Inter-rater agreement on goal scoring</span>
-            <span class="stat__source">Krippendorff's α</span>
+            <span class="stat__label">Lorem ipsum dolor sit amet</span>
+            <span class="stat__source">Lorem ipsum</span>
           </div>
         </div>
         <div class="specimen__bar">
@@ -187,13 +204,13 @@
         <div class="specimen__stage specimen__stage--invert specimen__stage--grid band--invert">
           <div class="stat">
             <span class="stat__value">640</span>
-            <span class="stat__label">Completed therapy blocks</span>
-            <span class="stat__source">Six sites, 2024–26</span>
+            <span class="stat__label">Lorem ipsum dolor sit amet</span>
+            <span class="stat__source">Lorem ipsum</span>
           </div>
           <div class="stat">
             <span class="stat__value">4%</span>
-            <span class="stat__label">Of blocks ended early by the family</span>
-            <span class="stat__source">Versus 19% service average</span>
+            <span class="stat__label">Lorem ipsum dolor sit amet</span>
+            <span class="stat__source">Lorem ipsum</span>
           </div>
         </div>
       </section>
@@ -250,7 +267,7 @@
           </blockquote>
           <div class="callout">
             <span class="callout__label">What this is not</span>
-            <p>Power of Play is a rehabilitation service, not a diagnostic one.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
           </div>
         </div>
       </section>
@@ -326,12 +343,12 @@
           <span class="specimen__note">Bricolage Grotesque · Newsreader · DM Mono</span>
         </div>
         <div class="specimen__stage specimen__stage--block">
-          <h1 style="font-size:var(--step-5)">Therapy that looks like play</h1>
-          <h2>A therapy team with an engineering habit</h2>
-          <h3>Play assessment</h3>
-          <p class="lede">Children work toward real motor and language goals through games they'd choose anyway.</p>
-          <p>Body copy is set in a serif here — the reverse of the usual pairing. A child defending a fort on their elbows holds a prone position far longer than one asked to hold a prone position.</p>
-          <p class="eyebrow">Pediatric rehabilitation · ages 0–7</p>
+          <h1 style="font-size:var(--step-5)">Lorem ipsum dolor sit amet</h1>
+          <h2>Consectetur adipiscing elit</h2>
+          <h3>Sed do eiusmod tempor</h3>
+          <p class="lede">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          <p class="eyebrow">Lorem ipsum dolor sit amet</p>
           <p class="mono small">BHU · GMS · EXP · SI · REG · FOM — 0.86 α</p>
         </div>
       </section>
@@ -351,13 +368,13 @@
         </svg>
         Power of Play
       </a>
-      <p class="motto">Taking a play-based approach to pediatric rehabilitation.</p>
+      <p class="motto">Lorem ipsum dolor sit amet.</p>
     </div>
     <div class="stack stack-3">
       <h4>Site</h4>
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
+        <li><a href="about.html">About Us</a></li>
         <li><a href="contact.html">Contact</a></li>
         <li><a href="components.html">Components</a></li>
       </ul>
@@ -377,7 +394,7 @@
     </div>
   </div>
   <div class="wrap" style="margin-top:var(--sp-6);">
-    <p class="small mono">Power of Play is a rehabilitation service. It does not provide diagnosis. © 2026</p>
+    <p class="small mono">Lorem ipsum dolor sit amet. © 2026</p>
   </div>
 </footer>
 </body>
