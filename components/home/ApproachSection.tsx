@@ -1,6 +1,5 @@
 import { approach } from "@/content/home";
 import { Section, Eyebrow } from "@/components/shared/Section";
-import { DraftBadge } from "@/components/shared/DraftBadge";
 
 export function ApproachSection() {
   return (
@@ -9,7 +8,6 @@ export function ApproachSection() {
         <Eyebrow>{approach.eyebrow}</Eyebrow>
         <h2 id="approach-heading" className="mt-5 text-h2 text-ink">
           {approach.title}
-          {approach.draft && <DraftBadge />}
         </h2>
         <p className="mt-6 text-lede text-ink-muted">{approach.body}</p>
       </div>

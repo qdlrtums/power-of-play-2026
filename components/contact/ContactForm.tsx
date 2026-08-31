@@ -1,11 +1,12 @@
 "use client";
 
 import { useId, useState, type FormEvent } from "react";
-import { formspreeEndpoint, reasons } from "@/content/contact";
+import { googleForm, formspreeEndpoint, reasons } from "@/content/contact";
 import { site } from "@/content/site";
+import { sendForm, type Outcome } from "@/lib/forms";
 import { cn } from "@/lib/utils";
 
-type Status = "idle" | "sending" | "ok" | "error" | "unconfigured";
+type Status = "idle" | "sending" | Outcome;
 type Errors = Partial<Record<"name" | "email" | "reasons", string>>;
 
 const fieldBase =
@@ -43,24 +44,33 @@ export function ContactForm() {
       return;
     }
 
-    if (!formspreeEndpoint) {
-      setStatus("unconfigured");
-      return;
-    }
-
     setStatus("sending");
-    try {
-      data.set("_subject", `Website enquiry — ${site.name}`);
-      const res = await fetch(formspreeEndpoint, {
-        method: "POST",
-        headers: { Accept: "application/json" },
-        body: data,
-      });
-      setStatus(res.ok ? "ok" : "error");
-      if (res.ok) form.reset();
-    } catch {
-      setStatus("error");
-    }
+    const outcome = await sendForm({
+      fields: [
+        { name: "name", label: "Name", values: [String(data.get("name") ?? "")] },
+        { name: "email", label: "Email", values: [String(data.get("email") ?? "")] },
+        {
+          name: "organization",
+          label: "Organization or clinic",
+          values: [String(data.get("organization") ?? "")],
+        },
+        {
+          name: "reasons",
+          label: "Reaching out because",
+          values: data.getAll("reasons").map(String),
+        },
+        { name: "message", label: "Message", values: [String(data.get("message") ?? "")] },
+      ],
+      subject: `Website enquiry — ${site.name}`,
+      google: googleForm.contact,
+      formspree: formspreeEndpoint,
+    });
+
+    setStatus(outcome);
+    // Only clear on a confirmed send. After a mailto handoff the message may
+    // never actually go — no mail client, or they close the draft — so their
+    // typing has to survive.
+    if (outcome === "ok") form.reset();
   }
 
   return (
@@ -182,15 +192,8 @@ export function ContactForm() {
               .
             </>
           )}
-          {status === "unconfigured" && (
-            <>
-              This form isn&apos;t connected yet — please email{" "}
-              <a className="underline" href={`mailto:${site.email}`}>
-                {site.email}
-              </a>
-              .
-            </>
-          )}
+          {status === "mailto" &&
+            "Opening your email app — hit send and the message reaches us."}
         </p>
       </div>
     </form>

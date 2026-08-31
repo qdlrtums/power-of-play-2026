@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { groups, logoById, recognition, sectionCopy } from "@/content/media";
 import { Section, Eyebrow } from "@/components/shared/Section";
-import { DraftBadge } from "@/components/shared/DraftBadge";
 
 /**
  * Awards & competitions, programmes & partners, and media features — the
@@ -44,10 +43,7 @@ export function RecognitionSection() {
                       )}
 
                       <div className="min-w-0">
-                        <p className="font-display font-bold text-ink">
-                          {item.title}
-                          {item.draft && <DraftBadge />}
-                        </p>
+                        <p className="font-display font-bold text-ink">{item.title}</p>
                         <p className="mt-1 text-sm text-ink-muted">
                           {item.org}
                           {item.year ? ` · ${item.year}` : ""}

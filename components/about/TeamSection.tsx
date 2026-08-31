@@ -11,7 +11,7 @@ export function TeamSection() {
         {teamSection.title}
       </h2>
 
-      <ul className="mt-12 grid gap-8">
+      <ul className="mt-12 grid gap-8 sm:grid-cols-2">
         {team.map((member) => (
           <TeamCard key={member.slug} member={member} />
         ))}
