@@ -1,0 +1,233 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Power of Play — design tokens
+   Every colour, radius, shadow and type value in the site is defined HERE.
+   No hex values anywhere else in the codebase.
+
+   Brand anchors taken from Figma (file JmqKLUUmWO2gx6O7TJLhfY, "Desktop - 5"):
+     #8cda5a  lime     -> green-400   pill, primary CTA, accent
+     #205929  forest   -> green-800   hero card ground, nav ink
+     #1b5e20  lime-ink -> ink on lime
+     #d9d9d9  hairline -> nav bottom border
+   The ramp is interpolated in OKLCH between those anchors, hue drifting
+   135 (lime) -> 150 (deep forest) so the darks stay green and not grey.
+--------------------------------------------------------------------------- */
+
+/* `static` so EVERY token is emitted as a custom property. Without it Tailwind
+   v4 tree-shakes any variable it cannot see used in a class name, which breaks
+   inline `var(--color-*)` references (the design-system page, PillarBg). */
+@theme static {
+  /* -- brand green ramp -------------------------------------------------- */
+  --color-green-50:  oklch(97.00% 0.0220 128.0);
+  --color-green-100: oklch(94.00% 0.0480 130.0);
+  --color-green-200: oklch(89.00% 0.0900 132.0);
+  --color-green-300: oklch(85.00% 0.1350 133.0);
+  --color-green-400: oklch(81.09% 0.1797 135.0); /* #8cda5a  brand lime */
+  --color-green-500: oklch(72.00% 0.1750 138.0);
+  --color-green-600: oklch(62.00% 0.1600 142.0);
+  --color-green-700: oklch(51.00% 0.1300 145.0);
+  --color-green-800: oklch(41.36% 0.0976 146.5); /* #205929  brand forest */
+  --color-green-900: oklch(32.00% 0.0750 148.0);
+  --color-green-950: oklch(22.00% 0.0520 150.0);
+
+  /* -- warm accent (cream, from logo-with-name.svg #F8F3DD) -------------- */
+  --color-cream-50:  oklch(98.50% 0.0120 96.0);
+  --color-cream-100: oklch(96.22% 0.0294 96.4); /* #F8F3DD */
+  --color-cream-200: oklch(92.50% 0.0480 96.0);
+  --color-cream-300: oklch(88.00% 0.0650 95.0);
+
+  /* -- semantic roles ---------------------------------------------------- */
+  --color-brand:          var(--color-green-400);
+  --color-brand-ink:      oklch(42.54% 0.1159 144.3); /* #1b5e20 on lime, 4.61:1 */
+  --color-forest:         var(--color-green-800);
+  --color-accent:         var(--color-cream-100);
+
+  --color-ground:         oklch(100% 0 0);
+  --color-ground-soft:    var(--color-green-50);
+  --color-surface:        oklch(100% 0 0);
+
+  --color-ink:            oklch(24.00% 0.0300 155.0);
+  --color-ink-muted:      oklch(45.00% 0.0220 155.0);
+  --color-ink-faint:      oklch(58.00% 0.0180 155.0);
+  --color-ink-invert:     oklch(100% 0 0);
+  --color-ink-invert-dim: var(--color-green-200);
+
+  /* Error state — deliberately outside the brand ramp. 4.9:1 on white. */
+  --color-danger:         oklch(48.00% 0.1800 27.0);
+
+  --color-line:           oklch(88.53% 0 89.9); /* #d9d9d9  nav hairline */
+  --color-line-soft:      oklch(93.00% 0.0120 140.0);
+  --color-focus:          var(--color-green-600);
+
+  /* -- radii (generous, per brand direction) ----------------------------- */
+  --radius-sm:   10px;
+  --radius-md:   15px;  /* buttons — matches Figma nav CTA */
+  --radius-lg:   20px;  /* hero card, section cards — matches Figma */
+  --radius-xl:   28px;
+  --radius-2xl:  40px;
+  --radius-pill: 999px;
+
+  /* -- soft shadows ------------------------------------------------------ */
+  --shadow-card:
+    0 1px 2px oklch(41.36% 0.0976 146.5 / 0.06),
+    0 8px 24px -12px oklch(41.36% 0.0976 146.5 / 0.18);
+  --shadow-lift:
+    0 2px 4px oklch(41.36% 0.0976 146.5 / 0.08),
+    0 16px 32px -16px oklch(41.36% 0.0976 146.5 / 0.28);
+  --shadow-hero:
+    0 4px 8px oklch(41.36% 0.0976 146.5 / 0.10),
+    0 32px 64px -32px oklch(41.36% 0.0976 146.5 / 0.40);
+  --shadow-pill:
+    0 8px 24px -8px oklch(81.09% 0.1797 135 / 0.65);
+
+  /* -- type -------------------------------------------------------------- */
+  --font-display: var(--font-bricolage), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-sans:    var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* Fluid display scale, 375px -> 1440px. The hero headline is --text-hero:
+     it must never let "assessment" wrap mid-word. */
+  --text-hero:  clamp(2.75rem, 1.30rem + 6.20vw, 5.25rem); /* ~44px -> 84px */
+  --text-h1:    clamp(2.25rem, 1.35rem + 3.84vw, 3.75rem);
+  --text-h2:    clamp(1.75rem, 1.25rem + 2.13vw, 2.60rem);
+  --text-h3:    clamp(1.30rem, 1.08rem + 0.94vw, 1.68rem);
+  --text-lede:  clamp(1.05rem, 0.96rem + 0.38vw, 1.30rem);
+  --text-eyebrow: clamp(0.80rem, 0.73rem + 0.30vw, 1.00rem);
+
+  /* -- motion ------------------------------------------------------------ */
+  --ease-brand: cubic-bezier(0.22, 0.68, 0.35, 1);
+}
+
+/* ---------------------------------------------------------------------------
+   Base
+--------------------------------------------------------------------------- */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* the sticky header must not cover an anchored heading */
+    scroll-padding-top: 7rem;
+  }
+
+  body {
+    background-color: var(--color-ground);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  /* One visible focus treatment everywhere, on top of any brand ground. */
+  :focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  .on-forest :focus-visible {
+    outline-color: var(--color-green-300);
+  }
+
+  ::selection {
+    background-color: var(--color-green-300);
+    color: var(--color-brand-ink);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Entrance animation
+
+   Deliberately CSS, not JS: the content is visible as soon as stylesheets
+   apply, with no dependency on hydration. `both` holds the start state during
+   the delay; the reduced-motion block below collapses the whole thing to the
+   end state rather than freezing it at opacity 0.
+--------------------------------------------------------------------------- */
+
+@keyframes pill-draw {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* Until the lime pill is actually behind it, the word is set in the same lime
+   as the line above — otherwise it would be dark-green-on-dark-green, i.e.
+   invisible, for the length of the delay. */
+@keyframes pill-ink {
+  0%   { color: var(--color-green-400); }
+  55%  { color: var(--color-green-400); }
+  100% { color: var(--color-brand-ink); }
+}
+
+@keyframes pop-reveal {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@layer components {
+  .reveal {
+    animation: pop-reveal 600ms var(--ease-brand) both;
+  }
+
+  /* ---- Hero pill --------------------------------------------------------
+     Entirely CSS. The pill sits behind the most important word on the site,
+     so it must never depend on JS having loaded: dark-on-dark text with no
+     lime behind it would be unreadable. The hover uses a back-out curve to
+     approximate a spring without a JS animation loop. */
+  .hero-pill {
+    transform: rotate(-2.5deg);
+    transition: transform 320ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    animation: pill-ink 620ms var(--ease-brand) var(--pill-delay, 0s) both;
+  }
+  .hero-pill__bg {
+    transform-origin: left center;
+    animation: pill-draw 620ms var(--ease-brand) var(--pill-delay, 0s) both;
+    transition: box-shadow 300ms var(--ease-brand);
+  }
+  @media (hover: hover) {
+    .hero-pill:hover {
+      transform: rotate(-0.5deg) scale(1.03) translateY(-2px);
+    }
+    .hero-pill:hover .hero-pill__bg {
+      box-shadow: var(--shadow-pill);
+    }
+  }
+
+  /* Scroll-triggered variant. `pending` is applied by JS before first paint,
+     so a no-JS visitor never sees the hidden state at all. */
+  [data-reveal="pending"] {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  [data-reveal="in"] {
+    animation: pop-reveal 550ms var(--ease-brand) both;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Reduced motion — global safety net. Individual components additionally
+   swap their framer-motion variants via useReducedMotion() so that a
+   *static* end state is rendered, not a frozen start state.
+--------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  /* The pill keeps its tilt — that is decoration, not motion. Only the
+     hover transform is dropped; the shadow bloom still gives feedback. */
+  .hero-pill,
+  .hero-pill:hover {
+    transform: rotate(-2.5deg);
+    transition: none;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
