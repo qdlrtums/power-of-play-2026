@@ -24,9 +24,9 @@ export function NewsletterCard() {
   function expand() {
     setOpen(true);
     // Wait for the width transition to have uncovered the field before the
-    // caret lands in it. `preventScroll` because the card deliberately
-    // overlaps the hero, and letting the browser scroll it flush yanks the
-    // page mid-animation.
+    // caret lands in it. `preventScroll` because the card sits low in the
+    // hero panel, and letting the browser scroll it flush yanks the page
+    // mid-animation.
     setTimeout(() => input.current?.focus({ preventScroll: true }), 260);
   }
 
@@ -102,7 +102,7 @@ export function NewsletterCard() {
 
       <p id="newsletter-status" role="status" className="mt-4 text-center text-sm text-ink-invert-dim">
         {status === "ok" && "You're on the list. We'll write when there's news."}
-        {status === "mailto" && "Couldn't reach the list from here. Email us and we'll add you."}
+        {status === "mailto" && "Opening your email app — send that message and you're on the list."}
         {status === "error" && (
           <>
             Something went wrong. Email us at{" "}

@@ -211,9 +211,9 @@ Delivery itself lives in `lib/forms.ts` — one `sendForm()` that both component
 
 | State | Contact | Newsletter |
 | --- | --- | --- |
-| Sent | "Thanks — we'll be in touch." Form resets. | "Thanks — you're on the list." |
+| Sent | "Thanks — we'll be in touch." Form resets. | "You're on the list. We'll write when there's news." |
 | Network error | Ask them to email `info@powerofplayinc.com` | Same |
-| Nothing configured *(not the current state)* | "Opening your email app — hit send and the message reaches us." | "Couldn't reach the list from here. Email us and we'll add you." |
+| Nothing configured *(not the current state)* | "Opening your email app — hit send and the message reaches us." | "Opening your email app — send that message and you're on the list." |
 
 There is no server route and no database. Submissions go browser → third party. The site never sees the payload after it leaves.
 
