@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* v2 ("clinical editorial") theme — inert unless an ancestor carries
+   `.theme-v2`. See app/theme-v2.css. */
+@import "./theme-v2.css";
+
 /* ---------------------------------------------------------------------------
    Power of Play — design tokens
    Every colour, radius, shadow and type value in the site is defined HERE.

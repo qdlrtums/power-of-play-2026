@@ -1,0 +1,259 @@
+/* ---------------------------------------------------------------------------
+   Power of Play — v2 ("clinical editorial") theme
+   Loaded by globals.css, but nothing here applies until an ancestor carries
+   `.theme-v2` (see app/v2/layout.tsx). v1 pays only for the token
+   declarations, which are inert without that class.
+
+   The brand anchors are unchanged — the same lime #8cda5a and forest #205929
+   from the Figma. What changes is everything around them:
+
+     v1                              v2
+     ─────────────────────────────   ─────────────────────────────
+     pure white ground               warm paper, so lime reads as ink
+     20px radii + squircles          2–8px structure, pills kept for accents
+     colour-block sections           hairline rules, full-bleed dark bands
+     three equal cards per idea      numbered editorial lists
+     display face does every job     mono label face carries the small type
+--------------------------------------------------------------------------- */
+
+@theme static {
+  /* -- v2 grounds -------------------------------------------------------- */
+  /* Warm off-white. Pure white next to a saturated lime looks like a bug;
+     against paper the same lime reads as a chosen ink. */
+  --color-paper:      oklch(98.60% 0.0055 95.0);
+  --color-paper-2:    oklch(96.40% 0.0110 95.0);
+  --color-paper-3:    oklch(93.80% 0.0170 95.0);
+  /* Body copy on the dark bands. paper itself is too loud for a paragraph
+     against obsidian; this lands at ~9:1, still comfortably past AAA. */
+  --color-paper-dim:  oklch(78.00% 0.0130 100.0);
+
+  /* Near-black, still unmistakably green — the deep end of the brand ramp
+     pushed past green-950 so the lime has somewhere to sit at full contrast. */
+  --color-obsidian:   oklch(17.50% 0.0300 152.0);
+  --color-obsidian-2: oklch(23.00% 0.0400 151.0);
+
+  --color-ink-warm:   oklch(20.50% 0.0180 120.0);
+  --color-ink-warm-2: oklch(43.00% 0.0180 120.0); /* 7.4:1 on paper */
+  /* Captions and the mono label face. Set by the WORST ground it lands on,
+     which is paper-2 (the team and recognition bands), not paper: at 55% it
+     measured 4.35:1 there and only passed on the lighter ground. */
+  --color-ink-warm-3: oklch(52.50% 0.0165 120.0); /* 5.2:1 paper, 4.9:1 paper-2 */
+
+  /* Hairlines do the section-dividing work that background blocks did in v1. */
+  --color-hairline:      oklch(87.00% 0.0090 100.0);
+  --color-hairline-soft: oklch(92.50% 0.0070 100.0);
+  --color-hairline-dark: oklch(33.00% 0.0300 152.0);
+
+  /* -- v2 type ----------------------------------------------------------- */
+  --font-label: var(--font-mono-label), ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* The hero headline. Deliberately larger than v1's --text-hero: the whole
+     point of the layout is that the sentence *is* the page. */
+  --text-display: clamp(3.00rem, 0.55rem + 10.45vw, 7.50rem);
+  --text-d2:      clamp(2.10rem, 1.15rem + 4.05vw, 4.00rem);
+  --text-d3:      clamp(1.45rem, 1.16rem + 1.24vw, 2.00rem);
+  --text-stat:    clamp(3.50rem, 1.60rem + 8.10vw, 8.00rem);
+  --text-label:   0.6875rem; /* 11px, mono, tracked — never a paragraph */
+
+  /* -- v2 structure ------------------------------------------------------ */
+  --radius-edge:  2px;
+  --radius-block: 6px;
+  --radius-photo: 14px;
+
+  --shadow-float:
+    0 1px 2px oklch(17.50% 0.0300 152 / 0.05),
+    0 12px 32px -16px oklch(17.50% 0.0300 152 / 0.22);
+}
+
+/* ---------------------------------------------------------------------------
+   Scope
+--------------------------------------------------------------------------- */
+
+.theme-v2 {
+  background-color: var(--color-paper);
+  color: var(--color-ink-warm);
+
+  /* Re-point the shared semantic roles so components written against v1's
+     vocabulary (Section, the form helpers) inherit the v2 palette instead of
+     being forked. */
+  --color-ground: var(--color-paper);
+  --color-ground-soft: var(--color-paper-2);
+  --color-surface: var(--color-paper);
+  --color-ink: var(--color-ink-warm);
+  --color-ink-muted: var(--color-ink-warm-2);
+  --color-ink-faint: var(--color-ink-warm-3);
+  --color-line: var(--color-hairline);
+  --color-line-soft: var(--color-hairline-soft);
+}
+
+/* On the dark bands the hairline has to invert too, or it disappears. */
+.theme-v2 .on-dark {
+  --color-line: var(--color-hairline-dark);
+  --color-line-soft: var(--color-hairline-dark);
+  color: var(--color-paper);
+}
+.theme-v2 .on-dark :focus-visible {
+  outline-color: var(--color-green-400);
+}
+
+@layer base {
+  .theme-v2 h1,
+  .theme-v2 h2,
+  .theme-v2 h3 {
+    /* Tighter than v1. At display sizes the default tracking opens gaps that
+       read as accidental. */
+    letter-spacing: -0.035em;
+    line-height: 0.98;
+  }
+  .theme-v2 h3 {
+    letter-spacing: -0.02em;
+    line-height: 1.12;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Components
+--------------------------------------------------------------------------- */
+
+@layer components {
+  /* The small-type voice of the whole design: mono, uppercase, tracked.
+     Used for eyebrows, step numbers, table headers, footer column titles. */
+  .v2-label {
+    font-family: var(--font-label);
+    font-size: var(--text-label);
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  /* Marker sweep under the key word in the hero — the v1 pill's job, done as
+     a stroke rather than a fill so the huge headline is not interrupted by a
+     block of colour. Drawn left-to-right on load. */
+  .v2-marker {
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+  }
+  .v2-marker::after {
+    content: "";
+    position: absolute;
+    left: -0.02em;
+    right: -0.02em;
+    bottom: 0.045em;
+    height: 0.135em;
+    background-color: var(--color-green-400);
+    border-radius: var(--radius-pill);
+    transform: scaleX(0);
+    transform-origin: left center;
+    animation: v2-marker-draw 700ms var(--ease-brand) 350ms both;
+  }
+
+  @keyframes v2-marker-draw {
+    to { transform: scaleX(1); }
+  }
+
+  /* Very faint dot grid behind the hero. Cheaper than an image, and it gives
+     the paper a surface without any of the gradient-blob vocabulary.
+
+     It has to be its own layer: `mask-image` masks an element's whole
+     rendering, children included, so putting the fade on the section itself
+     dissolves the copy along with the dots. `isolation` keeps the -1 layer
+     behind the content but still in front of the section's own ground. */
+  .v2-dotfield {
+    position: relative;
+    isolation: isolate;
+  }
+  .v2-dotfield::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: radial-gradient(
+      var(--color-hairline) 1px,
+      transparent 1px
+    );
+    background-size: 28px 28px;
+    background-position: -1px -1px;
+    /* Fades out before it reaches the copy, so nothing is read over texture. */
+    mask-image: radial-gradient(
+      120% 85% at 50% 0%,
+      #000 0%,
+      #000 38%,
+      transparent 78%
+    );
+  }
+
+  /* Logo ticker. Two identical tracks translate as one; when the first has
+     moved its own width the second is exactly where it started, so the loop
+     has no seam. Paused on hover and on keyboard focus within the strip. */
+  .v2-ticker-track {
+    animation: v2-ticker 42s linear infinite;
+  }
+  .v2-ticker:hover .v2-ticker-track,
+  .v2-ticker:focus-within .v2-ticker-track {
+    animation-play-state: paused;
+  }
+  @keyframes v2-ticker {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* Underlined field — the v2 form input. No box, just a rule that thickens
+     and turns lime on focus. */
+  .v2-field {
+    /* Not `--color-hairline`: elsewhere a hairline separates content, but here
+       it is the only thing that says "this is an input", so it has to clear
+       3:1 against the paper (WCAG 1.4.11) rather than merely be perceptible. */
+    border-bottom: 1.5px solid var(--color-ink-warm-3);
+    background: transparent;
+    transition: border-color 200ms var(--ease-brand);
+  }
+  .v2-field:hover {
+    border-color: var(--color-ink-warm-2);
+  }
+  .v2-field:focus {
+    outline: none;
+    /* green-500 reads as lime but only manages 2.2:1 on paper. */
+    border-color: var(--color-green-700);
+  }
+  /* The rule alone is a colour-only signal, so focus also gets the shared
+     focus ring treatment via :focus-visible on the wrapping label. */
+  .v2-field:focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-v2 .v2-marker::after {
+    transform: scaleX(1);
+    animation: none;
+  }
+
+  /* Stopping the track would park half the logos outside the mask, so the
+     ticker becomes an ordinary wrapped row instead: the clone is dropped and
+     the remaining copy is allowed to break onto as many lines as it needs. */
+  .theme-v2 .v2-ticker-track {
+    animation: none;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .theme-v2 .v2-ticker-track > ul {
+    /* The track sizes its lists to max-content and forbids them to shrink, so
+       that the marquee has something to translate. Once it is not translating,
+       the list has to be allowed to fill and wrap instead, or the last logo
+       hangs off the end of the strip. */
+    flex: 1 1 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .theme-v2 .v2-ticker-track [data-ticker-clone] {
+    display: none;
+  }
+  .theme-v2 .v2-ticker {
+    mask-image: none;
+  }
+}
