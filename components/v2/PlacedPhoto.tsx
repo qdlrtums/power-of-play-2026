@@ -1,18 +1,17 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
-type Fade = "hero" | "west";
-
 /**
- * A photograph that sits under type. No polaroid chip. Rotation and placement
- * come from the caller; the wash keeps overlapping copy readable.
+ * A photograph placed by hand rather than snapped to the grid: the caller
+ * supplies the size, the tilt and where it sits. Nothing is set on type, so
+ * there is no wash over the picture — earlier passes overlapped headlines onto
+ * these and had to bleach half of each photograph to keep the words readable.
  */
-export function OverlapPhoto({
+export function PlacedPhoto({
   src,
   alt,
   sizes,
   className,
-  fade,
   priority,
   objectPosition = "center",
 }: {
@@ -20,19 +19,11 @@ export function OverlapPhoto({
   alt: string;
   sizes: string;
   className?: string;
-  fade?: Fade;
   priority?: boolean;
   objectPosition?: string;
 }) {
   return (
-    <figure
-      className={cn(
-        "v2-overlap-photo",
-        fade === "hero" && "v2-overlap-photo--hero",
-        fade === "west" && "v2-overlap-photo--west",
-        className,
-      )}
-    >
+    <figure className={cn("v2-placed-photo", className)}>
       <Image
         src={src}
         alt={alt}

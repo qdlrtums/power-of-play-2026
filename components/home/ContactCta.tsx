@@ -5,7 +5,7 @@ import { contactCta } from "@/content/home";
 export function ContactCta({ basePath = "" }: { basePath?: string }) {
   const href = basePath ? `${basePath}${contactCta.cta.href}` : contactCta.cta.href;
   return (
-    <section aria-labelledby="cta-heading" className="px-5 pb-4 sm:px-8">
+    <section aria-labelledby="cta-heading" className="px-5 pb-4 pt-20 sm:px-8 lg:pt-28">
       <div className="on-forest mx-auto flex max-w-[80rem] flex-col items-center gap-6 rounded-[var(--radius-lg)] bg-forest px-8 py-16 text-center shadow-hero lg:py-20">
         <h2 id="cta-heading" className="max-w-2xl text-h2 text-green-400">
           {contactCta.title}

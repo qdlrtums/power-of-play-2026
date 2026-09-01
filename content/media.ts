@@ -23,7 +23,7 @@ export const logoById = (id?: string): Logo | undefined =>
 
 export const sectionCopy = {
   title: "Recognition",
-  body: "Competitions, programmes, and partners. Updated as the work is published.",
+  body: "Competitions, programmes, and partners.",
 } as const;
 
 export const groups: { kind: RecognitionKind; label: string }[] = [

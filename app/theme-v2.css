@@ -47,9 +47,10 @@
   /* -- v2 type ----------------------------------------------------------- */
   --font-label: var(--font-mono-label), ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  /* The hero headline. Deliberately larger than v1's --text-hero: the whole
-     point of the layout is that the sentence *is* the page. */
-  --text-display: clamp(3.00rem, 0.55rem + 10.45vw, 7.50rem);
+  /* The hero headline. Still the largest thing on the site, but capped where
+     "assessment" — the longest word in it — clears the headline column at the
+     widest breakpoint. The previous 7.5rem cap ran the word past the viewport. */
+  --text-display: clamp(2.60rem, 1.05rem + 6.20vw, 5.25rem);
   --text-d2:      clamp(2.10rem, 1.15rem + 4.05vw, 4.00rem);
   --text-d3:      clamp(1.45rem, 1.16rem + 1.24vw, 2.00rem);
   --text-stat:    clamp(3.50rem, 1.60rem + 8.10vw, 8.00rem);
@@ -236,32 +237,15 @@
       0 18px 44px -16px oklch(17.50% 0.0300 152 / 0.32);
   }
 
-  /* Photograph under overlapping type. The wash is a paper gradient so dark
-     headlines stay readable where they sit on the image. */
-  .v2-overlap-photo {
+  /* A photograph as an object on the page: soft corners and a warm shadow, so
+     it reads as something set down rather than a cropped rectangle. */
+  .v2-placed-photo {
     position: relative;
     overflow: hidden;
     border-radius: var(--radius-photo);
     box-shadow:
       0 1px 2px oklch(17.50% 0.0300 152 / 0.08),
       0 28px 56px -24px oklch(17.50% 0.0300 152 / 0.3);
-  }
-  .v2-overlap-photo::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-  .v2-overlap-photo--hero::after {
-    background: linear-gradient(180deg, transparent 48%, var(--color-paper) 94%);
-  }
-  @media (min-width: 640px) {
-    .v2-overlap-photo--hero::after {
-      background: linear-gradient(90deg, transparent 38%, var(--color-paper) 96%);
-    }
-  }
-  .v2-overlap-photo--west::after {
-    background: linear-gradient(270deg, transparent 42%, var(--color-paper) 96%);
   }
 
   /* Problem band ornaments. Lime wash and a ring, no photography. */
@@ -328,30 +312,39 @@
     background-color: var(--color-paper);
   }
 
+  /* No scroll snapping: the strip scrolls itself frame by frame, and mandatory
+     snap drags every one of those steps back onto the nearest card. */
   .v2-carousel {
-    scroll-snap-type: x mandatory;
     scrollbar-width: none;
     -ms-overflow-style: none;
     overscroll-behavior-x: contain;
+    mask-image: linear-gradient(90deg, transparent, #000 3%, #000 94%, transparent);
   }
   .v2-carousel::-webkit-scrollbar {
     display: none;
   }
 
-  /* Vertical award loop. Same seam trick as the logo ticker. */
-  .v2-award-track {
-    animation: v2-award-scroll 38s linear infinite;
+  /* Award photographs drifting behind the About heading.
+
+     The blur is what makes this legal: at 0.5 the darkest pixel a photograph
+     can put behind the heading still leaves it past 6:1, and the two masks
+     dissolve the strip on all four sides so it never hardens into a band. They
+     have to be composited with `intersect` — the default `add` would union the
+     two fades and mask nothing. */
+  .v2-drift {
+    filter: blur(15px);
+    opacity: 0.5;
+    mask-image:
+      linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent),
+      linear-gradient(180deg, transparent, #000 16%, #000 84%, transparent);
+    mask-composite: intersect;
   }
-  .v2-award-rail:hover .v2-award-track,
-  .v2-award-rail:focus-within .v2-award-track {
-    animation-play-state: paused;
+  .v2-drift-track {
+    animation: v2-drift 64s linear infinite;
   }
-  @keyframes v2-award-scroll {
-    from { transform: translateY(0); }
-    to   { transform: translateY(-50%); }
-  }
-  .v2-award-rail {
-    mask-image: linear-gradient(180deg, transparent, #000 8%, #000 92%, transparent);
+  @keyframes v2-drift {
+    from { transform: translateX(-50%); }
+    to   { transform: translateX(0); }
   }
 }
 
@@ -386,15 +379,10 @@
     mask-image: none;
   }
 
-  .theme-v2 .v2-award-track {
+  /* The drift is decoration with no reading order to preserve, so it simply
+     stops where it is. */
+  .theme-v2 .v2-drift-track {
     animation: none;
-  }
-  .theme-v2 .v2-award-track [data-award-clone] {
-    display: none;
-  }
-  .theme-v2 .v2-award-rail {
-    height: auto;
-    mask-image: none;
-    overflow: visible;
+    transform: translateX(-50%);
   }
 }
