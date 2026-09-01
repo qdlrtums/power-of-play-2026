@@ -11,14 +11,14 @@ function LogoTrack({ clone = false }: { clone?: boolean }) {
       {logos.map((logo: Logo) => (
         <li
           key={logo.id}
-          className="flex min-h-28 w-[11rem] shrink-0 items-center justify-center px-6 sm:w-[14rem] lg:w-[16rem]"
+          className="flex min-h-20 w-[10rem] shrink-0 items-center justify-center px-4 sm:w-[12rem] lg:w-[14rem]"
         >
-          <span className="relative h-11 w-full max-w-[10rem] sm:h-12">
+          <span className="relative h-12 w-full max-w-[12rem] sm:h-14">
             <Image
               src={logo.src}
               alt={clone ? "" : logo.name}
               fill
-              sizes="10rem"
+              sizes="12rem"
               className="object-contain"
             />
           </span>
@@ -35,7 +35,7 @@ function LogoTrack({ clone = false }: { clone?: boolean }) {
  */
 export function LogoSpotlight() {
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-col gap-7 sm:flex-row sm:items-center sm:gap-10">
+    <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
       <p className="shrink-0 font-display text-eyebrow font-bold uppercase tracking-[0.18em] text-ink-muted">
         {recognitionLabel}
       </p>

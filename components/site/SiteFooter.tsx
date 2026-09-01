@@ -11,14 +11,14 @@ function prefix(basePath: string, href: string) {
 
 export function SiteFooter({ basePath = "" }: { basePath?: string }) {
   return (
-    <footer className="on-forest mt-24 bg-forest text-ink-invert lg:mt-32">
-      <div className="mx-auto max-w-[90rem] px-5 py-16 sm:px-8 lg:px-[clamp(2rem,7.5vw,7.5rem)] lg:py-20">
-        <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
+    <footer className="on-forest bg-forest text-ink-invert">
+      <div className="mx-auto max-w-[90rem] px-5 pb-12 pt-8 sm:px-8 lg:px-[clamp(2rem,7.5vw,7.5rem)] lg:pb-14 lg:pt-10">
+        <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
             <div className="inline-block rounded-[var(--radius-md)] bg-cream-100 p-2">
               <Logo className="h-14 lg:h-16" />
             </div>
-            <p className="mt-5 max-w-sm text-lg text-ink-invert-dim">{site.tagline}.</p>
+            <p className="mt-4 max-w-sm text-base text-ink-invert-dim">{site.tagline}.</p>
           </div>
 
           <nav aria-labelledby="footer-site">
@@ -61,7 +61,7 @@ export function SiteFooter({ basePath = "" }: { basePath?: string }) {
           </div>
         </div>
 
-        <p className="mt-14 border-t border-green-700/50 pt-8 text-sm text-ink-invert-dim">
+        <p className="mt-10 border-t border-green-700/50 pt-6 text-sm text-ink-invert-dim">
           © {new Date().getFullYear()} {site.legalName}. All rights reserved.
         </p>
       </div>

@@ -3,8 +3,8 @@
  *
  *  1. Rest — a static −2.5° tilt. Decoration, not motion, so it survives
  *     prefers-reduced-motion.
- *  2. Entrance — the pill is "drawn" in behind the word, scaleX 0 → 1 from
- *     the left.
+ *  2. Entrance — the pill pops into place from its centre with a small
+ *     overshoot.
  *  3. Hover — springs toward level, lifts, and blooms a lime shadow.
  *
  * Deliberately CSS-only (see `.hero-pill` in globals.css) rather than
@@ -14,7 +14,7 @@
  * whole hero free of client JS.
  *
  * The word stays inside the <h1> text content, so the heading's accessible
- * name is still the single string "Play is the assessment".
+ * name remains the single string "Play is the assessment".
  */
 export function HeroPill({
   children,

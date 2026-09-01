@@ -13,11 +13,6 @@ export function TeamStrip() {
           <h2 id="who-heading" className="max-w-[16ch] text-d2 font-bold text-ink-warm">
             {whoWeAre.title}
           </h2>
-          {!whoWeAre.body.startsWith("PLACEHOLDER") && (
-          <p className="mt-7 max-w-lg text-lede leading-relaxed text-ink-warm-2">
-            {whoWeAre.body}
-          </p>
-          )}
           <Link
             href={whoWeAre.cta.href}
             className="group mt-10 inline-flex items-center gap-3 border-b-2 border-green-400 pb-2 font-display text-lg font-bold text-ink-warm transition-colors duration-200 hover:text-green-700"

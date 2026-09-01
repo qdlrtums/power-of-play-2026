@@ -9,5 +9,9 @@ export const metadata = {
 };
 
 export default function V1Layout({ children }: { children: ReactNode }) {
-  return <SiteShell basePath="/v1">{children}</SiteShell>;
+  return (
+    <div className="theme-v1 flex min-h-full flex-1 flex-col">
+      <SiteShell basePath="/v1">{children}</SiteShell>
+    </div>
+  );
 }

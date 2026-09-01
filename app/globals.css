@@ -147,6 +147,20 @@
   }
 }
 
+/* v1 keeps its rounded, friendly display voice at a more compact scale than
+   the live editorial theme. Scoped overrides prevent this pass from changing
+   v2's typography. */
+.theme-v1 {
+  --text-hero: clamp(2.45rem, 1.25rem + 5.10vw, 4.50rem);
+  --text-h1: clamp(2rem, 1.25rem + 3.20vw, 3.25rem);
+  --text-h2: clamp(1.55rem, 1.18rem + 1.58vw, 2.20rem);
+  --text-h3: clamp(1.15rem, 1.01rem + 0.60vw, 1.40rem);
+  --text-lede: clamp(1rem, 0.96rem + 0.17vw, 1.15rem);
+  --text-eyebrow: clamp(0.72rem, 0.69rem + 0.13vw, 0.82rem);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+
 
 /* ---------------------------------------------------------------------------
    Squircle
@@ -199,9 +213,11 @@
    end state rather than freezing it at opacity 0.
 --------------------------------------------------------------------------- */
 
-@keyframes pill-draw {
-  from { transform: scaleX(0); }
-  to   { transform: scaleX(1); }
+@keyframes pill-pop {
+  0%   { transform: scale(0); }
+  68%  { transform: scale(1.1); }
+  84%  { transform: scale(0.97); }
+  100% { transform: scale(1); }
 }
 
 /* Until the lime pill is actually behind it, the word is set in the same lime
@@ -234,8 +250,8 @@
     animation: pill-ink 620ms var(--ease-brand) var(--pill-delay, 0s) both;
   }
   .hero-pill__bg {
-    transform-origin: left center;
-    animation: pill-draw 620ms var(--ease-brand) var(--pill-delay, 0s) both;
+    transform-origin: center;
+    animation: pill-pop 520ms var(--ease-brand) var(--pill-delay, 0s) both;
     transition: box-shadow 300ms var(--ease-brand);
   }
   @media (hover: hover) {
