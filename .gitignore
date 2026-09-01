@@ -19,6 +19,11 @@
 
 # production
 /build
+/.open-next/
+
+# Cloudflare local state
+/.wrangler/
+/.dev.vars*
 
 # misc
 .DS_Store
@@ -39,6 +44,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+cloudflare-env.d.ts
 
 # macOS
 .DS_Store
